@@ -18,6 +18,7 @@ void retanguloSetWidth(Retangulo retangulo, float w);
 void retanguloSetHeight(Retangulo retangulo, float h);
 void retanguloSetCorBorda(Retangulo retangulo, char* cb);
 void retanguloSetCorPreenchimento(Retangulo retangulo, char* cp);
+void retanguloSetPoint(Retangulo retangulo, Point point);
 
 /*
 Getters: Retorna o atributo do título da função
@@ -32,5 +33,5 @@ float retanguloGetWidth(Retangulo retangulo);
 float retanguloGetHeight(Retangulo retangulo);
 char* retanguloGetCorBorda(Retangulo retangulo);
 char* retanguloGetCorPreenchimento(Retangulo retangulo);
-
+Point retanguloGetPoint(Retangulo retangulo);
 #endif

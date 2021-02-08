@@ -17,6 +17,7 @@ void circuloSetY(Circulo circulo, float y);
 void circuloSetRaio(Circulo circulo, float r);
 void circuloSetCorBorda(Circulo circulo, char* cb);
 void circuloSetCorPreenchimento(Circulo circulo, char* cp);
+void circuloSetPonto(Circulo circulo, Point point);
 
 /*
 Getters: Retorna o atributo do título da função
@@ -29,5 +30,6 @@ float circuloGetY(Circulo circulo);
 float circuloGetRaio(Circulo circulo);
 char* circuloGetCorBorda(Circulo circulo);
 char* circuloGetCorPreenchimento(Circulo circulo);
+Point circuloGetPoint(Circulo circulo);
 
 #endif

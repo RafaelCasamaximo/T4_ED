@@ -17,7 +17,7 @@ void textoSetY(Texto texto, float y);
 void textoSetTexto(Texto texto, char* txt, int size);
 void textoSetCorBorda(Texto texto, char* cb);
 void textoSetCorPreenchimento(Texto texto, char* cp);
-
+void textoSetPoint(Texto texto, Point point);
 /*
 Getters: Retorna o atributo do título da função
 PRE: Objeto
@@ -29,6 +29,7 @@ float textoGetY(Texto texto);
 char* textoGetTexto(Texto texto);
 char* textoGetCorBorda(Texto texto);
 char* textoGetCorPreenchimento(Texto texto);
+Point textoGetPoint(Texto texto);
 
 void textoDeletaTxt(Texto texto);
 
