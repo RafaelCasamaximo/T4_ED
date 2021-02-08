@@ -38,6 +38,12 @@ void hidranteSetY(Hidrante hidrante, float y){
     setPointY(hid->point, y);
 }
 
+void hidranteSetPoint(Hidrante hidrante, Point point){
+    HidranteStruct* hid = (HidranteStruct*) hidrante;
+    
+    free(hid->point);
+    hid->point = point;
+}
 
 //Getters
 char* hidranteGetId(Hidrante hidrante){

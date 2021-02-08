@@ -3,22 +3,19 @@
 #include <string.h>
 
 #include "semaforo.h"
-
-
+#include "point.h"
 
 typedef struct semaforo{ 
     char id[20];
-    float x;
-    float y;
+    Point point;
 }SemaforoStruct;
 
 
 Semaforo criaSemaforo(char* id, float x, float y){
     SemaforoStruct* sem = (SemaforoStruct*) malloc(sizeof(SemaforoStruct));
-
     strcpy(sem->id, id);
-    sem->x = x;
-    sem->y = y;
+    Point point = criaPoint(x, y);
+    sem->point = point;
 
     return sem;
 }
@@ -32,32 +29,39 @@ void semaforoSetId(Semaforo semaforo, char* id){
 
 void semaforoSetX(Semaforo semaforo, float x){
     SemaforoStruct* sem = (SemaforoStruct*) semaforo;
-    
-    sem->x = x;
+    setPointX(sem->point, x);
 }
 
 void semaforoSetY(Semaforo semaforo, float y){
     SemaforoStruct* sem = (SemaforoStruct*) semaforo;
+    setPointY(sem->point, y);
+}
 
-    sem->y = y;
+void semaforoSetPoint(Semaforo semaforo, Point point){
+    SemaforoStruct* sem = (SemaforoStruct*) semaforo;
+    free(sem->point);
+
+    sem->point = point;
 }
 
 
 //Getters
 char* semaforoGetId(Semaforo semaforo){
     SemaforoStruct* sem = (SemaforoStruct*) semaforo;
-
     return sem->id;
 }
 
 float semaforoGetX(Semaforo semaforo){
     SemaforoStruct* sem = (SemaforoStruct*) semaforo;
-
-    return sem->x;
+    return getPointX(sem->point);
 }
 
 float semaforoGetY(Semaforo semaforo){
     SemaforoStruct* sem = (SemaforoStruct*) semaforo;
+    return getPointY(sem->point);
+}
 
-    return sem->y;
+Point semaforoGetPoint(Semaforo semaforo){
+    SemaforoStruct* sem = (SemaforoStruct*) semaforo;
+    return sem->point;
 }

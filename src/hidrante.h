@@ -15,6 +15,7 @@ PRE: Objeto e atributo
 void hidranteSetId(Hidrante hidrante, char* id);
 void hidranteSetX(Hidrante hidrante, float x);
 void hidranteSetY(Hidrante hidrante, float y);
+void hidranteSetPoint(Hidrante hidrante, Point point);
 
 /*
 Getters: Retorna o atributo do título da função
