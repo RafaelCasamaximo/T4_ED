@@ -6,7 +6,7 @@
 typedef void* Texto;
 
 //Função responsável para criar Texto. Retorna um pointer instanciado.
-Texto criaTexto(int id, int size, float x, float y, char* txt, char* cb, char* cp);
+Texto criaTexto(char* id, int size, float x, float y, char* txt, char* cb, char* cp);
 
 
 /*

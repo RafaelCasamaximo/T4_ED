@@ -192,12 +192,14 @@ QtNo getNoQt(QuadTree qt, double x, double y){
 
 Point getPontoQt(QuadTree qt, QtNo pNo){
     //Retorna um ponto de um Node da quadtree
+    qt = qt;
     NodeQtStruct* node = (NodeQtStruct*) pNo;
     return node->point;
 }
 
 
 QtInfo getInfoQt(QuadTree qt, QtNo pNo){
+    qt = qt;
     //Retorna a info de um Node da quadtree
     NodeQtStruct* node = (NodeQtStruct*)pNo;
     return node->info;
@@ -352,7 +354,7 @@ DoublyLinkedList chavesDentroRetanguloQt(QuadTree qt, double x1, double y1, doub
     QuadTreeStruct* quad = (QuadTreeStruct*) qt;
     NodeQtStruct* node = quad->root;
     DoublyLinkedList l = create();
-    dentroRetanguloQt(qt, node, l, x1, y1, x2, y2, getChaveQt);
+    dentroRetanguloQt(qt, node, l, x1, y1, x2, y2, (void*(*)(void*,void*))getChaveQt);
     return l;
 }
 
@@ -361,7 +363,7 @@ DoublyLinkedList chavesDentroCirculoQt(QuadTree qt,double x, double y, double r)
     QuadTreeStruct* quad = (QuadTreeStruct*) qt; 
     NodeQtStruct* node = quad->root;
     DoublyLinkedList l = create();
-    dentroCirculoQt(qt, node, l, x, y, r, getChaveQt);
+    dentroCirculoQt(qt, node, l, x, y, r, (void*(*)(void*,void*))getChaveQt);
     return l;
 }
 
@@ -370,7 +372,7 @@ DoublyLinkedList pontosDentroRetanguloQt(QuadTree qt, double x1, double y1, doub
     QuadTreeStruct* quad = (QuadTreeStruct*) qt;
     NodeQtStruct* node = quad->root;
     DoublyLinkedList l = create();
-    dentroRetanguloQt(qt, node, l, x1, y1, x2, y2, getPontoQt);
+    dentroRetanguloQt(qt, node, l, x1, y1, x2, y2, (void*(*)(void*,void*))getPontoQt);
     return l;
 }
 
@@ -379,7 +381,7 @@ DoublyLinkedList pontosDentroCirculoQt(QuadTree qt,double x, double y, double r)
     QuadTreeStruct* quad = (QuadTreeStruct*) qt;
     NodeQtStruct* node = quad->root;
     DoublyLinkedList l = create();
-    dentroCirculoQt(qt, node, l, x, y, r, getPontoQt);
+    dentroCirculoQt(qt, node, l, x, y, r, (void*(*)(void*,void*))getPontoQt);
     return l;
 }
 

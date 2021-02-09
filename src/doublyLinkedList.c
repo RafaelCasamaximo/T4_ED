@@ -15,8 +15,6 @@ typedef struct{
     NodeStruct* ultimo;
 }ListaStruct;
 
-
-
 DoublyLinkedList create(){
     ListaStruct* list = (ListaStruct*)malloc(sizeof(ListaStruct));
     list->primeiro = NULL;
@@ -24,7 +22,6 @@ DoublyLinkedList create(){
 
     return list;
 }
-
 
 void insert(DoublyLinkedList lista, Info info){ //Pra inserir eu preciso saber qual é a lista e a informação a ser guardada
     ListaStruct* list = (ListaStruct*)lista;

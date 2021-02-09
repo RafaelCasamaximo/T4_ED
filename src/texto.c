@@ -6,7 +6,7 @@
 #include "point.h"
 
 typedef struct{
-    char* id[10];
+    char id[10];
     int size;
     Point point;
     char* txt;
