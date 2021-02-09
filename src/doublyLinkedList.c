@@ -4,7 +4,6 @@
 
 #include "doublyLinkedList.h"
 
-
 typedef struct node {
     struct node* ant;
     Info info;
@@ -15,6 +14,7 @@ typedef struct{
     NodeStruct* primeiro;
     NodeStruct* ultimo;
 }ListaStruct;
+
 
 
 DoublyLinkedList create(){

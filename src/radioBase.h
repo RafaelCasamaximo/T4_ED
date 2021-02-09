@@ -2,6 +2,7 @@
 #define __RADIOBASE_H
 
 #include "point.h"
+
 typedef void* RadioBase;
 
 // Função responsável para criar RadioBase. Retorna um pointer instanciado.
@@ -25,4 +26,5 @@ char* radioBaseGetId(RadioBase radiobase);
 float radioBaseGetX(RadioBase radiobase);
 float radioBaseGetY(RadioBase radiobase);
 Point radioBaseGetPoint(RadioBase radiobase);
+
 #endif

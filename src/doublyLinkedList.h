@@ -77,4 +77,3 @@ PRE: DoublyLinkedList lista
 void removeList(DoublyLinkedList lista, int flag);
 
 #endif
-

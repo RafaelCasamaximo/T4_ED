@@ -24,14 +24,14 @@ typedef struct{
 }QuadTreeStruct;
 
 
+
 QuadTree criaQt(funcGetChave fun){
     QuadTreeStruct* qts = (QuadTreeStruct*)malloc(sizeof(QuadTreeStruct));
-
     qts->root = NULL;
     qts->fun = fun;
-
     return qts;
 }
+
 
 QtNo insereQt(QuadTree quad, Point point, QtInfo pointInfo){
 
@@ -110,6 +110,7 @@ QtNo insereQt(QuadTree quad, Point point, QtInfo pointInfo){
     return node;
 }
 
+
 QtInfo removeNoQt(QuadTree qt,QtNo pNo){
     QuadTreeStruct* quad = (QuadTreeStruct*) qt;
     NodeQtStruct* node = (NodeQtStruct*) pNo;
@@ -153,6 +154,7 @@ QtInfo removeNoQt(QuadTree qt,QtNo pNo){
     return info;
 }
 
+
 QtNo getNoQt(QuadTree qt, double x, double y){
     //Realiza a mesma coisa que o insert. Porém, procura um ponto que já esteja inserido na quadtree que corresponde com o parâmetro
     //Retorna NULL se não encontrar
@@ -187,17 +189,20 @@ QtNo getNoQt(QuadTree qt, double x, double y){
     return NULL;
 }
 
+
 Point getPontoQt(QuadTree qt, QtNo pNo){
     //Retorna um ponto de um Node da quadtree
     NodeQtStruct* node = (NodeQtStruct*) pNo;
     return node->point;
 }
 
+
 QtInfo getInfoQt(QuadTree qt, QtNo pNo){
     //Retorna a info de um Node da quadtree
     NodeQtStruct* node = (NodeQtStruct*)pNo;
     return node->info;
 }
+
 
 char* getChaveQt(QuadTree qt, QtNo pNo){
     //Converte
@@ -208,6 +213,7 @@ char* getChaveQt(QuadTree qt, QtNo pNo){
     //Retorna a chave, já que fun é a função que retorna a chave de um elemento
     return quad->fun(aux);
 }
+
 
 QtInfo getInfoById(QuadTree qt, QtNo no, char* chave){
     //Converte
@@ -243,6 +249,7 @@ QtInfo getInfoByIdQt(QuadTree qt, char* chave){
     return getInfoById(qt, quad->root, chave);
 }
 
+
 void desalocaNos(NodeQtStruct* node){
     //Se o node é NULL retorna sem fazer nada
     if(node == NULL){
@@ -258,12 +265,14 @@ void desalocaNos(NodeQtStruct* node){
     free(node);
 }
 
+
 void desalocaQt(QuadTree qt){
 
     QuadTreeStruct* quad = (QuadTreeStruct*)qt;
     desalocaNos(quad->root);
     free(qt);
 }
+
 
 void dentroRetanguloQt(QuadTree qt, NodeQtStruct* node, DoublyLinkedList l, double x1, double y1, double x2, double y2, void* (*fun)(void*, void*)){
     if(node == NULL){
@@ -282,6 +291,7 @@ void dentroRetanguloQt(QuadTree qt, NodeQtStruct* node, DoublyLinkedList l, doub
     }
 }
 
+
 void dentroCirculoQt(QuadTree qt, NodeQtStruct* node, DoublyLinkedList l, double x, double y, double r, void* (*fun)(void*, void*)){
     if(node == NULL){
         return;
@@ -299,6 +309,7 @@ void dentroCirculoQt(QuadTree qt, NodeQtStruct* node, DoublyLinkedList l, double
     }
 }
 
+
 void percorreProfundidade(QuadTree qt, NodeQtStruct* node, funcVisita f, ExtraInfo ei){
     if(node == NULL){
         return;
@@ -309,11 +320,13 @@ void percorreProfundidade(QuadTree qt, NodeQtStruct* node, funcVisita f, ExtraIn
     }
 }
 
+
 void percorreProfundidadeQt(QuadTree qt, funcVisita f, ExtraInfo ei){
     QuadTreeStruct* quad = (QuadTreeStruct*) qt;
     NodeQtStruct* node = quad->root;
     percorreProfundidade(qt, node, f, ei);
 }
+
 
 void percorreLarguraQt(QuadTree qt, funcVisita f, ExtraInfo ei){
     //🐡
@@ -343,6 +356,7 @@ DoublyLinkedList chavesDentroRetanguloQt(QuadTree qt, double x1, double y1, doub
     return l;
 }
 
+
 DoublyLinkedList chavesDentroCirculoQt(QuadTree qt,double x, double y, double r){ 
     QuadTreeStruct* quad = (QuadTreeStruct*) qt; 
     NodeQtStruct* node = quad->root;
@@ -350,6 +364,7 @@ DoublyLinkedList chavesDentroCirculoQt(QuadTree qt,double x, double y, double r)
     dentroCirculoQt(qt, node, l, x, y, r, getChaveQt);
     return l;
 }
+
 
 DoublyLinkedList pontosDentroRetanguloQt(QuadTree qt, double x1, double y1, double x2, double y2){
     QuadTreeStruct* quad = (QuadTreeStruct*) qt;
@@ -359,6 +374,7 @@ DoublyLinkedList pontosDentroRetanguloQt(QuadTree qt, double x1, double y1, doub
     return l;
 }
 
+
 DoublyLinkedList pontosDentroCirculoQt(QuadTree qt,double x, double y, double r){
     QuadTreeStruct* quad = (QuadTreeStruct*) qt;
     NodeQtStruct* node = quad->root;
@@ -367,6 +383,7 @@ DoublyLinkedList pontosDentroCirculoQt(QuadTree qt,double x, double y, double r)
     return l;
 }
 
+
 DoublyLinkedList nosDentroCirculoQt(QuadTree qt,double x, double y, double r){
     QuadTreeStruct* quad = (QuadTreeStruct*) qt;
     NodeQtStruct* node = quad->root;
@@ -374,6 +391,7 @@ DoublyLinkedList nosDentroCirculoQt(QuadTree qt,double x, double y, double r){
     dentroCirculoQt(qt, node, l, x, y, r, NULL);
     return l;
 }
+
 
 DoublyLinkedList nosDentroRetanguloQt(QuadTree qt, double x1, double y1, double x2, double y2){
     QuadTreeStruct* quad = (QuadTreeStruct*) qt;

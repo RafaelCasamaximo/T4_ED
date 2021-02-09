@@ -15,6 +15,8 @@ typedef struct{
     int isEmpty;
 }StackStruct;
 
+
+
 Stack createStack(){
     StackStruct* stk = (StackStruct*)malloc(sizeof(StackStruct));
     stk->top = NULL;
@@ -31,16 +33,17 @@ Stack createStack(){
 //na memória e consequentemente, as suas informações
 //Resumo: memoria goesss bbrrr 😈😈😈😈 programador goes 🤡🤡🤡🤡
 
-
 int isEmpty(Stack stack){
     StackStruct* stk = (StackStruct*)stack;
     return stk->isEmpty;
 }
 
+
 int sizeStack(Stack stack){
     StackStruct* stk = (StackStruct*)stack;
     return stk->size;
 }
+
 
 Info topStack(Stack stack){
     StackStruct* stk = (StackStruct*)stack;
@@ -49,6 +52,7 @@ Info topStack(Stack stack){
     }
     return NULL;
 }
+
 
 void pushStack(Stack stack, Info info){
     StackStruct* stk = (StackStruct*)stack;
@@ -67,6 +71,7 @@ void pushStack(Stack stack, Info info){
     stk->size++;
 }
 
+
 void popStack(Stack stack){
     StackStruct* stk = (StackStruct*)stack;
     if(stk->isEmpty == 1){
@@ -84,6 +89,7 @@ void popStack(Stack stack){
         stk->isEmpty = 1;
     }
 }
+
 
 Stack removeStack(Stack stack){
     while(isEmpty(stack) == 0){ //stk->isEmpty == 0 || !(stk->isEmpty)

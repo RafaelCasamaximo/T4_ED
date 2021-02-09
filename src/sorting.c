@@ -7,8 +7,6 @@
 #include "localCasos.h"
 #include "utilitario.h"
 
-
-
 void shellSorting(InfoSoc* vet, int n){
     int gap = n / 2;
     while(gap > 0){
@@ -37,6 +35,7 @@ int orientacao(LocalCasos a, LocalCasos b, LocalCasos c){
     return 0;
 }
 
+
 int comparar(LocalCasos p0, LocalCasos a, LocalCasos b){
     int aux = orientacao(p0, a, b);
     if(aux == 0){
@@ -44,6 +43,7 @@ int comparar(LocalCasos p0, LocalCasos a, LocalCasos b){
     }
     return aux == 1;
 }
+
 
 Node partition(DoublyLinkedList l, Node primeiro, Node ultimo){
     Node i = getPrevious(primeiro);
@@ -59,6 +59,7 @@ Node partition(DoublyLinkedList l, Node primeiro, Node ultimo){
     return i; 
 }
 
+
 void quickSortList(DoublyLinkedList l, Node primeiro, Node ultimo){
     if(ultimo != NULL && primeiro != NULL && getNext(ultimo) != primeiro){
         Node p = partition(l, primeiro, ultimo);
@@ -66,6 +67,7 @@ void quickSortList(DoublyLinkedList l, Node primeiro, Node ultimo){
         quickSortList(l, getNext(p),ultimo);
     }
 }
+
 
 DoublyLinkedList envoltoriaConvexa(DoublyLinkedList lista){
     Node primeiro = getFirst(lista);
@@ -115,6 +117,7 @@ DoublyLinkedList envoltoriaConvexa(DoublyLinkedList lista){
     }
     return envConv;
 }
+
 
 float obterArea(DoublyLinkedList l){
     float a = 0;

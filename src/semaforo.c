@@ -11,15 +11,14 @@ typedef struct semaforo{
 }SemaforoStruct;
 
 
+//Create
 Semaforo criaSemaforo(char* id, float x, float y){
     SemaforoStruct* sem = (SemaforoStruct*) malloc(sizeof(SemaforoStruct));
     strcpy(sem->id, id);
     Point point = criaPoint(x, y);
     sem->point = point;
-
     return sem;
 }
-
 
 //Setters
 void semaforoSetId(Semaforo semaforo, char* id){
@@ -40,10 +39,8 @@ void semaforoSetY(Semaforo semaforo, float y){
 void semaforoSetPoint(Semaforo semaforo, Point point){
     SemaforoStruct* sem = (SemaforoStruct*) semaforo;
     free(sem->point);
-
     sem->point = point;
 }
-
 
 //Getters
 char* semaforoGetId(Semaforo semaforo){

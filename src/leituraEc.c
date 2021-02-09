@@ -33,4 +33,3 @@ void readEc(char* dirEc){
     }
     fclose(fileEc);
 }
-

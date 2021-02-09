@@ -2,8 +2,8 @@
 #define __HIDRANTE_H
 
 #include "point.h"
-typedef void* Hidrante;
 
+typedef void* Hidrante;
 
 //Função responsável para criar Hidrante. Retorna um pointer instanciado.
 Hidrante criaHidrante(char* id, float x, float y);

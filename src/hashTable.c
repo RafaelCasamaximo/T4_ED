@@ -15,6 +15,8 @@ typedef struct{
     InfoHash value;
 }HashDataStruct;
 
+
+
 HashTable createHashTable(int tamHT){
     HashTableStruct* ht = (HashTableStruct*)malloc(sizeof(HashTableStruct));
 
@@ -31,6 +33,7 @@ HashTable createHashTable(int tamHT){
 
     return ht;
 }
+
 
 void insertValueHashTable(HashTable ht, char* key, InfoHash value){
     //Converto o void* da hashtable para a struct
@@ -50,6 +53,7 @@ void insertValueHashTable(HashTable ht, char* key, InfoHash value){
     insert(hts->hash[index], hds);
 }
 
+
 int hashFunc(char* key, int tamHT){
     int soma = 0;
 
@@ -62,6 +66,7 @@ int hashFunc(char* key, int tamHT){
     int index = soma % tamHT;
     return index;
 }
+
 
 int isKeyHashTable(HashTable ht, char* key){
     /*
@@ -94,8 +99,8 @@ int isKeyHashTable(HashTable ht, char* key){
 
     //Caso percorra toda a lista e não encontre a chave desejada, ela não existe, por isso retorna 0
     return 0;
-
 }
+
 
 InfoHash getValue(HashTable ht, char* key){
     /*
@@ -129,6 +134,7 @@ InfoHash getValue(HashTable ht, char* key){
     return NULL;
 }
 
+//Nada no for
 void removeKey(HashTable ht, char* key){
     /*
     descobrir qual lista a chave está
@@ -143,10 +149,6 @@ void removeKey(HashTable ht, char* key){
     int index = hashFunc(key, hts->tamHT);
 
     //Percorre a lista tentando encontrar uma chave que seja igual
-    for(Node aux = getFirst(hts->hash[index]); aux != NULL; aux = getNext(aux)){
-
-    }
-
     Node inicio = getFirst(hts->hash[index]);
     while(inicio != NULL){
         Node aux = inicio;
@@ -167,6 +169,7 @@ void removeKey(HashTable ht, char* key){
         }
     }
 }
+
 
 void removeHashTable(HashTable ht){
     HashTableStruct* hts = (HashTableStruct*)ht;

@@ -2,6 +2,7 @@
 #define __SEMAFORO_H
 
 #include "point.h"
+
 typedef void* Semaforo; //Cria um tipo Semaforo que guarda void*
 
 //Função responsável para criar Semaforo. Retorna um pointer instanciado.

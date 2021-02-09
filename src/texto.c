@@ -6,7 +6,8 @@
 #include "point.h"
 
 typedef struct{
-    int id, size;
+    char* id[10];
+    int size;
     Point point;
     char* txt;
     char cb[22], cp[22];
@@ -14,26 +15,23 @@ typedef struct{
 
 
 //Create
-Texto criaTexto(int id, int size, float x, float y, char* txt, char* cb, char* cp){
+Texto criaTexto(char* id, int size, float x, float y, char* txt, char* cb, char* cp){
     TextoStruct* tex = (TextoStruct*)malloc(sizeof(TextoStruct));
-
     Point point = criaPoint(x, y);
     tex->point = point;
-
-    tex->id = id;
+    strcpy(tex->id, id);
     strcpy(tex->cb, cb);
     strcpy(tex->cp, cp);
     tex->txt = (char*) malloc(sizeof(char) * size);
     strcpy(tex->txt, txt);
-
     return tex;
 }
 
 
 //Setters
-void textoSetId(Texto texto, int id){
+void textoSetId(Texto texto, char* id){
     TextoStruct* tex = (TextoStruct*)texto;
-    tex->id = id;
+    strcpy(tex->id, id);
 }
 
 void textoSetX(Texto texto, float x){
@@ -72,7 +70,7 @@ void textoSetPoint(Texto texto, Point point){
 
 
 //Getters
-int textoGetId(Texto texto){
+char* textoGetId(Texto texto){
     TextoStruct* tex = (TextoStruct*)texto;
     return tex->id;
 }

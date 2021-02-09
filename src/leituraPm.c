@@ -31,6 +31,5 @@ void readPm(char* dirPm){
             fscanf(filePm, "%s %s %c %d %s", cpf, cep, &face, &num, compl);
         }
     }
-
     fclose(filePm);
 }

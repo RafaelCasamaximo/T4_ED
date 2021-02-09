@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "queue.h"
 
 typedef struct node{
@@ -15,6 +16,8 @@ typedef struct{
     int isEmpty;
 }QueueStruct;
 
+
+
 Queue createQueue(){
     QueueStruct* queue = (QueueStruct*)malloc(sizeof(QueueStruct));
     queue->primeiro = NULL;
@@ -24,15 +27,18 @@ Queue createQueue(){
     return queue;
 }
 
+
 int isQueueEmpty(Queue queue){
     QueueStruct* q = (QueueStruct*)queue;
     return q->isEmpty;
 }
 
+
 int getQueueSize(Queue queue){
     QueueStruct* q = (QueueStruct*)queue;
     return q->size;
 }
+
 
 void enqueue(Queue queue, QueueInfo info){
     QueueStruct* q = (QueueStruct*)queue;
@@ -55,6 +61,7 @@ void enqueue(Queue queue, QueueInfo info){
     q->size++;
 }
 
+
 QueueInfo dequeue(Queue queue){
     QueueStruct* q = (QueueStruct*)queue;
     NodeQueue* aux = q->primeiro;
@@ -74,6 +81,7 @@ QueueInfo dequeue(Queue queue){
     }
     return info;
 }
+
 
 void deleteQueue(Queue queue){
     QueueStruct* q = (QueueStruct*)queue;

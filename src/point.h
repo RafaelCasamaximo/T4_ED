@@ -3,16 +3,15 @@
 
 typedef void* Point;
 
-//Cria point
+//Create
 Point criaPoint(float x, float y);
 
-//Getters e Setters
+//Getters
 float getPointX(Point point);
-
 float getPointY(Point point);
 
+//Setters
 void setPointX(Point point, float x);
-
 void setPointY(Point point, float y);
 
 #endif 

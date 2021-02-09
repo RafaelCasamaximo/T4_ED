@@ -6,7 +6,8 @@
 #include "point.h"
 
 typedef struct{
-    int id, tracejado;
+    int tracejado;
+    char id[10];
     Point point;
     float w, h;
     char cb[22], cp[22];
@@ -14,27 +15,23 @@ typedef struct{
 
 
 //Create
-Retangulo criaRetangulo(int id, int tracejado, float x, float y, float w, float h, char* cb, char* cp){
+Retangulo criaRetangulo(char* id, int tracejado, float x, float y, float w, float h, char* cb, char* cp){
     RetanguloStruct* ret = (RetanguloStruct*)malloc(sizeof(RetanguloStruct));
-
     Point point = criaPoint(x, y);
     ret->point = point;
-
-    ret->id = id;
+    strcpy(ret->id, id);
     ret->tracejado = tracejado;
     ret->w = w;
     ret->h = h;
     strcpy(ret->cb, cb);
     strcpy(ret->cp, cp);
-
     return ret;
 }
 
-
 //Setters
-void retanguloSetId(Retangulo retangulo, int id){
+void retanguloSetId(Retangulo retangulo, char* id){
     RetanguloStruct* ret = (RetanguloStruct*)retangulo;
-    ret->id = id;
+    strcpy(ret->id, id);
 }
 
 void retanguloSetTracejado(Retangulo retangulo, int tracejado){
@@ -79,7 +76,7 @@ void retanguloSetPoint(Retangulo retangulo, Point point){
 }
 
 //Getters
-int retanguloGetId(Retangulo retangulo){
+char* retanguloGetId(Retangulo retangulo){
     RetanguloStruct* ret = (RetanguloStruct*)retangulo;
     return ret->id;
 }

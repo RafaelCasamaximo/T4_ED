@@ -124,4 +124,4 @@ void desalocaQt(QuadTree qt);
     um apontador para ela. Neste caso, esta memória não será desalocada.
  */
 
-#endif // QUADTREE_H_INCLUDED
+#endif

@@ -20,4 +20,3 @@ void removeHashTable(HashTable ht);
 int hashFunc(char* key, int tamHT);
 
 #endif
-
