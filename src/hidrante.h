@@ -27,4 +27,6 @@ float hidranteGetX(Hidrante hidrante);
 float hidranteGetY(Hidrante hidrante);
 Point hidranteGetPoint(Hidrante hidrante);
 
+void hidranteSwap(Hidrante h1, Hidrante h2);
+
 #endif

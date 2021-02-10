@@ -7,7 +7,7 @@
 #include "queue.h"
 #include "point.h"
 
-#include "qry.h"
+#include "utilitario.h"
 
 enum COORDS {NW, NE, SW, SE};
 

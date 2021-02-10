@@ -2,27 +2,27 @@
 #define __STACK_H
 
 typedef void* Stack;
-typedef void* Node;
-typedef void* Info;
+typedef void* InfoStack;
 
 //cria Stack
 Stack createStack();
 
 //verifica se a stack esta vazia
-int isEmpty(Stack stack);
+int isEmptyStack(Stack stack);
 
 //tamanho da stack
 int sizeStack(Stack stack);
 
 //retorna o elemento do topo da stack
-Info topStack(Stack stack);
+InfoStack topStack(Stack stack);
 
 //insere um novo elemento no topo da stack
-void pushStack(Stack stack, Info info);
+void pushStack(Stack stack, InfoStack info);
 
 //retira um elemento do topo da stack
-void popStack(Stack stack);
+void popStack(Stack stack, int flag);
 
-Stack removeStack(Stack stack);
+
+void removeStack(Stack stack, int flag);
 
 #endif

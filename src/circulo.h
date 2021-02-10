@@ -34,4 +34,6 @@ char* circuloGetCorBorda(Circulo circulo);
 char* circuloGetCorPreenchimento(Circulo circulo);
 Point circuloGetPoint(Circulo circulo);
 
+void circuloSwap(Circulo c1, Circulo c2);
+
 #endif

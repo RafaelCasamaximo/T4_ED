@@ -4,6 +4,18 @@
 
 #include "utilitario.h"
 
+
+int insideCirculo(float x, float y, float cx, float cy, float r){
+    return (distanciaQuadrada(x, y, cx, cy) < r * r ? 1 : 0);
+}
+
+int insideRetangulo(float x, float y, float rx, float ry, float rw, float rh){
+    if((x == rx || x == rx+rw) || (y == ry || y == ry + rh)){
+        return 2;
+    }
+    return ((x > rx && x < rx + rw) && (y > ry && y < ry + rh) ? 1 : 0);
+}
+
 float distanciaQuadrada(float x1, float  y1, float  x2, float  y2){
     return ((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2));
 }

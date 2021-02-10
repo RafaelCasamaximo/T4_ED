@@ -62,3 +62,12 @@ Point semaforoGetPoint(Semaforo semaforo){
     SemaforoStruct* sem = (SemaforoStruct*) semaforo;
     return sem->point;
 }
+
+
+void semaforoSwap(Semaforo s1, Semaforo s2){
+    SemaforoStruct* a = (SemaforoStruct*) s1;
+    SemaforoStruct* b = (SemaforoStruct*) s2;
+    SemaforoStruct temp = *a;
+    *a = *b;
+    *b = temp;
+}

@@ -9,19 +9,6 @@
 #include "postoSaude.h"
 
 //T1_ED
-//i?
-/*
-Verifica se um ponto é interno ao circulo
-PRE: Coordenadas do Circulo e do ponto
-POS: -1: Impossivel/ 0: Externo/ 1: Interno/ 2: Borda
-*/
-int insideCirculo(float x, float y, float cx, float cy, float r);
-/*
-Verifica se um ponto é interno ao retangulo
-PRE: Coordenadas do Retangulo e do ponto
-POS: -1: Impossivel/ 0: Externo/ 1: Interno/ 2: Borda
-*/
-int insideRetangulo(float x, float y, float rx, float ry, float rw, float rh);
 /*
 Função responsável pelo i?
 PRE: Parâmetros do i?

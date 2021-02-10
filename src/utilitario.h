@@ -1,6 +1,19 @@
 #ifndef __UTILITARIO_H
 #define __UTILITARIO_H
 
+
+/*
+Verifica se um ponto é interno ao circulo
+PRE: Coordenadas do Circulo e do ponto
+POS: -1: Impossivel/ 0: Externo/ 1: Interno/ 2: Borda
+*/
+int insideCirculo(float x, float y, float cx, float cy, float r);
+/*
+Verifica se um ponto é interno ao retangulo
+PRE: Coordenadas do Retangulo e do ponto
+POS: -1: Impossivel/ 0: Externo/ 1: Interno/ 2: Borda
+*/
+int insideRetangulo(float x, float y, float rx, float ry, float rw, float rh);
 /*
 Calcula a distancia quadrada (entre dois pontos)
 Pré: As coordenadas dos dois pontos (x1, y1 e x2, y2)

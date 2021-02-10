@@ -2,12 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "point.h"
 #include "quadra.h"
 
 typedef struct quadra{
     char cep[20];
-    float x;
-    float y;
+    Point point;
     float w;
     float h;
     char cb[22];
@@ -19,9 +19,9 @@ typedef struct quadra{
 //Create
 Quadra criaQuadra(char* cep, float x, float y, float w, float h, char* cb, char* cp, int arredondado){
     QuadraStruct* quad = (QuadraStruct*) malloc(sizeof(QuadraStruct));
+    Point point = criaPoint(x, y);
     strcpy(quad->cep, cep);
-    quad->x = x;
-    quad->y = y;
+    quad->point = point;
     quad->w = w;
     quad->h = h;
     strcpy(quad->cb, cb);
@@ -38,12 +38,12 @@ void quadraSetCep(Quadra quadra, char* cep){
 
 void quadraSetX(Quadra quadra, float x){
     QuadraStruct* quad = (QuadraStruct*) quadra;
-    quad->x = x;
+    setPointX(quad->point, x);
 }
 
 void quadraSetY(Quadra quadra, float y){
     QuadraStruct* quad = (QuadraStruct*) quadra;
-    quad->y = y;
+    setPointY(quad->point, y);
 }
 
 void quadraSetWidth(Quadra quadra, float w){
@@ -71,6 +71,12 @@ void quadraSetArredondado(Quadra quadra, int arredondado){
     quad->arredondado = arredondado;
 }
 
+void quadraSetPoint(Quadra quadra, Point point){
+    QuadraStruct* quad = (QuadraStruct*) quadra;
+    free(quad->point);
+    quad->point = point;
+}
+
 //Getters
 char* quadraGetCep(Quadra quadra){
     QuadraStruct* quad = (QuadraStruct*) quadra;
@@ -79,12 +85,12 @@ char* quadraGetCep(Quadra quadra){
 
 float quadraGetX(Quadra quadra){
     QuadraStruct* quad = (QuadraStruct*) quadra;
-    return quad->x;
+    return getPointX(quad->point);
 }
 
 float quadraGetY(Quadra quadra){
     QuadraStruct* quad = (QuadraStruct*) quadra;
-    return quad->y;
+    return getPointY(quad->point);
 }
 
 float quadraGetWidth(Quadra quadra){
@@ -115,4 +121,17 @@ int quadraGetArredondado(Quadra quadra){
 float quadraGetArea(Quadra quadra){
     QuadraStruct* quad = (QuadraStruct*) quadra;
     return (quad->w * quad->h);
+}
+
+Point quadraGetPoint(Quadra quadra){
+    QuadraStruct* quad = (QuadraStruct*) quadra;
+    return quad->point;
+}
+
+void quadraSwap(Quadra q1, Quadra q2){
+    QuadraStruct* a = (QuadraStruct*) q1;
+    QuadraStruct* b = (QuadraStruct*) q2;
+    QuadraStruct temp = *a;
+    *a = *b;
+    *b = temp;
 }

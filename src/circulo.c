@@ -97,3 +97,11 @@ Point circuloGetPoint(Circulo circulo){
     CirculoStruct* circ = (CirculoStruct*)circulo;
     return circ->point;
 }
+
+void circuloSwap(Circulo c1, Circulo c2){
+    CirculoStruct* a = (CirculoStruct*) c1;
+    CirculoStruct* b = (CirculoStruct*) c2;
+    CirculoStruct temp = *a;
+    *a = *b;
+    *b = temp;
+}

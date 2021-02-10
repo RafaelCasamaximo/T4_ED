@@ -37,4 +37,6 @@ char* retanguloGetCorBorda(Retangulo retangulo);
 char* retanguloGetCorPreenchimento(Retangulo retangulo);
 Point retanguloGetPoint(Retangulo retangulo);
 
+void retanguloSwap(Retangulo r1, Retangulo r2);
+
 #endif

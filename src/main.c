@@ -8,16 +8,18 @@
 #include "trataString.h"
 #include "corPadrao.h"
 #include "leituraGeo.h"
-#include "leituraQry.h"
+#include "processaGeo.h"
+//#include "leituraQry.h"
 #include "svg.h"
 #include "texto.h"
 #include "poligono.h"
 //Custom Headers para estruturas e organização
 #include "doublyLinkedList.h"
+#include "quadTree.h"
 
 
 //Enumeration para todas as listas utilizadas
-enum LISTAS{CIRCULO, RETANGULO, TEXTO, LINHA, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, DENSIDADEDEMOGRAFICA, LOCALCASOS, POLIGONO};
+enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, DENSIDADEDEMOGRAFICA};
 
 
 int main(int argc, char* argv[]){
@@ -68,14 +70,13 @@ int main(int argc, char* argv[]){
         i++;
     }
 
-
     //Verifica se os parâmetros essenciais estão inseridos
     verificaExecucao(arqGeo, dirSaida);
 
 
     //Cria Listas
-    DoublyLinkedList listas[12];
-    for(int i = CIRCULO; i <= POLIGONO; i++){
+    DoublyLinkedList listas[9];
+    for(int i = CIRCULO; i <= DENSIDADEDEMOGRAFICA; i++){
         listas[i] = create();
     }
 
@@ -83,6 +84,10 @@ int main(int argc, char* argv[]){
     //Refatorar trataString para retornar char*
     concatenaCaminhos(dirEntrada, arqGeo, &dirGeo);
     readGeo(listas, dirGeo, cores);
+    
+    QuadTree quadTrees[8];
+    instanciaQts(quadTrees);
+    convertToQuadTrees(quadTrees, listas);
     
     return 0;
 }

@@ -18,6 +18,7 @@ void quadraSetHeight(Quadra quadra, float h);
 void quadraSetCorBorda(Quadra quadra, char* cb);
 void quadraSetCorPreenchimento(Quadra quadra, char* cp);
 void quadraSetArredondado(Quadra quadra, int arredondado);
+void quadraSetPoint(Quadra quadra, Point point);
 
 /*
 Getters: Retorna o atributo do título da função
@@ -33,5 +34,8 @@ char* quadraGetCorBorda(Quadra quadra);
 char* quadraGetCorPreenchimento(Quadra quadra);
 int quadraGetArredondado(Quadra quadra);
 float quadraGetArea(Quadra quadra);
+Point quadraGetPoint(Quadra quadra);
+
+void quadraSwap(Quadra q1, Quadra q2);
 
 #endif

@@ -1,39 +1,59 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "point.h"
 #include "postoSaude.h"
 
 typedef struct{
-    float x, y;
+    Point point;
 }PostoSaudeStruct;
 
 
 //Create
 PostoSaude criaPostoSaude(float x, float y){
     PostoSaudeStruct* ps = (PostoSaudeStruct*)malloc(sizeof(PostoSaudeStruct));
-    ps->x = x;
-    ps->y = y;
+    Point point = criaPoint(x, y);
+    ps->point = point;
     return ps;
 }
 
 //Setters
 void postoSaudeSetX(PostoSaude posto, float x){
     PostoSaudeStruct* ps = (PostoSaudeStruct*)posto;
-    ps->x = x;
+    setPointX(ps->point, x);
 }
 
 void postoSaudeSetY(PostoSaude posto, float y){
     PostoSaudeStruct* ps = (PostoSaudeStruct*)posto;
-    ps->y = y;
+    setPointY(ps->point, y);
+}
+
+void postoSaudeSetPoint(PostoSaude posto, Point point){
+    PostoSaudeStruct* ps = (PostoSaudeStruct*)posto;
+    free(ps->point);
+    ps->point = point;
 }
 
 //Getters
 float postoSaudeGetX(PostoSaude posto){
     PostoSaudeStruct* ps = (PostoSaudeStruct*)posto;
-    return ps->x;
+    return getPointX(ps->point);
 }
 
 float postoSaudeGetY(PostoSaude posto){
     PostoSaudeStruct* ps = (PostoSaudeStruct*)posto;
-    return ps->y;
+    return getPointY(ps->point);
+}
+
+Point postoSaudeGetPoint(PostoSaude posto){
+    PostoSaudeStruct* ps = (PostoSaudeStruct*)posto;
+    return ps->point;
+}
+
+void postoSaudeSwap(PostoSaude ps1, PostoSaude ps2){
+    PostoSaudeStruct* a = (PostoSaudeStruct*) ps1;
+    PostoSaudeStruct* b = (PostoSaudeStruct*) ps2;
+    PostoSaudeStruct temp = *a;
+    *a = *b;
+    *b = temp;
 }

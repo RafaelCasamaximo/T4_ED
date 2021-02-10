@@ -27,4 +27,6 @@ float radioBaseGetX(RadioBase radiobase);
 float radioBaseGetY(RadioBase radiobase);
 Point radioBaseGetPoint(RadioBase radiobase);
 
+void radioBaseSwap(RadioBase rb1, RadioBase rb2);
+
 #endif

@@ -120,3 +120,13 @@ Point retanguloGetPoint(Retangulo retangulo){
     RetanguloStruct* ret = (RetanguloStruct*)retangulo;
     return ret->point;
 }
+
+
+void retanguloSwap(Retangulo r1, Retangulo r2){
+    RetanguloStruct* a = (RetanguloStruct*) r1;
+    RetanguloStruct* b = (RetanguloStruct*) r2;
+    RetanguloStruct temp = *a;
+    *a = *b;
+    *b = temp;
+}
+

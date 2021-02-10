@@ -1,18 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "point.h"
 #include "densidadeDemografica.h"
 
 typedef struct{
-    float x, y, w, h, d;
+    Point point;
+    float w, h, d;
 }DensidadeDemograficaStruct;
 
 
 //Create
 DensidadeDemografica criaDensidadeDemografica(float x, float y, float w, float h, float d){
     DensidadeDemograficaStruct* dd = (DensidadeDemograficaStruct*)malloc(sizeof(DensidadeDemograficaStruct));
-    dd->x = x;
-    dd->y = y;
+    Point point = criaPoint(x, y);
+    dd->point = point;
     dd->w = w;
     dd->h = h;
     dd->d = d;
@@ -22,12 +24,12 @@ DensidadeDemografica criaDensidadeDemografica(float x, float y, float w, float h
 //Setters
 void densidadeDemograficaSetX(DensidadeDemografica densidade, float x){
     DensidadeDemograficaStruct* dd = (DensidadeDemograficaStruct*)densidade;
-    dd->x = x;
+    setPointX(dd->point, x);
 }
 
 void densidadeDemograficaSetY(DensidadeDemografica densidade, float y){
     DensidadeDemograficaStruct* dd = (DensidadeDemograficaStruct*)densidade;
-    dd->y = y;
+    setPointY(dd->point, y);
 }
 
 void densidadeDemograficaSetWidth(DensidadeDemografica densidade, float w){
@@ -45,15 +47,21 @@ void densidadeDemograficaSetDensidadeDemografica(DensidadeDemografica densidade,
     dd->d = d;
 }
 
+void densidadeDemograficaSetPoint(DensidadeDemografica densidade, Point point){
+    DensidadeDemograficaStruct* dd = (DensidadeDemograficaStruct*)densidade;
+    free(dd->point);
+    dd->point = point;
+}
+
 //Getters
 float densidadeDemograficaGetX(DensidadeDemografica densidade){
     DensidadeDemograficaStruct* dd = (DensidadeDemograficaStruct*)densidade;
-    return dd->x;
+    return getPointX(dd->point);
 }
 
 float densidadeDemograficaGetY(DensidadeDemografica densidade){
     DensidadeDemograficaStruct* dd = (DensidadeDemograficaStruct*)densidade;
-    return dd->y;
+    return getPointY(dd->point);
 }
 
 float densidadeDemograficaGetWidth(DensidadeDemografica densidade){
@@ -69,4 +77,9 @@ float densidadeDemograficaGetHeight(DensidadeDemografica densidade){
 float densidadeDemograficaGetDensidadeDemografica(DensidadeDemografica densidade){
     DensidadeDemograficaStruct* dd = (DensidadeDemograficaStruct*)densidade;
     return dd->d;
+}
+
+Point densidadeDemograficaGetPoint(DensidadeDemografica densidade){
+    DensidadeDemograficaStruct* dd = (DensidadeDemograficaStruct*)densidade;
+    return dd->point;
 }

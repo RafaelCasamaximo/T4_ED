@@ -4,7 +4,7 @@
 #include "stack.h"
 
 typedef struct node{
-    Info info;
+    InfoStack info;
     struct node* ant;
     struct node* prox;
 }NodeStruct;
@@ -33,7 +33,7 @@ Stack createStack(){
 //na memória e consequentemente, as suas informações
 //Resumo: memoria goesss bbrrr 😈😈😈😈 programador goes 🤡🤡🤡🤡
 
-int isEmpty(Stack stack){
+int isEmptyStack(Stack stack){
     StackStruct* stk = (StackStruct*)stack;
     return stk->isEmpty;
 }
@@ -45,7 +45,7 @@ int sizeStack(Stack stack){
 }
 
 
-Info topStack(Stack stack){
+InfoStack topStack(Stack stack){
     StackStruct* stk = (StackStruct*)stack;
     if(stk->top != NULL){
         return stk->top->info;
@@ -54,7 +54,7 @@ Info topStack(Stack stack){
 }
 
 
-void pushStack(Stack stack, Info info){
+void pushStack(Stack stack, InfoStack info){
     StackStruct* stk = (StackStruct*)stack;
     NodeStruct* nod = (NodeStruct*)malloc(sizeof(NodeStruct));
 
@@ -72,7 +72,7 @@ void pushStack(Stack stack, Info info){
 }
 
 
-void popStack(Stack stack){
+void popStack(Stack stack, int flag){
     StackStruct* stk = (StackStruct*)stack;
     if(stk->isEmpty == 1){
         return;
@@ -82,7 +82,9 @@ void popStack(Stack stack){
         stk->top = nodAux->ant;
     }
     stk->top->prox = NULL;
-    free(nodAux->info);
+    if(flag == 1){
+        free(nodAux->info);
+    }
     free(nodAux);
     stk->size--;
     if(stk->size == 0){
@@ -91,10 +93,9 @@ void popStack(Stack stack){
 }
 
 
-Stack removeStack(Stack stack){
-    while(isEmpty(stack) == 0){ //stk->isEmpty == 0 || !(stk->isEmpty)
-        popStack(stack);
+void removeStack(Stack stack, int flag){
+    while(isEmptyStack(stack) == 0){ //stk->isEmpty == 0 || !(stk->isEmpty)
+        popStack(stack, flag);
     }
     free(stack);
-    return NULL;
 }

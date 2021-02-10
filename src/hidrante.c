@@ -62,3 +62,11 @@ Point hidranteGetPoint(Hidrante hidrante){
     HidranteStruct* hid = (HidranteStruct*) hidrante;
     return hid->point;
 }
+
+void hidranteSwap(Hidrante h1, Hidrante h2){
+    HidranteStruct* a = (HidranteStruct*) h1;
+    HidranteStruct* b = (HidranteStruct*) h2;
+    HidranteStruct temp = *a;
+    *a = *b;
+    *b = temp;
+}

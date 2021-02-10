@@ -22,16 +22,6 @@
 enum LISTAS{CIRCULO, RETANGULO, TEXTO, LINHA, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, DENSIDADEDEMOGRAFICA, LOCALCASOS, POLIGONO};
 
 
-int insideCirculo(float x, float y, float cx, float cy, float r){
-    return (distanciaQuadrada(x, y, cx, cy) < r * r ? 1 : 0);
-}
-
-int insideRetangulo(float x, float y, float rx, float ry, float rw, float rh){
-    if((x == rx || x == rx+rw) || (y == ry || y == ry + rh)){
-        return 2;
-    }
-    return ((x > rx && x < rx + rw) && (y > ry && y < ry + rh) ? 1 : 0);
-}
 
 int inside(DoublyLinkedList* listas, int j, float x, float y, float* centroDeMassaX, float* centroDeMassaY, FILE* fileTxt){
     int id = 0;

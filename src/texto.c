@@ -110,3 +110,11 @@ void textoDeletaTxt(Texto texto){
     TextoStruct* tex = (TextoStruct*)texto;
     free(tex->txt);
 }
+
+void textoSwap(Texto t1, Texto t2){
+    TextoStruct* a = (TextoStruct*) t1;
+    TextoStruct* b = (TextoStruct*) t2;
+    TextoStruct temp = *a;
+    *a = *b;
+    *b = temp;
+}

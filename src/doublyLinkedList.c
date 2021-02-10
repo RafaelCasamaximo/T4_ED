@@ -13,13 +13,16 @@ typedef struct node {
 typedef struct{
     NodeStruct* primeiro;
     NodeStruct* ultimo;
+    int size;
+    int isEmpty;
 }ListaStruct;
 
 DoublyLinkedList create(){
     ListaStruct* list = (ListaStruct*)malloc(sizeof(ListaStruct));
     list->primeiro = NULL;
     list->ultimo = NULL;
-
+    list->size = 0;
+    list->isEmpty = 1;
     return list;
 }
 
@@ -32,6 +35,7 @@ void insert(DoublyLinkedList lista, Info info){ //Pra inserir eu preciso saber q
         node->prox = NULL;
         list->primeiro = node;
         list->ultimo = node;
+        list->isEmpty = 0;
     }
     else{
         node->info = info;
@@ -40,8 +44,18 @@ void insert(DoublyLinkedList lista, Info info){ //Pra inserir eu preciso saber q
         list->ultimo->prox = node;
         list->ultimo = node;
     }
+    list->size++;
 }
 
+int getSize(DoublyLinkedList lista){
+    ListaStruct* list = (ListaStruct*)lista;
+    return list->size;
+}
+
+int isEmpty(DoublyLinkedList lista){
+    ListaStruct* list = (ListaStruct*)lista;
+    return list->isEmpty;
+}
 
 Info getInfo(Node node){
     NodeStruct* nod = (NodeStruct*)node;
@@ -87,7 +101,7 @@ void insertBefore(DoublyLinkedList lista, Node node, Info info){
     if(nod->ant == NULL){
         list->primeiro = newNode;
     }
-
+    list->size++;
 }
 
 
@@ -105,6 +119,7 @@ void insertAfter(DoublyLinkedList lista, Node node, Info info){
     if(nod->prox == NULL){
         list->ultimo = newNode;
     }
+    list->size++;
 }
 
 
@@ -119,6 +134,8 @@ void removeNode(DoublyLinkedList lista, Node node, int flag){
             free(nod->info);
         }
         free(nod);
+        list->size--;
+        list->isEmpty = 1;
         return;
     }
     if(nod->ant == NULL){
@@ -127,6 +144,7 @@ void removeNode(DoublyLinkedList lista, Node node, int flag){
             free(nod->info);
         }
         free(nod);
+        list->size--;
         return;
     }
     if(nod->prox == NULL){
@@ -135,6 +153,7 @@ void removeNode(DoublyLinkedList lista, Node node, int flag){
             free(nod->info);
         }   
         free(nod);
+        list->size--;
         return;
     }
 
@@ -142,6 +161,7 @@ void removeNode(DoublyLinkedList lista, Node node, int flag){
     nod->prox->ant = nod->ant;
     free(nod->info);
     free(nod);
+    list->size--;
 }
 
 

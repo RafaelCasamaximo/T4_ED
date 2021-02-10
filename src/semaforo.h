@@ -26,4 +26,6 @@ float semaforoGetX(Semaforo semaforo);
 float semaforoGetY(Semaforo semaforo);
 Point semaforoGetPoint(Semaforo semaforo);
 
+void semaforoSwap(Semaforo s1, Semaforo s2);
+
 #endif

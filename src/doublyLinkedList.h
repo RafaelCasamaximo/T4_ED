@@ -18,6 +18,16 @@ PRE: DoublyLinkedList lista e Info info
 void insert(DoublyLinkedList lista, Info info);
 
 /*
+Retorna o numero de nodes da lista
+*/
+int getSize(DoublyLinkedList lista);
+
+/*
+Retorna 1 se a lista estiver vazia e 0 se não estiver
+*/
+int isEmpty(DoublyLinkedList lista);
+
+/*
 Retorna a Info do Node
 PRE: Node node
 POS: Info info

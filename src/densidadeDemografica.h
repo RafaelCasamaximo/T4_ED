@@ -15,6 +15,7 @@ void densidadeDemograficaSetY(DensidadeDemografica densidade, float y);
 void densidadeDemograficaSetWidth(DensidadeDemografica densidade, float w);
 void densidadeDemograficaSetHeight(DensidadeDemografica densidade, float h);
 void densidadeDemograficaSetDensidadeDemografica(DensidadeDemografica densidade, float d);
+void densidadeDemograficaSetPoint(DensidadeDemografica densidade, Point point);
 
 /*
 Getters: Retorna o atributo do título da função
@@ -26,5 +27,6 @@ float densidadeDemograficaGetY(DensidadeDemografica densidade);
 float densidadeDemograficaGetWidth(DensidadeDemografica densidade);
 float densidadeDemograficaGetHeight(DensidadeDemografica densidade);
 float densidadeDemograficaGetDensidadeDemografica(DensidadeDemografica densidade);
+Point densidadeDemograficaGetPoint(DensidadeDemografica densidade);
 
 #endif

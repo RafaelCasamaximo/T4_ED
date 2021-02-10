@@ -62,3 +62,11 @@ Point radioBaseGetPoint(RadioBase radiobase){
     RadioBaseStruct* radio = (RadioBaseStruct*) radiobase;
     return radio->point;
 }
+
+void radioBaseSwap(RadioBase rb1, RadioBase rb2){
+    RadioBaseStruct* a = (RadioBaseStruct*) rb1;
+    RadioBaseStruct* b = (RadioBaseStruct*) rb2;
+    RadioBaseStruct temp = *a;
+    *a = *b;
+    *b = temp;
+}
