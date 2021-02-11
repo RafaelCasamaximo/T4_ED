@@ -31,11 +31,11 @@ int main(int argc, char* argv[]){
     //Variaveis criadas para a localização dos arquivos de entrada e de saída
     //Armazena dirEntrada + arqGeo
     char* dirGeo = NULL;
-    // //Armazena o nome do arquivo .geo
-    // char* nomeArquivoGeo = NULL;
-    // //Armazena o path de saida do arquivo .svg + nome do arquivo + extensão
-    // char* saidaSvgGeo = NULL;
-    // //Armazena o path de entrada do arquivo qry
+    //Armazena o nome do arquivo .geo
+    char* nomeArquivoGeo = NULL;
+    //Armazena o path de saida do arquivo .svg + nome do arquivo + extensão
+    char* saidaSvgGeo = NULL;
+    //Armazena o path de entrada do arquivo qry
     // char* dirQry = NULL;
     // //Armazena o nome do arquivo .geo sem extensão
     // char* nomeGeoSemExtensao = NULL;
@@ -82,7 +82,6 @@ int main(int argc, char* argv[]){
     //Refatorar trataString para retornar char*
     concatenaCaminhos(dirEntrada, arqGeo, &dirGeo);
     readGeo(listas, dirGeo, cores);
-    printf("AAAAAAAAAAAAAA");
     
     //Define QuadTrees
     QuadTree quadTrees[8];
@@ -90,6 +89,22 @@ int main(int argc, char* argv[]){
     instanciaQts(quadTrees);
     //Converte todas as listas para quadTrees
     convertToQuadTrees(quadTrees, listas);
+
+
+    //me retorna por ex. overlaps-01.svg
+    getNomeConcatExtension(arqGeo, ".svg", &nomeArquivoGeo);
+    //me retorna pastaSaida/resultados/overlaps-01.svg
+    concatenaCaminhos(dirSaida, nomeArquivoGeo, &saidaSvgGeo);
+    //Cria o arquivo do SVG e desenha a lista dentro dele
+    //desenhaSvgGeo(listas, cores, saidaSvgGeo);
+
+
+    for(int i = 0; i < 9; i++){
+        removeList(listas[i], 0);
+    }
+    for(int i = 0; i < 8; i++){
+        desalocaQt(quadTrees[i]);
+    }
     
     return 0;
 }

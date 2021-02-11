@@ -224,10 +224,5 @@ void readGeo(DoublyLinkedList* listas, char* dirGeo, CorPadrao cores){
             insert(listas[DENSIDADEDEMOGRAFICA], densidadeDemograficaAux);
         }
     }
-
-    for(Node i = getFirst(listas[CIRCULO]); i != NULL; i = getNext(i)){
-        printf("%s %f %f\n", circuloGetId(getInfo(i)), circuloGetX(getInfo(i)), circuloGetY(getInfo(i)));
-    }
-
     fclose(fileGeo);
 }

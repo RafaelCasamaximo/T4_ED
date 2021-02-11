@@ -37,15 +37,14 @@ void instanciaQts(QuadTree* quadTrees){
 
 void convertToQuadTrees(QuadTree* quadTrees, DoublyLinkedList* listas){
     //Converte cada Lista individualmente para uma quadtree e salva no index certo
-    printf("CONVEXHULL LULULULLU");
     DoublyLinkedListToQuadTree(listas[0], quadTrees[0], circuloGetPoint, circuloSwap);
-    //DoublyLinkedListToQuadTree(listas[1], quadTrees[1], retanguloGetPoint, retanguloSwap);
-    //DoublyLinkedListToQuadTree(listas[2], quadTrees[2], textoGetPoint, textoSwap);
-    //DoublyLinkedListToQuadTree(listas[3], quadTrees[3], quadraGetPoint, quadraSwap);
-    //DoublyLinkedListToQuadTree(listas[4], quadTrees[4], hidranteGetPoint, hidranteSwap);
-    //DoublyLinkedListToQuadTree(listas[5], quadTrees[5], semaforoGetPoint, semaforoSwap);
-    //DoublyLinkedListToQuadTree(listas[6], quadTrees[6], radioBaseGetPoint, radioBaseSwap);
-    //DoublyLinkedListToQuadTree(listas[7], quadTrees[7], postoSaudeGetPoint, postoSaudeSwap);
+    DoublyLinkedListToQuadTree(listas[1], quadTrees[1], retanguloGetPoint, retanguloSwap);
+    DoublyLinkedListToQuadTree(listas[2], quadTrees[2], textoGetPoint, textoSwap);
+    DoublyLinkedListToQuadTree(listas[3], quadTrees[3], quadraGetPoint, quadraSwap);
+    DoublyLinkedListToQuadTree(listas[4], quadTrees[4], hidranteGetPoint, hidranteSwap);
+    DoublyLinkedListToQuadTree(listas[5], quadTrees[5], semaforoGetPoint, semaforoSwap);
+    DoublyLinkedListToQuadTree(listas[6], quadTrees[6], radioBaseGetPoint, radioBaseSwap);
+    DoublyLinkedListToQuadTree(listas[7], quadTrees[7], postoSaudeGetPoint, postoSaudeSwap);
 }
 
 QuadTree DoublyLinkedListToQuadTree(DoublyLinkedList l, QuadTree qt, Point (*getPoint)(void*), void (*swapInfo)(void*,void*)){

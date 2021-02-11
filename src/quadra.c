@@ -10,6 +10,7 @@ typedef struct quadra{
     Point point;
     float w;
     float h;
+    float dd;
     char cb[22];
     char cp[22];
     int arredondado;
@@ -24,6 +25,7 @@ Quadra criaQuadra(char* cep, float x, float y, float w, float h, char* cb, char*
     quad->point = point;
     quad->w = w;
     quad->h = h;
+    quad->dd = 0;
     strcpy(quad->cb, cb);
     strcpy(quad->cp, cp);
     quad->arredondado = arredondado;
@@ -77,6 +79,11 @@ void quadraSetPoint(Quadra quadra, Point point){
     quad->point = point;
 }
 
+void quadraSetDensidadeDemografica(Quadra quadra, float dd){
+    QuadraStruct* quad = (QuadraStruct*) quadra;
+    quad->dd = dd;
+}
+
 //Getters
 char* quadraGetCep(Quadra quadra){
     QuadraStruct* quad = (QuadraStruct*) quadra;
@@ -126,6 +133,11 @@ float quadraGetArea(Quadra quadra){
 Point quadraGetPoint(Quadra quadra){
     QuadraStruct* quad = (QuadraStruct*) quadra;
     return quad->point;
+}
+
+float quadraGetDensidadeDemografica(Quadra quadra){
+    QuadraStruct* quad = (QuadraStruct*) quadra;
+    return quad->dd;
 }
 
 void quadraSwap(Quadra q1, Quadra q2){
