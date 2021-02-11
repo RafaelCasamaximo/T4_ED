@@ -69,3 +69,17 @@ int comparar(Point a, Point b, Point c){
     }
     return aux == 1;
 }
+
+int orientacao(Point a, Point b, Point c){
+    float area = (getPointX(c) - getPointX(b)) * (getPointY(b) - getPointY(a)) - (getPointY(c) - getPointY(b)) * (getPointX(b) - getPointX(a));
+    //Se a área for > 1 significa que o sentido do vetor formado pelos pontos é horário
+    if(area > 1){
+        return -1;
+    }
+    //Se a área for < 1 significa que o sentido do vetor formado pelos pontos é anti-horário
+    if(area < 1){
+        return 1;
+    }
+    //Se a área for 0, siginifca que os vetores são colineares e paralelos entre sí
+    return 0; 
+}

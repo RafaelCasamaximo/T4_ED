@@ -21,7 +21,6 @@
 //Enumeration para todas as listas utilizadas
 enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, DENSIDADEDEMOGRAFICA};
 
-
 int main(int argc, char* argv[]){
     //Variáveis passadas como parametro para o Path
     char* dirEntrada = NULL;
@@ -80,13 +79,16 @@ int main(int argc, char* argv[]){
         listas[i] = create();
     }
 
-
     //Refatorar trataString para retornar char*
     concatenaCaminhos(dirEntrada, arqGeo, &dirGeo);
     readGeo(listas, dirGeo, cores);
+    printf("AAAAAAAAAAAAAA");
     
+    //Define QuadTrees
     QuadTree quadTrees[8];
+    //Instancia quadTrees e suas funções (getId)
     instanciaQts(quadTrees);
+    //Converte todas as listas para quadTrees
     convertToQuadTrees(quadTrees, listas);
     
     return 0;

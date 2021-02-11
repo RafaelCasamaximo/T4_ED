@@ -29,7 +29,7 @@ DoublyLinkedList convexHull(DoublyLinkedList l, Point (*getPoint)(Info), void (*
     swapInfo(infoPrimeiro, aux);
 
     //Faz o quicksort a partir do segundo elemento da lista (pois o primeiro já é o menor em Y)
-    //quickSortList(l, getNext(primeiro), getLast(l), getPoint, swapInfo);
+    quickSortDoublyLinkedList(l, getNext(primeiro), getLast(l), getPoint, swapInfo);
 
     //Leva em consideração o tamanho da lista na hora de selecionar os pontos e o sentido deles no convexhull
     int j = getSize(l);
@@ -58,26 +58,11 @@ DoublyLinkedList convexHull(DoublyLinkedList l, Point (*getPoint)(Info), void (*
 
     //Percorre a lista para adicionar no convex hull verificando o sentido anti-horário
     while(i != NULL){
-        while(orientacao(getInfo(getPrevious(getLast(conHull))), getInfo(getLast(conHull)), getPoint(getInfo(i))) != -1){
+        while(orientacao(getInfo(getPrevious(getLast(conHull))), getInfo(getLast(conHull)), getPoint(getInfo(i))) != 1){
             removeNode(conHull, getLast(conHull), 0);
         }
         insert(conHull, getPoint(getInfo(i)));
         i = getNext(i);
     }
     return conHull;
-}
-
-
-int orientacao(Point a, Point b, Point c){
-    double area = (getPointX(c) - getPointX(b)) * (getPointY(b) - getPointY(a)) - (getPointY(c) - getPointY(b)) * (getPointX(b) - getPointX(a));
-    //Se a área for > 1 significa que o sentido do vetor formado pelos pontos é horário
-    if(area > 1){
-        return -1;
-    }
-    //Se a área for < 1 significa que o sentido do vetor formado pelos pontos é anti-horário
-    if(area < 1){
-        return 1;
-    }
-    //Se a área for 0, siginifca que os vetores são colineares e paralelos entre sí
-    return 0; 
 }

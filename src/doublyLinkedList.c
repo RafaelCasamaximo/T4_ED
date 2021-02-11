@@ -139,6 +139,7 @@ void removeNode(DoublyLinkedList lista, Node node, int flag){
         return;
     }
     if(nod->ant == NULL){
+        nod->prox->ant = NULL;
         list->primeiro = nod->prox;
         if(flag == 1){
             free(nod->info);
@@ -148,6 +149,7 @@ void removeNode(DoublyLinkedList lista, Node node, int flag){
         return;
     }
     if(nod->prox == NULL){
+        nod->ant->prox = NULL;
         list->ultimo = nod->ant;
         if(flag == 1){
             free(nod->info);
@@ -159,7 +161,9 @@ void removeNode(DoublyLinkedList lista, Node node, int flag){
 
     nod->ant->prox = nod->prox;
     nod->prox->ant = nod->ant;
-    free(nod->info);
+    if(flag == 1){
+        free(nod->info);
+    }
     free(nod);
     list->size--;
 }

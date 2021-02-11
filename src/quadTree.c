@@ -92,7 +92,7 @@ QtNo insereQt(QuadTree quad, Point point, QtInfo pointInfo){
                     node->parent = aux;
                 }
                 else{
-                    aux = aux->children[NE];
+                    aux = aux->children[NW];
                 }
             }
             else{
@@ -101,7 +101,7 @@ QtNo insereQt(QuadTree quad, Point point, QtInfo pointInfo){
                     node->parent = aux;
                 }
                 else{
-                    aux = aux->children[SE];
+                    aux = aux->children[SW];
                 }
             }
         }

@@ -5,7 +5,6 @@
     #include "point.h"
 
     DoublyLinkedList convexHull(DoublyLinkedList l, Point (*getPoint)(Info), void (*swapInfo)(Info, Info));
-    int orientacao(Point a, Point b, Point c);
 
 
 #endif

@@ -25,4 +25,7 @@ Node partition(DoublyLinkedList l, Node primeiro, Node ultimo, Point (*getpoint)
 
 int comparar(Point a, Point b, Point c);
 
+int orientacao(Point a, Point b, Point c);
+
+
 #endif
