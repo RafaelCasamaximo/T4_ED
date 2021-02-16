@@ -22,7 +22,6 @@
 enum LISTAS{CIRCULO, RETANGULO, TEXTO, LINHA, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, DENSIDADEDEMOGRAFICA, LOCALCASOS, POLIGONO};
 
 
-
 int inside(DoublyLinkedList* listas, int j, float x, float y, float* centroDeMassaX, float* centroDeMassaY, FILE* fileTxt){
     int id = 0;
     
@@ -563,7 +562,7 @@ void dq(DoublyLinkedList* listas, char* id, float r, int hashtag, int identifica
 
         }
     }
-    //Desenha os dois aneis em volta do equipamento urbano e o circulo da área de deleção
+    //DesenhaSvgGeo os dois aneis em volta do equipamento urbano e o circulo da área de deleção
     insert(listas[CIRCULO], criaCirculo(identificadorFigura, 7, x, y, "blue", "none"));
     insert(listas[CIRCULO], criaCirculo(identificadorFigura - 1, 11, x, y, "blue", "none"));
     insert(listas[CIRCULO], criaCirculo(identificadorFigura - 2, r, x, y, "blue", "none"));

@@ -39,4 +39,6 @@ Point retanguloGetPoint(Retangulo retangulo);
 
 void retanguloSwap(Retangulo r1, Retangulo r2);
 
+void retanguloDesenhaSvgGeo(Retangulo retangulo, void* info);
+
 #endif

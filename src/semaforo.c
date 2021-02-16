@@ -4,6 +4,8 @@
 
 #include "semaforo.h"
 #include "point.h"
+#include "extraInfoGeo.h"
+#include "corPadrao.h"
 
 typedef struct semaforo{ 
     char id[20];
@@ -63,11 +65,14 @@ Point semaforoGetPoint(Semaforo semaforo){
     return sem->point;
 }
 
-
 void semaforoSwap(Semaforo s1, Semaforo s2){
     SemaforoStruct* a = (SemaforoStruct*) s1;
     SemaforoStruct* b = (SemaforoStruct*) s2;
     SemaforoStruct temp = *a;
     *a = *b;
     *b = temp;
+}
+
+void semaforoDesenhaSvgGeo(Semaforo semaforo, void* info){
+    fprintf((FILE*)extraInfoGetFileSvgGeo(info), "\n\t<circle cx=\"%f\" cy=\"%f\" r=\"3\" style=\"fill:%s;stroke:%s;stroke-widht:%s\"/>", semaforoGetX(semaforo), semaforoGetY(semaforo), coresPadraoGetPreenchimentoSemaforos(extraInfoGetCores(info)), coresPadraoGetBordaSemaforos(extraInfoGetCores(info)), coresPadraoGetEspessuraSemaforos(extraInfoGetCores(info))); //);
 }

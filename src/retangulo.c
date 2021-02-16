@@ -4,6 +4,8 @@
 
 #include "retangulo.h"
 #include "point.h"
+#include "extraInfoGeo.h"
+#include "corPadrao.h"
 
 typedef struct{
     int tracejado;
@@ -130,3 +132,6 @@ void retanguloSwap(Retangulo r1, Retangulo r2){
     *b = temp;
 }
 
+void retanguloDesenhaSvgGeo(Retangulo retangulo, void* info){
+     fprintf((FILE*)extraInfoGetFileSvgGeo(info), "\n\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" style=\"stroke:%s;fill:%s;stroke-widht:%s\"/>", retanguloGetX(retangulo), retanguloGetY(retangulo), retanguloGetWidth(retangulo), retanguloGetHeight(retangulo), retanguloGetCorBorda(retangulo), retanguloGetCorPreenchimento(retangulo), coresPadraoGetEspessuraRetangulos(extraInfoGetCores(info))); //);
+}

@@ -4,6 +4,8 @@
 
 #include "radioBase.h"
 #include "point.h"
+#include "extraInfoGeo.h"
+#include "corPadrao.h"
 
 typedef struct radiobase{
     char id[20];
@@ -69,4 +71,8 @@ void radioBaseSwap(RadioBase rb1, RadioBase rb2){
     RadioBaseStruct temp = *a;
     *a = *b;
     *b = temp;
+}
+
+void radioBaseDesenhaSvgGeo(RadioBase radiobase, void* info){
+    fprintf((FILE*)extraInfoGetFileSvgGeo(info), "\n\t<circle cx=\"%f\" cy=\"%f\" r=\"3\" style=\"fill:%s;stroke:%s;stroke-widht:%s\"/>",radioBaseGetX(radiobase), radioBaseGetY(radiobase), coresPadraoGetPreenchimentoRadioBases(extraInfoGetCores(info)), coresPadraoGetBordaRadioBases(extraInfoGetCores(info)), coresPadraoGetEspessuraRadioBases(extraInfoGetCores(info))); //);
 }

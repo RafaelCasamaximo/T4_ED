@@ -36,4 +36,6 @@ Point circuloGetPoint(Circulo circulo);
 
 void circuloSwap(Circulo c1, Circulo c2);
 
+void circuloDesenhaSvgGeo(Circulo circulo, void* info);
+
 #endif

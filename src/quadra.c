@@ -4,6 +4,8 @@
 
 #include "point.h"
 #include "quadra.h"
+#include "extraInfoGeo.h"
+#include "corPadrao.h"
 
 typedef struct quadra{
     char cep[20];
@@ -146,4 +148,9 @@ void quadraSwap(Quadra q1, Quadra q2){
     QuadraStruct temp = *a;
     *a = *b;
     *b = temp;
+}
+
+void quadraDesenhaSvgGeo(Quadra quadra, void* info){
+    fprintf((FILE*)extraInfoGetFileSvgGeo(info), "\n\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" style=\"stroke:%s;fill:%s;stroke-widht:%s\"/>", quadraGetX(quadra), quadraGetY(quadra), quadraGetWidth(quadra), quadraGetHeight(quadra), coresPadraoGetBordaQuadras(extraInfoGetCores(info)), coresPadraoGetPreenchimentoQuadras(extraInfoGetCores(info)), coresPadraoGetEspessuraQuadras(extraInfoGetCores(info))); //);
+    fprintf((FILE*)extraInfoGetFileSvgGeo(info), "\n\t<text x=\"%f\" y=\"%f\" fill=\"black\" stroke=\"seashell\" stroke-width=\"0.5\" dominant-baseline=\"middle\" text-anchor=\"middle\">%s</text>", quadraGetX(quadra) + (quadraGetWidth(quadra) / 2), quadraGetY(quadra) + (quadraGetHeight(quadra) / 2), quadraGetCep(quadra));
 }

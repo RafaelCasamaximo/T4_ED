@@ -3,6 +3,8 @@
 
 #include "point.h"
 #include "postoSaude.h"
+#include "extraInfoGeo.h"
+#include "corPadrao.h"
 
 typedef struct{
     Point point;
@@ -56,4 +58,8 @@ void postoSaudeSwap(PostoSaude ps1, PostoSaude ps2){
     PostoSaudeStruct temp = *a;
     *a = *b;
     *b = temp;
+}
+
+void postoSaudeDesenhaSvgGeo(PostoSaude posto, void* info){
+    fprintf((FILE*)extraInfoGetFileSvgGeo(info), "\n\t<circle cx=\"%f\" cy=\"%f\" r=\"3\" style=\"fill:black;stroke:white;stroke-widht:2\"/>",postoSaudeGetX(posto), postoSaudeGetY(posto));
 }

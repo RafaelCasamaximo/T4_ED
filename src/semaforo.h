@@ -28,4 +28,6 @@ Point semaforoGetPoint(Semaforo semaforo);
 
 void semaforoSwap(Semaforo s1, Semaforo s2);
 
+void semaforoDesenhaSvgGeo(Semaforo semaforo, void* info);
+
 #endif

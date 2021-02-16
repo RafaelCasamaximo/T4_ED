@@ -9,7 +9,7 @@
 #include "corPadrao.h"
 #include "leituraGeo.h"
 #include "processaGeo.h"
-//#include "leituraQry.h"
+#include "leituraQry.h"
 #include "svg.h"
 #include "texto.h"
 #include "poligono.h"
@@ -36,21 +36,21 @@ int main(int argc, char* argv[]){
     //Armazena o path de saida do arquivo .svg + nome do arquivo + extensão
     char* saidaSvgGeo = NULL;
     //Armazena o path de entrada do arquivo qry
-    // char* dirQry = NULL;
-    // //Armazena o nome do arquivo .geo sem extensão
-    // char* nomeGeoSemExtensao = NULL;
-    // //Armazena o nome do arquivo .qry sem extensão
-    // char* nomeQrySemExtensao = NULL;
-    // //Armazena o nome do arquivo geo com o arquivo qry
-    // char* nomeGeoQry = NULL;
-    // //Armazena o caminho de saida do SVG do geo+qry
-    // char* dirSaidaGeoQry = NULL;
-    // //Armazena o nome do arquivo de Log (TXT)
-    // char* nomeArquivoLogTxt = NULL;
-    // //Armazena o path de saida do arquivo de Log
-    // char* dirTxt = NULL;
+    char* dirQry = NULL;
+    //Armazena o nome do arquivo .geo sem extensão
+    char* nomeGeoSemExtensao = NULL;
+    //Armazena o nome do arquivo .qry sem extensão
+    char* nomeQrySemExtensao = NULL;
+    //Armazena o nome do arquivo geo com o arquivo qry
+    char* nomeGeoQry = NULL;
+    //Armazena o caminho de saida do SVG do geo+qry
+    char* dirSaidaGeoQry = NULL;
+    //Armazena o nome do arquivo de Log (TXT)
+    char* nomeArquivoLogTxt = NULL;
+    //Armazena o path de saida do arquivo de Log
+    char* dirTxt = NULL;
 
-    CorPadrao cores = criaCorPadrao("0.5", "coral", "saddlebrown", "0.5", "red", "darkred", "0.5", "deeppink", "mediumvioletred", "0.5", "green", "red", "0.5", "0.5");
+   CorPadrao cores = criaCorPadrao("0.5", "coral", "saddlebrown", "0.5", "red", "darkred", "0.5", "deeppink", "mediumvioletred", "0.5", "green", "red", "0.5", "0.5");
 
     //Realiza a leitura dos parâmetros
     for(int i = 1; argc > i; i++){     
@@ -95,8 +95,31 @@ int main(int argc, char* argv[]){
     getNomeConcatExtension(arqGeo, ".svg", &nomeArquivoGeo);
     //me retorna pastaSaida/resultados/overlaps-01.svg
     concatenaCaminhos(dirSaida, nomeArquivoGeo, &saidaSvgGeo);
-    //Cria o arquivo do SVG e desenha a lista dentro dele
-    //desenhaSvgGeo(listas, cores, saidaSvgGeo);
+    //Cria o arquivo do SVG e DesenhaSvgGeo a lista dentro dele
+    DesenhaSvgGeo(quadTrees, cores, saidaSvgGeo);
+
+    
+    if(arqQry != NULL){
+        //Comando para criar o caminho que será utilizado para abrir o .qry
+        concatenaCaminhos(dirEntrada, arqQry, &dirQry);
+        //Me retorna o nome do arquivo geo sem extensão (utilizado mais tarde no nome do svg)
+        extraiNome(arqGeo, &nomeGeoSemExtensao);
+        //Me retorna o nome do arquivo qry sem extensão (utilizado mais tarde no nome do svg)
+        extraiNome(arqQry, &nomeQrySemExtensao);
+        //Me retorna nomeDoArquivoGeo-NomeDoArquivoQry.Extensão (nomeDoArquivoGeo-NomeDoArquivoQry.svg)
+        concatenaNomeGeoQry(nomeGeoSemExtensao, nomeQrySemExtensao, ".svg", &nomeGeoQry);
+        //Concatena o caminho de saida com o nome gerado no comando acima (saida do SVG)
+        concatenaCaminhos(dirSaida, nomeGeoQry, &dirSaidaGeoQry);
+        //Me retorna nomeDoArquivoGeo-NomeDoArquivoQry.Extensão (nomeDoArquivoGeo-NomeDoArquivoQry.txt)
+        concatenaNomeGeoQry(nomeGeoSemExtensao, nomeQrySemExtensao, ".txt", &nomeArquivoLogTxt);
+        //Concatena o caminho de saida com o nome gerado no comando acima (saida do TXT)
+        concatenaCaminhos(dirSaida, nomeArquivoLogTxt, &dirTxt);
+        //Lê os comandos do QRY
+        readQry(listas, dirQry, dirTxt);
+        //Desenha o svg do QRY
+        //desenhaSvgQry(listas, cores, dirSaidaGeoQry);
+    }
+
 
 
     for(int i = 0; i < 9; i++){

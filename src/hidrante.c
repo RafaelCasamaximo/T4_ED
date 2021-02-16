@@ -4,6 +4,8 @@
 
 #include "hidrante.h"
 #include "point.h"
+#include "extraInfoGeo.h"
+#include "corPadrao.h"
 
 typedef struct hidrante{
     char id[20];
@@ -69,4 +71,8 @@ void hidranteSwap(Hidrante h1, Hidrante h2){
     HidranteStruct temp = *a;
     *a = *b;
     *b = temp;
+}
+
+void hidranteDesenhaSvgGeo(Hidrante hidrante, void* info){
+    fprintf((FILE*)extraInfoGetFileSvgGeo(info), "\n\t<circle cx=\"%f\" cy=\"%f\" r=\"3\" style=\"fill:%s;stroke:%s;stroke-widht:%s\"/>", hidranteGetX(hidrante), hidranteGetY(hidrante), coresPadraoGetPreenchimentoHidrantes(extraInfoGetCores(info)), coresPadraoGetBordaHidrantes(extraInfoGetCores(info)), coresPadraoGetEspessuraHidrantes(extraInfoGetCores(info))); //);
 }

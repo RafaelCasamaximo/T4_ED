@@ -29,4 +29,6 @@ Point radioBaseGetPoint(RadioBase radiobase);
 
 void radioBaseSwap(RadioBase rb1, RadioBase rb2);
 
+void radioBaseDesenhaSvgGeo(RadioBase radiobase, void* info);
+
 #endif

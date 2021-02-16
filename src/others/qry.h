@@ -107,7 +107,7 @@ void dq(DoublyLinkedList* listas, char* id, float r, int hashtag, int identifica
 //T3_ED
 
 /*
-Foram detectados n casos de COVID-19 no endereço cep,face,num. Desenha um quadrado laranja com o número dentro do endereço pasado.
+Foram detectados n casos de COVID-19 no endereço cep,face,num. DesenhaSvgGeo um quadrado laranja com o número dentro do endereço pasado.
 PRE: numero de casos, endereço cep, face, num e listas
 */
 void cv(DoublyLinkedList* listas, int n, char* cep, char face, int num);
@@ -132,7 +132,7 @@ PostoSaude centroide(DoublyLinkedList l, float area);
 Determinar a região de incidência relativa aos casos (comando cv) reportados dentro da região delimitada pela circunferência de
 cento em (x,y) e raio r. Determinar a categoria da região. Se necessário sugerir um posto de atendimento no centróide da
 região.
-Desenha um circulo sem preencimento e com borda grossa verde. Desenha a região de incidência (envoltória convexa)
+DesenhaSvgGeo um circulo sem preencimento e com borda grossa verde. DesenhaSvgGeo a região de incidência (envoltória convexa)
 Usa borda grossa na cor vermelha e preencher com fundo ransparente na cor relativa à respectiva categoria.
 PRE: coordenadas do circulo, listas e arquivo txt
 */

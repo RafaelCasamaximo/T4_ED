@@ -40,4 +40,6 @@ float quadraGetDensidadeDemografica(Quadra quadra);
 
 void quadraSwap(Quadra q1, Quadra q2);
 
+void quadraDesenhaSvgGeo(Quadra quadra, void* info);
+
 #endif

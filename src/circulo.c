@@ -4,6 +4,7 @@
 
 #include "circulo.h"
 #include "point.h"
+#include "extraInfoGeo.h"
 
 typedef struct{
     char id[10];
@@ -104,4 +105,8 @@ void circuloSwap(Circulo c1, Circulo c2){
     CirculoStruct temp = *a;
     *a = *b;
     *b = temp;
+}
+
+void circuloDesenhaSvgGeo(Circulo circulo, void* info){
+    fprintf((FILE*)extraInfoGetFileSvgGeo(info), "\n\t<circle cx=\"%f\" cy=\"%f\" r=\"%f\" style=\"stroke:%s;fill:%s;stroke-widht:%s\"/>", circuloGetX(circulo), circuloGetY(circulo), circuloGetRaio(circulo), circuloGetCorBorda(circulo), circuloGetCorPreenchimento(circulo), coresPadraoGetEspessuraCirculos(extraInfoGetCores(info)));
 }

@@ -32,8 +32,8 @@ void instanciaQts(QuadTree* quadTrees){
     quadTrees[5] = criaQt(semaforoGetId);
     quadTrees[6] = criaQt(radioBaseGetId);
     quadTrees[7] = criaQt(NULL);
-
 }
+
 
 void convertToQuadTrees(QuadTree* quadTrees, DoublyLinkedList* listas){
     //Converte cada Lista individualmente para uma quadtree e salva no index certo
@@ -46,6 +46,7 @@ void convertToQuadTrees(QuadTree* quadTrees, DoublyLinkedList* listas){
     DoublyLinkedListToQuadTree(listas[6], quadTrees[6], radioBaseGetPoint, radioBaseSwap);
     DoublyLinkedListToQuadTree(listas[7], quadTrees[7], postoSaudeGetPoint, postoSaudeSwap);
 }
+
 
 QuadTree DoublyLinkedListToQuadTree(DoublyLinkedList l, QuadTree qt, Point (*getPoint)(void*), void (*swapInfo)(void*,void*)){
     //Essa função realiza o convexhull com a lista até sobrar menos de 3 pontos. Após realizar o convexHull cada convex hull salva o resultado numa stack (realiza o procesimento até que não tenha mais pontos)

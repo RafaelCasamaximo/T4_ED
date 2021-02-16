@@ -29,4 +29,6 @@ Point hidranteGetPoint(Hidrante hidrante);
 
 void hidranteSwap(Hidrante h1, Hidrante h2);
 
+void hidranteDesenhaSvgGeo(Hidrante hidrante, void* info);
+
 #endif
