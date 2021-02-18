@@ -4,20 +4,18 @@
 
 #include "retangulo.h"
 #include "point.h"
-#include "extraInfoGeo.h"
-#include "corPadrao.h"
 
 typedef struct{
     int tracejado;
     char id[10];
     Point point;
     float w, h;
-    char cb[22], cp[22];
+    char cb[22], cp[22], sw[22];
 }RetanguloStruct;
 
 
 //Create
-Retangulo criaRetangulo(char* id, int tracejado, float x, float y, float w, float h, char* cb, char* cp){
+Retangulo criaRetangulo(char* id, int tracejado, float x, float y, float w, float h, char* cb, char* cp, char* sw){
     RetanguloStruct* ret = (RetanguloStruct*)malloc(sizeof(RetanguloStruct));
     Point point = criaPoint(x, y);
     ret->point = point;
@@ -27,6 +25,7 @@ Retangulo criaRetangulo(char* id, int tracejado, float x, float y, float w, floa
     ret->h = h;
     strcpy(ret->cb, cb);
     strcpy(ret->cp, cp);
+    strcpy(ret->sw, sw);
     return ret;
 }
 
@@ -77,6 +76,11 @@ void retanguloSetPoint(Retangulo retangulo, Point point){
     ret->point = point;
 }
 
+void retanguloSetEspessura(Retangulo retangulo, char* sw){
+    RetanguloStruct* ret = (RetanguloStruct*)retangulo;
+    strcpy(ret->sw, sw);
+}
+
 //Getters
 char* retanguloGetId(Retangulo retangulo){
     RetanguloStruct* ret = (RetanguloStruct*)retangulo;
@@ -123,6 +127,10 @@ Point retanguloGetPoint(Retangulo retangulo){
     return ret->point;
 }
 
+char* retanguloGetEspessura(Retangulo retangulo){
+    RetanguloStruct* ret = (RetanguloStruct*)retangulo;
+    return ret->sw;
+}
 
 void retanguloSwap(Retangulo r1, Retangulo r2){
     RetanguloStruct* a = (RetanguloStruct*) r1;
@@ -132,6 +140,6 @@ void retanguloSwap(Retangulo r1, Retangulo r2){
     *b = temp;
 }
 
-void retanguloDesenhaSvgGeo(Retangulo retangulo, void* info){
-     fprintf((FILE*)extraInfoGetFileSvgGeo(info), "\n\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" style=\"stroke:%s;fill:%s;stroke-widht:%s\"/>", retanguloGetX(retangulo), retanguloGetY(retangulo), retanguloGetWidth(retangulo), retanguloGetHeight(retangulo), retanguloGetCorBorda(retangulo), retanguloGetCorPreenchimento(retangulo), coresPadraoGetEspessuraRetangulos(extraInfoGetCores(info))); //);
+void retanguloDesenhaSvgGeo(Retangulo retangulo, void* fileSvg){
+     fprintf((FILE*)fileSvg, "\n\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" style=\"stroke:%s;fill:%s;stroke-widht:%s\"/>", retanguloGetX(retangulo), retanguloGetY(retangulo), retanguloGetWidth(retangulo), retanguloGetHeight(retangulo), retanguloGetCorBorda(retangulo), retanguloGetCorPreenchimento(retangulo), retanguloGetEspessura(retangulo)); //);
 }

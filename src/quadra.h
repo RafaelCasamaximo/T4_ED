@@ -4,7 +4,7 @@
 typedef void* Quadra;
 
 //Função responsável para criar Quuadra. Retorna um pointer instanciado.
-Quadra criaQuadra(char* cep, float x, float y, float w, float h, char* cb, char* cp, int arredondado);
+Quadra criaQuadra(char* cep, float x, float y, float w, float h, char* cb, char* cp, char* cstrk, int arredondado);
 
 /*
 Setters: Define o atributo do título da função
@@ -20,7 +20,7 @@ void quadraSetCorPreenchimento(Quadra quadra, char* cp);
 void quadraSetArredondado(Quadra quadra, int arredondado);
 void quadraSetPoint(Quadra quadra, Point point);
 void quadraSetDensidadeDemografica(Quadra quadra, float dd);
-
+void quadraSetEspessura(Quadra quadra, char* sw);
 /*
 Getters: Retorna o atributo do título da função
 PRE: Objeto
@@ -37,9 +37,10 @@ int quadraGetArredondado(Quadra quadra);
 float quadraGetArea(Quadra quadra);
 Point quadraGetPoint(Quadra quadra);
 float quadraGetDensidadeDemografica(Quadra quadra);
+char* quadraGetEspessura(Quadra quadra);
 
 void quadraSwap(Quadra q1, Quadra q2);
 
-void quadraDesenhaSvgGeo(Quadra quadra, void* info);
+void quadraDesenhaSvgGeo(Quadra quadra, void* fileSvg);
 
 #endif

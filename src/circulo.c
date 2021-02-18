@@ -4,18 +4,17 @@
 
 #include "circulo.h"
 #include "point.h"
-#include "extraInfoGeo.h"
 
 typedef struct{
     char id[10];
     float r;
     Point point;
-    char cb[22], cp[22];
+    char cb[22], cp[22], sw[22];
 }CirculoStruct;
 
 
 //Create
-Circulo criaCirculo(char* id, float x, float y, float r, char* cb, char* cp){
+Circulo criaCirculo(char* id, float x, float y, float r, char* cb, char* cp, char* sw){
     CirculoStruct* circ = (CirculoStruct*)malloc(sizeof(CirculoStruct));
     Point point = criaPoint(x, y);
     strcpy(circ->id, id);
@@ -23,6 +22,7 @@ Circulo criaCirculo(char* id, float x, float y, float r, char* cb, char* cp){
     circ->r = r;
     strcpy(circ->cb, cb);
     strcpy(circ->cp, cp);
+    strcpy(circ->sw, sw);
     return circ;
 }
 
@@ -63,6 +63,11 @@ void circuloSetPoint(Circulo circulo, Point point){
     circ->point = point;
 }
 
+void circuloSetEspessura(Circulo circulo, char* sw){
+    CirculoStruct* circ = (CirculoStruct*)circulo;
+    strcpy(circ->sw, sw);
+}
+
 //Getters
 char* circuloGetId(Circulo circulo){
     CirculoStruct* circ = (CirculoStruct*)circulo;
@@ -99,6 +104,11 @@ Point circuloGetPoint(Circulo circulo){
     return circ->point;
 }
 
+char* circuloGetEspessura(Circulo circulo){
+    CirculoStruct* circ = (CirculoStruct*)circulo;
+    return circ->sw;
+}
+
 void circuloSwap(Circulo c1, Circulo c2){
     CirculoStruct* a = (CirculoStruct*) c1;
     CirculoStruct* b = (CirculoStruct*) c2;
@@ -107,6 +117,6 @@ void circuloSwap(Circulo c1, Circulo c2){
     *b = temp;
 }
 
-void circuloDesenhaSvgGeo(Circulo circulo, void* info){
-    fprintf((FILE*)extraInfoGetFileSvgGeo(info), "\n\t<circle cx=\"%f\" cy=\"%f\" r=\"%f\" style=\"stroke:%s;fill:%s;stroke-widht:%s\"/>", circuloGetX(circulo), circuloGetY(circulo), circuloGetRaio(circulo), circuloGetCorBorda(circulo), circuloGetCorPreenchimento(circulo), coresPadraoGetEspessuraCirculos(extraInfoGetCores(info)));
+void circuloDesenhaSvgGeo(Circulo circulo, void* fileSvg){
+    fprintf((FILE*)fileSvg, "\n\t<circle cx=\"%f\" cy=\"%f\" r=\"%f\" style=\"stroke:%s;fill:%s;stroke-widht:%s\"/>", circuloGetX(circulo), circuloGetY(circulo), circuloGetRaio(circulo), circuloGetCorBorda(circulo), circuloGetCorPreenchimento(circulo), circuloGetEspessura(circulo));
 }

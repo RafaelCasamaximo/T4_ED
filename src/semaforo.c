@@ -4,19 +4,21 @@
 
 #include "semaforo.h"
 #include "point.h"
-#include "extraInfoGeo.h"
-#include "corPadrao.h"
 
 typedef struct semaforo{ 
     char id[20];
+    char cp[22], cb[22], sw[22];
     Point point;
 }SemaforoStruct;
 
 
 //Create
-Semaforo criaSemaforo(char* id, float x, float y){
+Semaforo criaSemaforo(char* id, float x, float y, char* cp, char* cb, char* sw){
     SemaforoStruct* sem = (SemaforoStruct*) malloc(sizeof(SemaforoStruct));
     strcpy(sem->id, id);
+    strcpy(sem->cp, cp);
+    strcpy(sem->cb, cb);
+    strcpy(sem->sw, sw);
     Point point = criaPoint(x, y);
     sem->point = point;
     return sem;
@@ -44,6 +46,21 @@ void semaforoSetPoint(Semaforo semaforo, Point point){
     sem->point = point;
 }
 
+void semaforoSetCorPreenchimento(Semaforo semaforo, char* cp){
+    SemaforoStruct* sem = (SemaforoStruct*) semaforo;
+    strcpy(sem->cp, cp);
+}
+
+void semaforoSetCorBorda(Semaforo semaforo, char* cb){
+    SemaforoStruct* sem = (SemaforoStruct*) semaforo;
+    strcpy(sem->cb, cb);
+}
+
+void semaforoSetEspessura(Semaforo semaforo, char* sw){
+    SemaforoStruct* sem = (SemaforoStruct*) semaforo;
+    strcpy(sem->sw, sw);
+}
+
 //Getters
 char* semaforoGetId(Semaforo semaforo){
     SemaforoStruct* sem = (SemaforoStruct*) semaforo;
@@ -65,6 +82,21 @@ Point semaforoGetPoint(Semaforo semaforo){
     return sem->point;
 }
 
+char* semaforoGetCorPreenchimento(Semaforo semaforo){
+    SemaforoStruct* sem = (SemaforoStruct*) semaforo;
+    return sem->cp;
+}
+
+char* semaforoGetCorBorda(Semaforo semaforo){
+    SemaforoStruct* sem = (SemaforoStruct*) semaforo;
+    return sem->cb;
+}
+
+char* semaforoGetEspessura(Semaforo semaforo){
+    SemaforoStruct* sem = (SemaforoStruct*) semaforo;
+    return sem->sw;
+}
+
 void semaforoSwap(Semaforo s1, Semaforo s2){
     SemaforoStruct* a = (SemaforoStruct*) s1;
     SemaforoStruct* b = (SemaforoStruct*) s2;
@@ -73,6 +105,6 @@ void semaforoSwap(Semaforo s1, Semaforo s2){
     *b = temp;
 }
 
-void semaforoDesenhaSvgGeo(Semaforo semaforo, void* info){
-    fprintf((FILE*)extraInfoGetFileSvgGeo(info), "\n\t<circle cx=\"%f\" cy=\"%f\" r=\"3\" style=\"fill:%s;stroke:%s;stroke-widht:%s\"/>", semaforoGetX(semaforo), semaforoGetY(semaforo), coresPadraoGetPreenchimentoSemaforos(extraInfoGetCores(info)), coresPadraoGetBordaSemaforos(extraInfoGetCores(info)), coresPadraoGetEspessuraSemaforos(extraInfoGetCores(info))); //);
+void semaforoDesenhaSvgGeo(Semaforo semaforo, void* fileSvg){
+    fprintf((FILE*)fileSvg, "\n\t<circle cx=\"%f\" cy=\"%f\" r=\"3\" style=\"fill:%s;stroke:%s;stroke-widht:%s\"/>", semaforoGetX(semaforo), semaforoGetY(semaforo), semaforoGetCorPreenchimento(semaforo), semaforoGetCorBorda(semaforo), semaforoGetEspessura(semaforo)); //);
 }

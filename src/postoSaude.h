@@ -24,6 +24,6 @@ Point postoSaudeGetPoint(PostoSaude posto);
 
 void postoSaudeSwap(PostoSaude ps1, PostoSaude ps2);
 
-void postoSaudeDesenhaSvgGeo(PostoSaude posto, void* info);
+void postoSaudeDesenhaSvgGeo(PostoSaude posto, void* fileSvg);
 
 #endif

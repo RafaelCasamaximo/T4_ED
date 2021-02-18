@@ -96,7 +96,7 @@ int main(int argc, char* argv[]){
     //me retorna pastaSaida/resultados/overlaps-01.svg
     concatenaCaminhos(dirSaida, nomeArquivoGeo, &saidaSvgGeo);
     //Cria o arquivo do SVG e DesenhaSvgGeo a lista dentro dele
-    DesenhaSvgGeo(quadTrees, cores, saidaSvgGeo);
+    desenhaSvgGeo(quadTrees, saidaSvgGeo);
 
     
     if(arqQry != NULL){

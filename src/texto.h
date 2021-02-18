@@ -40,6 +40,6 @@ void textoDeletaTxt(Texto texto);
 
 void textoSwap(Texto t1, Texto t2);
 
-void textoDesenhaSvgGeo(Texto texto, void* info);
+void textoDesenhaSvgGeo(Texto texto, void* fileSvg);
 
 #endif

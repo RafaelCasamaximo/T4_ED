@@ -4,8 +4,6 @@
 
 #include "texto.h"
 #include "point.h"
-#include "extraInfoGeo.h"
-#include "corPadrao.h"
 
 typedef struct{
     char id[10];
@@ -121,7 +119,7 @@ void textoSwap(Texto t1, Texto t2){
     *b = temp;
 }
 
-void textoDesenhaSvgGeo(Texto texto, void* info){
-    fprintf((FILE*)extraInfoGetFileSvgGeo(info), "\n\t<text x=\"%f\" y=\"%f\" stroke=\"%s\" fill=\"%s\" stroke-width=\"0.5\">%s</text>", textoGetX(texto), textoGetY(texto), textoGetCorBorda(texto), textoGetCorPreenchimento(texto), textoGetTexto(texto));
+void textoDesenhaSvgGeo(Texto texto, void* fileSvg){
+    fprintf((FILE*)fileSvg, "\n\t<text x=\"%f\" y=\"%f\" stroke=\"%s\" fill=\"%s\" stroke-width=\"0.5\">%s</text>", textoGetX(texto), textoGetY(texto), textoGetCorBorda(texto), textoGetCorPreenchimento(texto), textoGetTexto(texto));
     //stroke-width não devia estar em cores padrao?
 }

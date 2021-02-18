@@ -6,7 +6,7 @@
 typedef void* RadioBase;
 
 // Função responsável para criar RadioBase. Retorna um pointer instanciado.
-RadioBase criaRadioBase(char* id, float x, float y);
+RadioBase criaRadioBase(char* id, float x, float y, char* cp, char* cb, char* sw);
 
 /*
 Setters: Define o atributo do título da função
@@ -16,6 +16,9 @@ void radioBaseSetId(RadioBase radiobase, char* id);
 void radioBaseSetX(RadioBase radiobase, float x);
 void radioBaseSetY(RadioBase radiobase, float y);
 void radioBaseSetPoint(RadioBase radiobase, Point point);
+void radioBaseSetCorPreenchimento(RadioBase radiobase, char* cp);
+void radioBaseSetCorBorda(RadioBase radiobase, char* cb);
+void radioBaseSetEspessura(RadioBase radiobase, char* sw);
 
 /*
 Getters: Retorna o atributo do título da função
@@ -26,9 +29,12 @@ char* radioBaseGetId(RadioBase radiobase);
 float radioBaseGetX(RadioBase radiobase);
 float radioBaseGetY(RadioBase radiobase);
 Point radioBaseGetPoint(RadioBase radiobase);
+char* radioBaseGetCorPreenchimento(RadioBase radiobase);
+char* radioBaseGetCorBorda(RadioBase radiobase);
+char* radioBaseGetEspessura(RadioBase radiobase);
 
 void radioBaseSwap(RadioBase rb1, RadioBase rb2);
 
-void radioBaseDesenhaSvgGeo(RadioBase radiobase, void* info);
+void radioBaseDesenhaSvgGeo(RadioBase radiobase, void* fileSvg);
 
 #endif

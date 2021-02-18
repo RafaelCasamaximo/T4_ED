@@ -4,8 +4,6 @@
 
 #include "point.h"
 #include "quadra.h"
-#include "extraInfoGeo.h"
-#include "corPadrao.h"
 
 typedef struct quadra{
     char cep[20];
@@ -15,12 +13,13 @@ typedef struct quadra{
     float dd;
     char cb[22];
     char cp[22];
+    char sw[22];
     int arredondado;
 }QuadraStruct;
 
 
 //Create
-Quadra criaQuadra(char* cep, float x, float y, float w, float h, char* cb, char* cp, int arredondado){
+Quadra criaQuadra(char* cep, float x, float y, float w, float h, char* cb, char* cp, char* sw, int arredondado){
     QuadraStruct* quad = (QuadraStruct*) malloc(sizeof(QuadraStruct));
     Point point = criaPoint(x, y);
     strcpy(quad->cep, cep);
@@ -30,11 +29,12 @@ Quadra criaQuadra(char* cep, float x, float y, float w, float h, char* cb, char*
     quad->dd = 0;
     strcpy(quad->cb, cb);
     strcpy(quad->cp, cp);
+    strcpy(quad->sw, sw);
     quad->arredondado = arredondado;
     return quad; 
 }
 
-//Setters
+//Setters 
 void quadraSetCep(Quadra quadra, char* cep){
     QuadraStruct* quad = (QuadraStruct*) quadra;
     strcpy(quad->cep, cep);
@@ -84,6 +84,11 @@ void quadraSetPoint(Quadra quadra, Point point){
 void quadraSetDensidadeDemografica(Quadra quadra, float dd){
     QuadraStruct* quad = (QuadraStruct*) quadra;
     quad->dd = dd;
+}
+
+void quadraSetEspessura(Quadra quadra, char* sw){
+    QuadraStruct* quad = (QuadraStruct*) quadra;
+    strcpy(quad->sw, sw);
 }
 
 //Getters
@@ -142,6 +147,12 @@ float quadraGetDensidadeDemografica(Quadra quadra){
     return quad->dd;
 }
 
+char* quadraGetEspessura(Quadra quadra){
+    QuadraStruct* quad = (QuadraStruct*) quadra;
+    return quad->sw;
+}
+
+
 void quadraSwap(Quadra q1, Quadra q2){
     QuadraStruct* a = (QuadraStruct*) q1;
     QuadraStruct* b = (QuadraStruct*) q2;
@@ -150,7 +161,7 @@ void quadraSwap(Quadra q1, Quadra q2){
     *b = temp;
 }
 
-void quadraDesenhaSvgGeo(Quadra quadra, void* info){
-    fprintf((FILE*)extraInfoGetFileSvgGeo(info), "\n\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" style=\"stroke:%s;fill:%s;stroke-widht:%s\"/>", quadraGetX(quadra), quadraGetY(quadra), quadraGetWidth(quadra), quadraGetHeight(quadra), coresPadraoGetBordaQuadras(extraInfoGetCores(info)), coresPadraoGetPreenchimentoQuadras(extraInfoGetCores(info)), coresPadraoGetEspessuraQuadras(extraInfoGetCores(info))); //);
-    fprintf((FILE*)extraInfoGetFileSvgGeo(info), "\n\t<text x=\"%f\" y=\"%f\" fill=\"black\" stroke=\"seashell\" stroke-width=\"0.5\" dominant-baseline=\"middle\" text-anchor=\"middle\">%s</text>", quadraGetX(quadra) + (quadraGetWidth(quadra) / 2), quadraGetY(quadra) + (quadraGetHeight(quadra) / 2), quadraGetCep(quadra));
+void quadraDesenhaSvgGeo(Quadra quadra, void* fileSvg){
+    fprintf((FILE*)fileSvg, "\n\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" style=\"stroke:%s;fill:%s;stroke-widht:%s\"/>", quadraGetX(quadra), quadraGetY(quadra), quadraGetWidth(quadra), quadraGetHeight(quadra), quadraGetCorBorda(quadra), quadraGetCorPreenchimento(quadra), quadraGetEspessura(quadra)); //);
+    fprintf((FILE*)fileSvg, "\n\t<text x=\"%f\" y=\"%f\" fill=\"black\" stroke=\"seashell\" stroke-width=\"0.5\" dominant-baseline=\"middle\" text-anchor=\"middle\">%s</text>", quadraGetX(quadra) + (quadraGetWidth(quadra) / 2), quadraGetY(quadra) + (quadraGetHeight(quadra) / 2), quadraGetCep(quadra));
 }

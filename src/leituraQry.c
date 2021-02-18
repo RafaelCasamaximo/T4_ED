@@ -71,18 +71,18 @@ void readQry(QuadTree* qt, char* dirQry, char* dirTxt){
             interno = inside(qt, j, x, y, &centroDeMassaX, &centroDeMassaY, fileTxt);
             if(interno == 1){ //dentro
                 //linhaAux = criaLinha(x, y, centroDeMassaX, centroDeMassaY, 1, 1, "0");
+               //insert(listas[LINHA], linhaAux);
             }
-            else if(interno == 0 || interno == 2){ //Fora e/ou borda
+            else if(interno == 0){ //Fora ou borda
                 //linhaAux = criaLinha(x, y, centroDeMassaX, centroDeMassaY, 1, 0, "0");
-            }
-            if(interno == 1 || interno == 0 || interno == 2){
                 //insert(listas[LINHA], linhaAux);
             }
+
         }
         //pnt
         if(strcmp(comando, "pnt") == 0){
             fscanf(fileQry, "%s %s %s", j, cb, cp);
-            //pnt(listas, j, cb, cp, fileTxt);
+            pnt(qt, j, cb, cp, fileTxt);
         }
         //pnt*
         if(strcmp(comando, "pnt*") == 0){
@@ -92,7 +92,7 @@ void readQry(QuadTree* qt, char* dirQry, char* dirTxt){
         //delf
         if(strcmp(comando, "delf") == 0){
             fscanf(fileQry, "%s", j);
-            //delf(listas, j, fileTxt);
+            delf(qt, j, fileTxt);
         }
         //delf*
         if(strcmp(comando, "delf*") == 0){

@@ -16,11 +16,10 @@
 #include "postoSaude.h"
 #include "poligono.h"
 
-#include "extraInfoGeo.h"
 
 enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE};
 
-void DesenhaSvgGeo(QuadTree* qt, CorPadrao cores, char* dirSaida){
+void desenhaSvgGeo(QuadTree* qt, char* dirSaida){
 
     FILE* fileSvgGeo = NULL;
     fileSvgGeo = fopen(dirSaida, "w");
@@ -30,21 +29,17 @@ void DesenhaSvgGeo(QuadTree* qt, CorPadrao cores, char* dirSaida){
     printf("Arquivo SVG GEO criado com sucesso!");
     fprintf(fileSvgGeo, "<svg>");
 
-    ExtraInfoGeo info = criaExtraInfoGeo(fileSvgGeo, cores);
-
-    percorreLarguraQt(qt[0], circuloDesenhaSvgGeo, info);
-    percorreLarguraQt(qt[1], retanguloDesenhaSvgGeo, info);
-    percorreLarguraQt(qt[2], textoDesenhaSvgGeo, info);
-    percorreLarguraQt(qt[3], quadraDesenhaSvgGeo, info);
-    percorreLarguraQt(qt[4], hidranteDesenhaSvgGeo, info);
-    percorreLarguraQt(qt[5], semaforoDesenhaSvgGeo, info);
-    percorreLarguraQt(qt[6], radioBaseDesenhaSvgGeo, info);
-    percorreLarguraQt(qt[7], postoSaudeDesenhaSvgGeo, info);
+    percorreLarguraQt(qt[0], circuloDesenhaSvgGeo, fileSvgGeo);
+    percorreLarguraQt(qt[1], retanguloDesenhaSvgGeo, fileSvgGeo);
+    percorreLarguraQt(qt[2], textoDesenhaSvgGeo, fileSvgGeo);
+    percorreLarguraQt(qt[3], quadraDesenhaSvgGeo, fileSvgGeo);
+    percorreLarguraQt(qt[4], hidranteDesenhaSvgGeo, fileSvgGeo);
+    percorreLarguraQt(qt[5], semaforoDesenhaSvgGeo, fileSvgGeo);
+    percorreLarguraQt(qt[6], radioBaseDesenhaSvgGeo, fileSvgGeo);
+    percorreLarguraQt(qt[7], postoSaudeDesenhaSvgGeo, fileSvgGeo);
 
     fprintf(fileSvgGeo, "\n</svg>");
     fclose(fileSvgGeo);
-
-    free(info);
 }
 
 

@@ -89,13 +89,13 @@ void readGeo(DoublyLinkedList* listas, char* dirGeo, CorPadrao cores){
         //Comando: c
         else if(strcmp(comando, "c") == 0){
             fscanf(fileGeo, "%s %f %f %f %s %s", id, &r, &x, &y, cb, cp);
-            auxCirc = criaCirculo(id, x, y, r, cb, cp);
+            auxCirc = criaCirculo(id, x, y, r, cb, cp, coresPadraoGetEspessuraCirculos(cores));
             insert(listas[CIRCULO], auxCirc);
         }
         //Comando: r
         else if(strcmp(comando, "r") == 0){
             fscanf(fileGeo, "%s %f %f %f %f %s %s", id, &w, &h, &x, &y, cb, cp);
-            auxRet = criaRetangulo(id, 0, x, y, w, h, cb, cp);
+            auxRet = criaRetangulo(id, 0, x, y, w, h, cb, cp, coresPadraoGetEspessuraRetangulos(cores));
             insert(listas[RETANGULO], auxRet);
         }
         //Comando: t
@@ -133,7 +133,7 @@ void readGeo(DoublyLinkedList* listas, char* dirGeo, CorPadrao cores){
             // A condição para criar quadras e adicioná-las na lista, é se a quantidade atual é menor do que o default padrão ou definido pelo nx
             if(atual.nq < dft.nq){
                 atual.nq += 1;
-                quadraAux = criaQuadra(cep, x, y, w, h, coresPadraoGetBordaQuadras(cores), coresPadraoGetPreenchimentoQuadras(cores), 0);
+                quadraAux = criaQuadra(cep, x, y, w, h, coresPadraoGetBordaQuadras(cores), coresPadraoGetPreenchimentoQuadras(cores), coresPadraoGetEspessuraQuadras(cores), 0);
                 insert(listas[QUADRA], quadraAux);
             }
         }
@@ -143,7 +143,7 @@ void readGeo(DoublyLinkedList* listas, char* dirGeo, CorPadrao cores){
 
             if(atual.nh < dft.nh){
                 atual.nh += 1;
-                hidranteAux = criaHidrante(cep, x, y);
+                hidranteAux = criaHidrante(cep, x, y, coresPadraoGetPreenchimentoHidrantes(cores), coresPadraoGetBordaHidrantes(cores), coresPadraoGetEspessuraHidrantes(cores));
                 insert(listas[HIDRANTE], hidranteAux);
             }
         }
@@ -153,7 +153,7 @@ void readGeo(DoublyLinkedList* listas, char* dirGeo, CorPadrao cores){
 
             if(atual.ns < dft.ns){
                 atual.ns += 1;
-                semaforoAux = criaSemaforo(cep, x, y);
+                semaforoAux = criaSemaforo(cep, x, y, coresPadraoGetPreenchimentoSemaforos(cores), coresPadraoGetBordaSemaforos(cores), coresPadraoGetEspessuraSemaforos(cores));
                 insert(listas[SEMAFORO], semaforoAux);
             }
         }
@@ -163,7 +163,7 @@ void readGeo(DoublyLinkedList* listas, char* dirGeo, CorPadrao cores){
 
             if(atual.nr < dft.nr){
                 atual.nr += 1;
-                radiobaseAux = criaRadioBase(cep, x, y);
+                radiobaseAux = criaRadioBase(cep, x, y, coresPadraoGetPreenchimentoRadioBases(cores), coresPadraoGetBordaRadioBases(cores), coresPadraoGetEspessuraRadioBases(cores));
                 insert(listas[RADIOBASE], radiobaseAux);
             }   
         }

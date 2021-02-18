@@ -4,20 +4,22 @@
 
 #include "hidrante.h"
 #include "point.h"
-#include "extraInfoGeo.h"
-#include "corPadrao.h"
 
 typedef struct hidrante{
     char id[20];
+    char cp[22], cb[22], sw[22];
     Point point;
 }HidranteStruct;
 
 
 //Create
-Hidrante criaHidrante(char* id, float x, float y){
+Hidrante criaHidrante(char* id, float x, float y, char* cp, char* cb, char* sw){
     HidranteStruct* hid = (HidranteStruct*) malloc(sizeof(HidranteStruct));
     Point point = criaPoint(x, y);
     strcpy(hid->id, id);
+    strcpy(hid->cp, cp);
+    strcpy(hid->cb, cb);
+    strcpy(hid->sw, sw);
     hid->point = point;
     return hid;
 }
@@ -44,6 +46,22 @@ void hidranteSetPoint(Hidrante hidrante, Point point){
     hid->point = point;
 }
 
+void hidranteSetCorPreenchimento(Hidrante hidrante, char* cp){
+    HidranteStruct* hid = (HidranteStruct*) hidrante;
+    strcpy(hid->cp, cp);
+}
+
+void hidranteSetCorBorda(Hidrante hidrante, char* cb){
+    HidranteStruct* hid = (HidranteStruct*) hidrante;
+    strcpy(hid->cb, cb);
+}
+
+void hidranteSetEspessura(Hidrante hidrante, char* sw){
+    HidranteStruct* hid = (HidranteStruct*) hidrante;
+    strcpy(hid->sw, sw);
+}
+
+
 //Getters
 char* hidranteGetId(Hidrante hidrante){
     HidranteStruct* hid = (HidranteStruct*) hidrante;
@@ -65,6 +83,21 @@ Point hidranteGetPoint(Hidrante hidrante){
     return hid->point;
 }
 
+char* hidranteGetCorPreenchimento(Hidrante hidrante){
+    HidranteStruct* hid = (HidranteStruct*) hidrante;
+    return hid->cp;
+}
+
+char* hidranteGetCorBorda(Hidrante hidrante){
+    HidranteStruct* hid = (HidranteStruct*) hidrante;
+    return hid->cb;
+}
+
+char* hidranteGetEspessura(Hidrante hidrante){
+    HidranteStruct* hid = (HidranteStruct*) hidrante;
+    return hid->sw;
+}
+
 void hidranteSwap(Hidrante h1, Hidrante h2){
     HidranteStruct* a = (HidranteStruct*) h1;
     HidranteStruct* b = (HidranteStruct*) h2;
@@ -73,6 +106,6 @@ void hidranteSwap(Hidrante h1, Hidrante h2){
     *b = temp;
 }
 
-void hidranteDesenhaSvgGeo(Hidrante hidrante, void* info){
-    fprintf((FILE*)extraInfoGetFileSvgGeo(info), "\n\t<circle cx=\"%f\" cy=\"%f\" r=\"3\" style=\"fill:%s;stroke:%s;stroke-widht:%s\"/>", hidranteGetX(hidrante), hidranteGetY(hidrante), coresPadraoGetPreenchimentoHidrantes(extraInfoGetCores(info)), coresPadraoGetBordaHidrantes(extraInfoGetCores(info)), coresPadraoGetEspessuraHidrantes(extraInfoGetCores(info))); //);
+void hidranteDesenhaSvgGeo(Hidrante hidrante, void* fileSvg){
+    fprintf((FILE*)fileSvg, "\n\t<circle cx=\"%f\" cy=\"%f\" r=\"3\" style=\"fill:%s;stroke:%s;stroke-widht:%s\"/>", hidranteGetX(hidrante), hidranteGetY(hidrante), hidranteGetCorPreenchimento(hidrante), hidranteGetCorBorda(hidrante), hidranteGetEspessura(hidrante)); //);
 }

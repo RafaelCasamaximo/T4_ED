@@ -6,7 +6,7 @@
 typedef void* Retangulo;
 
 //Função responsável para criar Retangulo. Retorna um pointer instanciado.
-Retangulo criaRetangulo(char* id, int tracejado, float x, float y, float w, float h, char* cb, char* cp);
+Retangulo criaRetangulo(char* id, int tracejado, float x, float y, float w, float h, char* cb, char* cp, char* sw);
 
 /*
 Setters: Define o atributo do título da função
@@ -21,6 +21,7 @@ void retanguloSetHeight(Retangulo retangulo, float h);
 void retanguloSetCorBorda(Retangulo retangulo, char* cb);
 void retanguloSetCorPreenchimento(Retangulo retangulo, char* cp);
 void retanguloSetPoint(Retangulo retangulo, Point point);
+void retanguloSetEspessura(Retangulo retangulo, char* sw);
 
 /*
 Getters: Retorna o atributo do título da função
@@ -36,9 +37,10 @@ float retanguloGetHeight(Retangulo retangulo);
 char* retanguloGetCorBorda(Retangulo retangulo);
 char* retanguloGetCorPreenchimento(Retangulo retangulo);
 Point retanguloGetPoint(Retangulo retangulo);
+char* retanguloGetEspessura(Retangulo retangulo);
 
 void retanguloSwap(Retangulo r1, Retangulo r2);
 
-void retanguloDesenhaSvgGeo(Retangulo retangulo, void* info);
+void retanguloDesenhaSvgGeo(Retangulo retangulo, void* fileSvg);
 
 #endif

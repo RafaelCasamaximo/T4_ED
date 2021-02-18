@@ -4,20 +4,22 @@
 
 #include "radioBase.h"
 #include "point.h"
-#include "extraInfoGeo.h"
-#include "corPadrao.h"
 
 typedef struct radiobase{
     char id[20];
+    char cp[22], cb[22], sw[22];
     Point point;
 }RadioBaseStruct;
 
 
 //Create
-RadioBase criaRadioBase(char* id, float x, float y){
+RadioBase criaRadioBase(char* id, float x, float y, char* cp, char* cb, char* sw){
     RadioBaseStruct* radio = (RadioBaseStruct*) malloc(sizeof(RadioBaseStruct));
     Point point = criaPoint(x, y);
     strcpy(radio->id, id);
+    strcpy(radio->cp, cp);
+    strcpy(radio->cb, cb);
+    strcpy(radio->sw, sw);
     radio->point = point;
     return radio;
 }
@@ -44,6 +46,23 @@ void radioBaseSetPoint(RadioBase radiobase, Point point){
     radio->point = point;
 }
 
+void radioBaseSetCorPreenchimento(RadioBase radiobase, char* cp){
+    RadioBaseStruct* radio = (RadioBaseStruct*) radiobase;
+    strcpy(radio->cp, cp);
+
+}
+
+void radioBaseSetCorBorda(RadioBase radiobase, char* cb){
+    RadioBaseStruct* radio = (RadioBaseStruct*) radiobase;
+    strcpy(radio->cb, cb);
+
+}
+
+void radioBaseSetEspessura(RadioBase radiobase, char* sw){
+    RadioBaseStruct* radio = (RadioBaseStruct*) radiobase;
+    strcpy(radio->sw, sw);
+}
+
 //Getters 
 char* radioBaseGetId(RadioBase radiobase){
     RadioBaseStruct* radio = (RadioBaseStruct*) radiobase;   
@@ -65,6 +84,23 @@ Point radioBaseGetPoint(RadioBase radiobase){
     return radio->point;
 }
 
+char* radioBaseGetCorPreenchimento(RadioBase radiobase){
+    RadioBaseStruct* radio = (RadioBaseStruct*) radiobase;
+    return radio->cp;
+
+}
+
+char* radioBaseGetCorBorda(RadioBase radiobase){
+    RadioBaseStruct* radio = (RadioBaseStruct*) radiobase;
+    return radio->cb;
+
+}
+
+char* radioBaseGetEspessura(RadioBase radiobase){
+    RadioBaseStruct* radio = (RadioBaseStruct*) radiobase;
+    return radio->sw;
+}
+
 void radioBaseSwap(RadioBase rb1, RadioBase rb2){
     RadioBaseStruct* a = (RadioBaseStruct*) rb1;
     RadioBaseStruct* b = (RadioBaseStruct*) rb2;
@@ -73,6 +109,6 @@ void radioBaseSwap(RadioBase rb1, RadioBase rb2){
     *b = temp;
 }
 
-void radioBaseDesenhaSvgGeo(RadioBase radiobase, void* info){
-    fprintf((FILE*)extraInfoGetFileSvgGeo(info), "\n\t<circle cx=\"%f\" cy=\"%f\" r=\"3\" style=\"fill:%s;stroke:%s;stroke-widht:%s\"/>",radioBaseGetX(radiobase), radioBaseGetY(radiobase), coresPadraoGetPreenchimentoRadioBases(extraInfoGetCores(info)), coresPadraoGetBordaRadioBases(extraInfoGetCores(info)), coresPadraoGetEspessuraRadioBases(extraInfoGetCores(info))); //);
+void radioBaseDesenhaSvgGeo(RadioBase radiobase, void* fileSvg){
+    fprintf((FILE*)fileSvg, "\n\t<circle cx=\"%f\" cy=\"%f\" r=\"3\" style=\"fill:%s;stroke:%s;stroke-widht:%s\"/>", radioBaseGetX(radiobase), radioBaseGetY(radiobase), radioBaseGetCorPreenchimento(radiobase), radioBaseGetCorBorda(radiobase), radioBaseGetEspessura(radiobase)); //);
 }
