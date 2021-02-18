@@ -3,12 +3,11 @@
 #include <string.h>
 
 #include "linha.h"
+#include "point.h"
 
 typedef struct linha{
-    float x1;
-    float y1;
-    float x2;
-    float y2;
+    Point p1;
+    Point p2;
     int pntInicial;
     int interna;
     char cep[22];
@@ -18,10 +17,8 @@ typedef struct linha{
 //Create
 Linha criaLinha(float x1, float y1, float x2, float y2, int pntInicial, int interna, char* cep){
     LinhaStruct* lin = (LinhaStruct*) malloc(sizeof(LinhaStruct));
-    lin->x1 = x1;
-    lin->y1 = y1;
-    lin->x2 = x2;
-    lin->y2 = y2;
+    lin->p1 = criaPoint(x1, y1);
+    lin->p2 = criaPoint(x2, y2);
     lin->pntInicial = pntInicial;
     lin->interna = interna;
     strcpy(lin->cep, cep);
@@ -31,22 +28,22 @@ Linha criaLinha(float x1, float y1, float x2, float y2, int pntInicial, int inte
 //Setters
 void linhaSetX1(Linha linha, float x1){
     LinhaStruct* lin = (LinhaStruct*) linha;
-    lin->x1 = x1;
+    setPointX(lin->p1, x1);
 }
 
 void linhaSetY1(Linha linha, float y1){
     LinhaStruct* lin = (LinhaStruct*) linha;
-    lin->y1 = y1;
+    setPointY(lin->p1, y1);
 }
 
 void linhaSetX2(Linha linha, float x2){
     LinhaStruct* lin = (LinhaStruct*) linha;
-    lin->x2 = x2;
+    setPointX(lin->p2, x2);
 }
 
 void linhaSetY2(Linha linha, float y2){
     LinhaStruct* lin = (LinhaStruct*) linha;
-    lin->y2 = y2;
+    setPointY(lin->p2, y2);
 }
 
 void linhaSetPntInicial(Linha linha, int pntInicial){
@@ -64,25 +61,37 @@ void linhaSetCep(Linha linha, char* cep){
     strcpy(lin->cep, cep);
 }
 
+void linhaSetP1(Linha linha, Point p1){
+    LinhaStruct* lin = (LinhaStruct*) linha;
+    free(lin->p1);
+    lin->p1 = p1;
+}
+
+void linhaSetP2(Linha linha, Point p2){
+    LinhaStruct* lin = (LinhaStruct*) linha;
+    free(lin->p2);
+    lin->p2 = p2;
+}
+
 //Getters
 float linhaGetX1(Linha linha){
     LinhaStruct* lin = (LinhaStruct*) linha;
-    return lin->x1;
+    return getPointX(lin->p1);
 }
 
 float linhaGetY1(Linha linha){
     LinhaStruct* lin = (LinhaStruct*) linha;
-    return lin->y1;
+    return getPointY(lin->p1);
 }
 
 float linhaGetX2(Linha linha){
     LinhaStruct* lin = (LinhaStruct*) linha;
-    return lin->x2;
+    return getPointX(lin->p2);
 }
 
 float linhaGetY2(Linha linha){
     LinhaStruct* lin = (LinhaStruct*) linha;
-    return lin->y2;
+    return getPointY(lin->p2);
 }
 
 int linhaGetPntInicial(Linha linha){
@@ -98,4 +107,14 @@ int linhaGetInterna(Linha linha){
 char* linhaGetCep(Linha linha){
     LinhaStruct* lin = (LinhaStruct*) linha;
     return lin->cep;
+}
+
+Point linhaGetP1(Linha linha){
+    LinhaStruct* lin = (LinhaStruct*) linha;
+    return lin->p1;
+}
+
+Point linhaGetP2(Linha linha){
+    LinhaStruct* lin = (LinhaStruct*) linha;
+    return lin->p2;
 }

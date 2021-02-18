@@ -4,25 +4,48 @@
 typedef void* Stack;
 typedef void* InfoStack;
 
-//cria Stack
+/*
+    Cria uma stack
+    POS: retoan a stack
+*/
 Stack createStack();
-
-//verifica se a stack esta vazia
+/*
+    Verifica se a stack está vazia
+    PRE: stack
+    POS: 0 se não está vazio e 1 se está
+*/
 int isEmptyStack(Stack stack);
 
-//tamanho da stack
+/*
+    Retorna o tamanho da stack 
+    PRE: stack
+    POS: numero de elementos
+*/
 int sizeStack(Stack stack);
 
-//retorna o elemento do topo da stack
+/*
+    Retorna o primeiro elemento da stack
+    PRE: stack
+    POS: elemento
+*/
 InfoStack topStack(Stack stack);
 
-//insere um novo elemento no topo da stack
+/*
+    Insere um novo elemento na stack
+    PRE: stack e elemento
+*/
 void pushStack(Stack stack, InfoStack info);
 
-//retira um elemento do topo da stack
+/*
+    Retira o último elemento da stack
+    PRE: stack e flag: 1 = desaloca info e 0 = não desaloca
+*/
 void popStack(Stack stack, int flag);
 
-
+/*
+    Desaloca stack
+    PRE: stack e flag: 1 = desaloca info e 0 = não desaloca
+*/
 void removeStack(Stack stack, int flag);
 
 #endif

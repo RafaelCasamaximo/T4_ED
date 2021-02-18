@@ -10,7 +10,7 @@
 
 #include "qry1.h"
 
-enum LISTAS{CIRCULO, RETANGULO, TEXTO, LINHA, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, DENSIDADEDEMOGRAFICA, LOCALCASOS, POLIGONO};
+enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, LINHA};
 
 void readQry(QuadTree* qt, char* dirQry, char* dirTxt){
 
@@ -41,8 +41,8 @@ void readQry(QuadTree* qt, char* dirQry, char* dirTxt){
     char cep[20];
     char face;
 
-    //Linha linhaAux = NULL;
-    //Retangulo retanguloAux = NULL;
+    Linha linhaAux = NULL;
+    Retangulo retanguloAux = NULL;
 
     while(1){
         fscanf(fileQry, "%s", comando);
@@ -54,14 +54,14 @@ void readQry(QuadTree* qt, char* dirQry, char* dirTxt){
         //o?
         if(strcmp(comando, "o?") == 0){
             fscanf(fileQry, "%s %s", j, k);
-            //sobrepoe = overlay(listas, j, k, &x, &y, &w, &h, fileTxt);
+            sobrepoe = overlay(qt, j, k, &x, &y, &w, &h, fileTxt);
             if(sobrepoe == 0){
-                //retanguloAux = criaRetangulo(id, 1, x, y, w, h, "black", "none");
-                //insert(listas[RETANGULO], retanguloAux);
+                retanguloAux = criaRetangulo(id, 1, x, y, w, h, "black", "none", "2px");
+                insereQt(qt[1], retanguloGetPoint(retanguloAux), retanguloAux);
             }
             if(sobrepoe == 1){
-                //retanguloAux = criaRetangulo(id, 0, x, y, w, h, "black", "none");
-                //insert(listas[RETANGULO], retanguloAux);
+                retanguloAux = criaRetangulo(id, 0, x, y, w, h, "black", "none", "2px");
+                insereQt(qt[1], retanguloGetPoint(retanguloAux), retanguloAux);
             }
             printf("%d", sobrepoe);
         }
@@ -70,14 +70,13 @@ void readQry(QuadTree* qt, char* dirQry, char* dirTxt){
             fscanf(fileQry, "%s %f %f", j, &x, &y);
             interno = inside(qt, j, x, y, &centroDeMassaX, &centroDeMassaY, fileTxt);
             if(interno == 1){ //dentro
-                //linhaAux = criaLinha(x, y, centroDeMassaX, centroDeMassaY, 1, 1, "0");
-               //insert(listas[LINHA], linhaAux);
+                linhaAux = criaLinha(x, y, centroDeMassaX, centroDeMassaY, 1, 1, "0");
+                insereQt(qt[8], linhaGetP1(linhaAux), linhaAux);
             }
             else if(interno == 0){ //Fora ou borda
-                //linhaAux = criaLinha(x, y, centroDeMassaX, centroDeMassaY, 1, 0, "0");
-                //insert(listas[LINHA], linhaAux);
+                linhaAux = criaLinha(x, y, centroDeMassaX, centroDeMassaY, 1, 0, "0");
+                insereQt(qt[8], linhaGetP1(linhaAux), linhaAux);
             }
-
         }
         //pnt
         if(strcmp(comando, "pnt") == 0){
@@ -87,7 +86,7 @@ void readQry(QuadTree* qt, char* dirQry, char* dirTxt){
         //pnt*
         if(strcmp(comando, "pnt*") == 0){
             fscanf(fileQry, "%s %s %s %s", j, k, cb, cp);
-            //pntAst(listas, j, k, cb, cp, fileTxt);
+            pntAst(qt, j, k, cb, cp, fileTxt);
         }
         //delf
         if(strcmp(comando, "delf") == 0){
@@ -97,7 +96,7 @@ void readQry(QuadTree* qt, char* dirQry, char* dirTxt){
         //delf*
         if(strcmp(comando, "delf*") == 0){
             fscanf(fileQry, "%s %s", j, k);
-            //delfAst(listas, j, k, fileTxt);
+            delfAst(qt, j, k, fileTxt);
         }
         
 

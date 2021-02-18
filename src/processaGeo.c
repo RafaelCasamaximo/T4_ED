@@ -17,10 +17,11 @@
 #include "radioBase.h"
 #include "postoSaude.h"
 #include "densidadeDemografica.h"
+#include "linha.h"
 
 
 //Enumeration para todas as listas utilizadas
-enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE};
+enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, LINHA};
 
 void instanciaQts(QuadTree* quadTrees){
     //Define uma quadtree para cada figura ou instrumento e passa a função
@@ -31,7 +32,8 @@ void instanciaQts(QuadTree* quadTrees){
     quadTrees[4] = criaQt(hidranteGetId);
     quadTrees[5] = criaQt(semaforoGetId);
     quadTrees[6] = criaQt(radioBaseGetId);
-    quadTrees[7] = criaQt(NULL);
+    quadTrees[7] = criaQt(NULL); //Posto Saude
+    quadTrees[8] = criaQt(linhaGetCep);
 }
 
 
