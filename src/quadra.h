@@ -39,8 +39,16 @@ Point quadraGetPoint(Quadra quadra);
 float quadraGetDensidadeDemografica(Quadra quadra);
 char* quadraGetEspessura(Quadra quadra);
 
+/*
+    Troca duas quadras de lugar na memória
+    PRE: q1 e q2
+*/
 void quadraSwap(Quadra q1, Quadra q2);
 
+/*
+    Escreve uma tag SVG da quadra no file passado
+    PRE: quadra e file
+*/
 void quadraDesenhaSvgGeo(Quadra quadra, void* fileSvg);
 
 #endif

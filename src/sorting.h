@@ -19,6 +19,11 @@ POS: Área
 */
 float obterArea(DoublyLinkedList l);
 
+/*
+    Realiza o algoritmo de ordenação quickSort com uma doublyLinkedList
+    PRE: Lista l, primeiro e ultimo node, função para pegar o ponto do elemento, função para trocar dois elementos do mesmo tipo de lugar
+    POS: A lista passada como parâmetro é alterada
+*/
 void quickSortDoublyLinkedList(DoublyLinkedList l, Node primeiro, Node ultimo, Point (*getPoint)(Info), void (*swapInfo)(Info, Info));
 
 Node partition(DoublyLinkedList l, Node primeiro, Node ultimo, Point (*getpoint)(Info), void (*swapInfo)(Info, Info));

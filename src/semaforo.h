@@ -32,8 +32,17 @@ char* semaforoGetCorPreenchimento(Semaforo semaforo);
 char* semaforoGetCorBorda(Semaforo semaforo);
 char* semaforoGetEspessura(Semaforo semaforo);
 
+/*
+    Troca dois semaforos de lugar na memória
+    PRE: s1 e s2
+*/
 void semaforoSwap(Semaforo s1, Semaforo s2);
 
+
+/*
+    Escreve uma tag SVG do semaforo no file passado
+    PRE: semaforo e file
+*/
 void semaforoDesenhaSvgGeo(Semaforo semaforo, void* fileSvg);
 
 #endif

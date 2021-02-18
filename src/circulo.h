@@ -36,8 +36,16 @@ char* circuloGetCorPreenchimento(Circulo circulo);
 Point circuloGetPoint(Circulo circulo);
 char* circuloGetEspessura(Circulo circulo);
 
+/*
+    Troca dois circulos de lugar na memória
+    PRE: c1 e c2
+*/
 void circuloSwap(Circulo c1, Circulo c2);
 
+/*
+    Escreve uma tag SVG do circulo no file passado
+    PRE: circulo e file
+*/
 void circuloDesenhaSvgGeo(Circulo circulo, void* fileSvg);
 
 #endif

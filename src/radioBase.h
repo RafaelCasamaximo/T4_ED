@@ -33,8 +33,16 @@ char* radioBaseGetCorPreenchimento(RadioBase radiobase);
 char* radioBaseGetCorBorda(RadioBase radiobase);
 char* radioBaseGetEspessura(RadioBase radiobase);
 
+/*
+    Troca duas radiobases de lugar na memória
+    PRE: rb1 e rb2
+*/
 void radioBaseSwap(RadioBase rb1, RadioBase rb2);
 
+/*
+    Escreve uma tag SVG da radioBase no file passado
+    PRE: radioBase e file
+*/
 void radioBaseDesenhaSvgGeo(RadioBase radiobase, void* fileSvg);
 
 #endif

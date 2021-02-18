@@ -39,8 +39,17 @@ char* retanguloGetCorPreenchimento(Retangulo retangulo);
 Point retanguloGetPoint(Retangulo retangulo);
 char* retanguloGetEspessura(Retangulo retangulo);
 
+/*
+    Troca dois retangulos de lugar na memória
+    PRE: r1 e r2
+*/
 void retanguloSwap(Retangulo r1, Retangulo r2);
 
+
+/*
+    Escreve uma tag SVG do retangulo no file passado
+    PRE: retangulo e file
+*/
 void retanguloDesenhaSvgGeo(Retangulo retangulo, void* fileSvg);
 
 #endif

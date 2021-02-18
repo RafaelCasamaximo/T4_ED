@@ -33,8 +33,16 @@ char* hidranteGetCorPreenchimento(Hidrante hidrante);
 char* hidranteGetCorBorda(Hidrante hidrante);
 char* hidranteGetEspessura(Hidrante hidrante);
 
+/*
+    Troca dois hidrantes de lugar na memória
+    PRE: h1 e h2
+*/
 void hidranteSwap(Hidrante h1, Hidrante h2);
 
+/*
+    Escreve uma tag SVG do hidrante no file passado
+    PRE: hidrante e file
+*/
 void hidranteDesenhaSvgGeo(Hidrante hidrante, void* fileSvg);
 
 #endif

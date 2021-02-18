@@ -22,8 +22,16 @@ float postoSaudeGetX(PostoSaude posto);
 float postoSaudeGetY(PostoSaude posto);
 Point postoSaudeGetPoint(PostoSaude posto);
 
+/*
+    Troca dois postoSaude de lugar na memória
+    PRE: ps1 e ps2
+*/
 void postoSaudeSwap(PostoSaude ps1, PostoSaude ps2);
 
+/*
+    Escreve uma tag SVG do circulo no file passado
+    PRE: posto e file
+*/
 void postoSaudeDesenhaSvgGeo(PostoSaude posto, void* fileSvg);
 
 #endif
