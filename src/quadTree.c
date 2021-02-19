@@ -126,6 +126,7 @@ QtInfo removeNoQt(QuadTree qt, QtNo pNo){
         for(int i = 0; i < 4; i++){
             if(node->parent->children[i] == NULL){
                 node->parent->children[i] = node->children[i];
+                node->children[i]->parent = node->parent;
             }
             else{
                 enqueue(queue, node->children[i]);
@@ -247,6 +248,9 @@ QtInfo getInfoById(QuadTree qt, QtNo no, char* chave){
 QtInfo getInfoByIdQt(QuadTree qt, char* chave){
     //Passa a quadtree e uma chave como parâmetro e espera o retorno da informação que corresponde com essa chave
     QuadTreeStruct* quad = (QuadTreeStruct*)qt;
+    if(quad->root == NULL){
+        return NULL;
+    }
     //Chama a função getInfoById, que percoore a árvore analisando as informações e vendo qual corresponde
     return getInfoById(qt, quad->root, chave);
 }

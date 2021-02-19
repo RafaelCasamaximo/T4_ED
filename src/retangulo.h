@@ -51,5 +51,6 @@ void retanguloSwap(Retangulo r1, Retangulo r2);
     PRE: retangulo e file
 */
 void retanguloDesenhaSvgGeo(Retangulo retangulo, void* fileSvg);
+void retanguloDesenhaSvgQry(Retangulo retangulo, void* fileSvg);
 
 #endif

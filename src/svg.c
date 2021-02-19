@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "quadTree.h"
 #include "svg.h"
+#include "quadTree.h"
 #include "circulo.h"
 #include "retangulo.h"
 #include "texto.h"
@@ -53,14 +53,14 @@ void desenhaSvgQry(QuadTree* qt, char* dirSaida){
     fprintf(fileSvgQry, "<svg>");
 
     percorreLarguraQt(qt[0], circuloDesenhaSvgGeo, fileSvgQry);
-    //percorreLarguraQt(qt[1], retanguloDesenhaSvgQry, fileSvgQry);
+    percorreLarguraQt(qt[1], retanguloDesenhaSvgQry, fileSvgQry);
     percorreLarguraQt(qt[2], textoDesenhaSvgGeo, fileSvgQry);
-    //percorreLarguraQt(qt[3], quadraDesenhaSvgQry, fileSvgQry);
+    percorreLarguraQt(qt[3], quadraDesenhaSvgQry, fileSvgQry);
     percorreLarguraQt(qt[4], hidranteDesenhaSvgGeo, fileSvgQry);
     percorreLarguraQt(qt[5], semaforoDesenhaSvgGeo, fileSvgQry);
     percorreLarguraQt(qt[6], radioBaseDesenhaSvgGeo, fileSvgQry);
-    //percorreLarguraQt(qt[7], postoSaudeDesenhaSvgGeo, fileSvgQry); //Não tenho Certeza
-    //percorreLarguraQt(qt[8], linhaDesenhaSvgQry, fileSvgQry);
+    percorreLarguraQt(qt[7], postoSaudeDesenhaSvgGeo, fileSvgQry); 
+    percorreLarguraQt(qt[8], linhaDesenhaSvgQry, fileSvgQry);
 
     fprintf(fileSvgQry, "\n</svg>");
     fclose(fileSvgQry);

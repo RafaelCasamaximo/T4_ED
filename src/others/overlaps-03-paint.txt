@@ -1,0 +1,1 @@
+pnt 1 red redCIRCULO | X: 22.000000  Y: 10.000000

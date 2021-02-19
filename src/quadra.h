@@ -50,5 +50,10 @@ void quadraSwap(Quadra q1, Quadra q2);
     PRE: quadra e file
 */
 void quadraDesenhaSvgGeo(Quadra quadra, void* fileSvg);
+/*
+    Escreve uma tag SVG da quadra no file passado e com os parâmetros do qry
+    PRE: quadra e file
+*/
+void quadraDesenhaSvgQry(Quadra quadra, void* fileSvgQry);
 
 #endif

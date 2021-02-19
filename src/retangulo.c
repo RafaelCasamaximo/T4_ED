@@ -141,5 +141,14 @@ void retanguloSwap(Retangulo r1, Retangulo r2){
 }
 
 void retanguloDesenhaSvgGeo(Retangulo retangulo, void* fileSvg){
-     fprintf((FILE*)fileSvg, "\n\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" style=\"stroke:%s;fill:%s;stroke-widht:%s\"/>", retanguloGetX(retangulo), retanguloGetY(retangulo), retanguloGetWidth(retangulo), retanguloGetHeight(retangulo), retanguloGetCorBorda(retangulo), retanguloGetCorPreenchimento(retangulo), retanguloGetEspessura(retangulo)); //);
+    fprintf((FILE*)fileSvg, "\n\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" style=\"stroke:%s;fill:%s;stroke-widht:%s\"/>", retanguloGetX(retangulo), retanguloGetY(retangulo), retanguloGetWidth(retangulo), retanguloGetHeight(retangulo), retanguloGetCorBorda(retangulo), retanguloGetCorPreenchimento(retangulo), retanguloGetEspessura(retangulo)); 
+}
+
+void retanguloDesenhaSvgQry(Retangulo retangulo, void* fileSvg){
+    if(retanguloGetTracejado(retangulo) == 1){
+        fprintf((FILE*)fileSvg, "\n\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" style=\"stroke:%s;fill:none;stroke-widht:%s; stroke-dasharray: 3 3 3;\" fill-opacity=\"0.0\"/>", retanguloGetX(retangulo), retanguloGetY(retangulo), retanguloGetWidth(retangulo), retanguloGetHeight(retangulo), retanguloGetCorBorda(retangulo), retanguloGetEspessura(retangulo));
+    }
+    else{
+        fprintf((FILE*)fileSvg, "\n\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" style=\"stroke:%s;fill:%s;stroke-widht:%s\"/>", retanguloGetX(retangulo), retanguloGetY(retangulo), retanguloGetWidth(retangulo), retanguloGetHeight(retangulo), retanguloGetCorBorda(retangulo), retanguloGetCorPreenchimento(retangulo), retanguloGetEspessura(retangulo));
+    }
 }

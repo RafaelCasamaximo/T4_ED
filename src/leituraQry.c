@@ -6,8 +6,6 @@
 #include "quadTree.h"
 #include "linha.h"
 #include "retangulo.h"
-#include "corPadrao.h"
-
 #include "qry1.h"
 
 enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, LINHA};
@@ -28,7 +26,7 @@ void readQry(QuadTree* qt, char* dirQry, char* dirTxt){
     }
     printf("Arquivo QRY aberto com sucesso!");
 
-    int id = -1;
+    // int id = -1;
     
     char j[10], k[10];
     int n = 0, num = 0;
@@ -56,20 +54,19 @@ void readQry(QuadTree* qt, char* dirQry, char* dirTxt){
             fscanf(fileQry, "%s %s", j, k);
             sobrepoe = overlay(qt, j, k, &x, &y, &w, &h, fileTxt);
             if(sobrepoe == 0){
-                retanguloAux = criaRetangulo(id, 1, x, y, w, h, "black", "none", "2px");
+                retanguloAux = criaRetangulo("0", 1, x, y, w, h, "black", "none", "2px");
                 insereQt(qt[1], retanguloGetPoint(retanguloAux), retanguloAux);
             }
             if(sobrepoe == 1){
-                retanguloAux = criaRetangulo(id, 0, x, y, w, h, "black", "none", "2px");
+                retanguloAux = criaRetangulo("0", 0, x, y, w, h, "black", "none", "2px");
                 insereQt(qt[1], retanguloGetPoint(retanguloAux), retanguloAux);
             }
-            printf("%d", sobrepoe);
         }
         //i?        
         if(strcmp(comando, "i?") == 0){
             fscanf(fileQry, "%s %f %f", j, &x, &y);
             interno = inside(qt, j, x, y, &centroDeMassaX, &centroDeMassaY, fileTxt);
-            if(interno == 1){ //dentro
+            if(interno == 1){ //Dentro
                 linhaAux = criaLinha(x, y, centroDeMassaX, centroDeMassaY, 1, 1, "0");
                 insereQt(qt[8], linhaGetP1(linhaAux), linhaAux);
             }
@@ -112,7 +109,7 @@ void readQry(QuadTree* qt, char* dirQry, char* dirTxt){
             fseek(fileQry, -2, SEEK_CUR);
             fscanf(fileQry, "%s %f", cep, &r);
             //dq(listas, cep, r, 0, id, fileTxt);
-            id -= 2;
+            //id -= 2;
         }
         //del
         if(strcmp(comando, "del") == 0){
@@ -152,7 +149,7 @@ void readQry(QuadTree* qt, char* dirQry, char* dirTxt){
             fscanf(fileQry, "%f %f %f", &x, &y, &r);
             //ci(listas, x, y, r, fileTxt); 
         }
-        id--;
+        //id--;
     }
 
     fclose(fileTxt);

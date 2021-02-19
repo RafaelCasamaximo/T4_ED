@@ -1,6 +1,8 @@
 #ifndef LINHA__H_
 #define LINHA__H_
 
+#include "point.h"
+
 typedef void* Linha;
 
 // Função responsável para criar Linha. Retorna um pointer instanciado.
@@ -33,5 +35,7 @@ int linhaGetInterna(Linha linha);
 char* linhaGetCep(Linha linha);
 Point linhaGetP1(Linha linha);
 Point linhaGetP2(Linha linha);
+
+void linhaDesenhaSvgQry(Linha linha, void* fileSvgQry);
 
 #endif

@@ -165,3 +165,13 @@ void quadraDesenhaSvgGeo(Quadra quadra, void* fileSvg){
     fprintf((FILE*)fileSvg, "\n\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" style=\"stroke:%s;fill:%s;stroke-widht:%s\"/>", quadraGetX(quadra), quadraGetY(quadra), quadraGetWidth(quadra), quadraGetHeight(quadra), quadraGetCorBorda(quadra), quadraGetCorPreenchimento(quadra), quadraGetEspessura(quadra)); //);
     fprintf((FILE*)fileSvg, "\n\t<text x=\"%f\" y=\"%f\" fill=\"black\" stroke=\"seashell\" stroke-width=\"0.5\" dominant-baseline=\"middle\" text-anchor=\"middle\">%s</text>", quadraGetX(quadra) + (quadraGetWidth(quadra) / 2), quadraGetY(quadra) + (quadraGetHeight(quadra) / 2), quadraGetCep(quadra));
 }
+
+void quadraDesenhaSvgQry(Quadra quadra, void* fileSvgQry){
+    if(quadraGetArredondado(quadra) == 1){
+        fprintf((FILE*)fileSvgQry, "\n\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" style=\"stroke:%s;fill:%s;stroke-widht:%s\" rx=\"10\" ry=\"10\"/>", quadraGetX(quadra), quadraGetY(quadra), quadraGetWidth(quadra), quadraGetHeight(quadra), quadraGetCorBorda(quadra), quadraGetCorPreenchimento(quadra), quadraGetEspessura(quadra));
+    }
+    else{
+        fprintf((FILE*)fileSvgQry, "\n\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" style=\"fill:%s;stroke:%s;stroke-widht:%s\"/>", quadraGetX(quadra), quadraGetY(quadra), quadraGetWidth(quadra), quadraGetHeight(quadra), quadraGetCorPreenchimento(quadra), quadraGetCorBorda(quadra), quadraGetEspessura(quadra));
+    }
+    fprintf((FILE*)fileSvgQry, "\n\t<text x=\"%f\" y=\"%f\" fill=\"black\" stroke=\"seashell\" stroke-width=\"0.5\" dominant-baseline=\"middle\" text-anchor=\"middle\">%s</text>", quadraGetX(quadra) + (quadraGetWidth(quadra) / 2), quadraGetY(quadra) + (quadraGetHeight(quadra) / 2), quadraGetCep(quadra));
+}
