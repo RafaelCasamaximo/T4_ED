@@ -21,13 +21,20 @@ enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, PO
 
 void desenhaSvgGeo(QuadTree* qt, char* dirSaida){
 
+    char* corSombra[6] = {"#FFFF00", "#FF9955", "#FF0000", "#FF00CC", "#6600FF", "#A02C5A"}; //Comando usado para fazer a sombras das quadras no SVG do comando dd (Atualizado para T4)
     FILE* fileSvgGeo = NULL;
     fileSvgGeo = fopen(dirSaida, "w");
     if(!fileSvgGeo){
         exit(1);
     }
     printf("Arquivo SVG GEO criado com sucesso!");
-    fprintf(fileSvgGeo, "<svg>");
+    fprintf(fileSvgGeo, "<svg  width=\"10000\" height=\"10000\" viewBox=\"0 0 10000 10000\" xmlns=\"http://www.w3.org/2000/svg\">");
+
+    fprintf(fileSvgGeo, "<defs>");
+    for(int i = 0; i < 6; i++){
+        fprintf(fileSvgGeo, "<filter id=\"shadow%d\">\n\t\t\t<feDropShadow dx=\"4\" dy=\"4\" stdDeviation=\"0.2\" flood-color=\"%s\"/>\n\t\t</filter>", i, corSombra[i]);
+    }
+    fprintf(fileSvgGeo, "</defs>");
 
     percorreLarguraQt(qt[0], circuloDesenhaSvgGeo, fileSvgGeo);
     percorreLarguraQt(qt[1], retanguloDesenhaSvgGeo, fileSvgGeo);

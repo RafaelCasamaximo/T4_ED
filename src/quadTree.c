@@ -121,8 +121,15 @@ QtInfo removeNoQt(QuadTree qt, QtNo pNo){
                 enqueue(queue, node->children[i]);
             }
         }
+        quad->root = NULL;
     }
     else{
+        for(int i = 0; i < 4; i++){
+            if(node->parent->children[i] == node){
+                node->parent->children[i] = NULL;
+                break;
+            }
+        }
         for(int i = 0; i < 4; i++){
             if(node->parent->children[i] == NULL){
                 node->parent->children[i] = node->children[i];
@@ -130,12 +137,6 @@ QtInfo removeNoQt(QuadTree qt, QtNo pNo){
             }
             else{
                 enqueue(queue, node->children[i]);
-            }
-        }
-        for(int i = 0; i < 4; i++){
-            if(node->parent->children[i] == node){
-                node->parent->children[i] = NULL;
-                break;
             }
         }
     }
@@ -267,6 +268,7 @@ void desalocaNos(NodeQtStruct* node){
         desalocaNos(node->children[i]);
     }
     free(node->info);
+    free(node->point);
     free(node);
 }
 
@@ -334,10 +336,10 @@ void percorreProfundidadeQt(QuadTree qt, funcVisita f, ExtraInfo ei){
 
 void percorreLarguraQt(QuadTree qt, funcVisita f, ExtraInfo ei){
     QuadTreeStruct* quad = (QuadTreeStruct*) qt;
-    Queue queue = createQueue();
     if(quad->root == NULL){
         return;
     }
+    Queue queue = createQueue();
     enqueue(queue, quad->root);
     do{
         NodeQtStruct* aux = dequeue(queue);
@@ -348,6 +350,8 @@ void percorreLarguraQt(QuadTree qt, funcVisita f, ExtraInfo ei){
         }
         f(getInfoQt(qt, aux), ei);
     }while(!isQueueEmpty(queue));
+    
+    deleteQueue(queue);
 }
 
 

@@ -7,6 +7,7 @@
 #include "stack.h"
 #include "point.h"
 #include "convexHull.h"
+#include "utilitario.h"
 
 #include "circulo.h"
 #include "retangulo.h"
@@ -47,6 +48,7 @@ void convertToQuadTrees(QuadTree* quadTrees, DoublyLinkedList* listas){
     DoublyLinkedListToQuadTree(listas[5], quadTrees[5], semaforoGetPoint, semaforoSwap);
     DoublyLinkedListToQuadTree(listas[6], quadTrees[6], radioBaseGetPoint, radioBaseSwap);
     DoublyLinkedListToQuadTree(listas[7], quadTrees[7], postoSaudeGetPoint, postoSaudeSwap);
+    defineQuadraDensidadeDemografica(quadTrees[3], listas[8]);
 }
 
 
@@ -95,4 +97,33 @@ QuadTree DoublyLinkedListToQuadTree(DoublyLinkedList l, QuadTree qt, Point (*get
     //Desaloca a variável da stack (nesse ponto ela já vai estar vazia, porém, como a função encapsula o free não tem problema usar)
     removeStack(stack, 0);
     return conHull;
+}
+
+void defineQuadraDensidadeDemografica(QuadTree quadraQt, DoublyLinkedList densidadesDemograficas){
+    percorreLarguraQt(quadraQt, quadraDefineDensidade, densidadesDemograficas);
+    for(Node aux = getFirst(densidadesDemograficas); aux != NULL; aux = getNext(aux)){
+        free(densidadeDemograficaGetPoint(getInfo(aux)));
+    }
+    removeList(densidadesDemograficas, 1);
+}
+
+void quadraDefineDensidade(Quadra quadra, DoublyLinkedList dds){
+    for(Node aux = getFirst(dds); aux != NULL; aux = getNext(aux)){
+        verificaDensidade(quadra, getInfo(aux));
+    }
+}
+
+void verificaDensidade(Quadra q, DensidadeDemografica dd){
+    float qX = quadraGetX(q);
+    float qY = quadraGetY(q);
+    float qW = quadraGetWidth(q);
+    float qH = quadraGetHeight(q);
+    float ddX = densidadeDemograficaGetX(dd);
+    float ddY = densidadeDemograficaGetY(dd);
+    float ddW = densidadeDemograficaGetWidth(dd);
+    float ddH = densidadeDemograficaGetHeight(dd);
+    float ddDensidade = densidadeDemograficaGetDensidadeDemografica(dd);
+    if(insideRetangulo(qX, qY, ddX, ddY, ddW, ddH) == 1 && insideRetangulo(qX + qW, qY, ddX, ddY, ddW, ddH) == 1 && insideRetangulo(qX, qY + qH, ddX, ddY, ddW, ddH) == 1 && insideRetangulo(qX + qW, qY + qH, ddX, ddY, ddW, ddH) == 1){
+        quadraSetDensidadeDemografica(q, ddDensidade);
+    }
 }

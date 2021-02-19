@@ -122,12 +122,28 @@ int main(int argc, char* argv[]){
 
 
 
-    for(int i = 0; i < 9; i++){
+    for(int i = 0; i < 8; i++){
         removeList(listas[i], 0);
     }
-    for(int i = 0; i < 8; i++){
+    for(int i = 0; i < 9; i++){
         desalocaQt(quadTrees[i]);
     }
+
+    free(dirEntrada);
+    free(arqGeo);
+    free(arqQry);
+    free(dirSaida);
+    free(dirGeo);
+    free(nomeArquivoGeo);
+    free(saidaSvgGeo);
+    free(dirQry);
+    free(nomeGeoSemExtensao);
+    free(nomeQrySemExtensao);
+    free(nomeGeoQry);
+    free(dirSaidaGeoQry);
+    free(nomeArquivoLogTxt);
+    free(dirTxt);
+    free(cores);
     
     return 0;
 }

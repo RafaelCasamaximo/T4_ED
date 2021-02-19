@@ -32,18 +32,21 @@ DoublyLinkedList convexHull(DoublyLinkedList l, Point (*getPoint)(Info), void (*
     quickSortDoublyLinkedList(l, getNext(primeiro), getLast(l), getPoint, swapInfo);
 
     //Leva em consideração o tamanho da lista na hora de selecionar os pontos e o sentido deles no convexhull
-    int j = getSize(l);
+    DoublyLinkedList lAux = create();
+    insert(lAux, getInfo(primeiro));
 
     //Começa do 3º e itera
     for(Node i = getNext(getNext(primeiro)); i != NULL; i = getNext(i)){
         Point p1 = getPoint(getInfo(i));
         Point p2 = getPoint(getInfo(getPrevious(i)));
         //Se a area do vetor formado pelo primeiro, p2 e p1 for 0 (colinear) remove o anterior da lista e diminui o tamanho dela
-        if(orientacao(getPoint(getInfo(primeiro)), p2, p1) == 0){
-            removeNode(l, getPrevious(i), 0);
-            j--;
+        if(orientacao(getPoint(getInfo(primeiro)), p2, p1) != 0){
+            insert(lAux, getInfo(getPrevious(i)));
         }
     }
+
+    insert(lAux, getInfo(getLast(l)));
+    int j = getSize(lAux);
     //Após isso, se o tamanho da lista for menor que três, retorna NULL e encerra o convex hull (Pois os pontos são sómente colineares formando uma reta, sendo impossivel de calcular um poligono)
     if(j < 3){
         return NULL;
@@ -64,5 +67,7 @@ DoublyLinkedList convexHull(DoublyLinkedList l, Point (*getPoint)(Info), void (*
         insert(conHull, getPoint(getInfo(i)));
         i = getNext(i);
     }
+
+    removeList(lAux, 0);
     return conHull;
 }

@@ -162,7 +162,28 @@ void quadraSwap(Quadra q1, Quadra q2){
 }
 
 void quadraDesenhaSvgGeo(Quadra quadra, void* fileSvg){
-    fprintf((FILE*)fileSvg, "\n\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" style=\"stroke:%s;fill:%s;stroke-widht:%s\"/>", quadraGetX(quadra), quadraGetY(quadra), quadraGetWidth(quadra), quadraGetHeight(quadra), quadraGetCorBorda(quadra), quadraGetCorPreenchimento(quadra), quadraGetEspessura(quadra)); //);
+
+    int sombra = -1;
+    if(quadraGetDensidadeDemografica(quadra) <= 500){
+        sombra = 0;
+    }
+    else if(quadraGetDensidadeDemografica(quadra) <= 1500){
+        sombra = 1;
+    }
+    else if(quadraGetDensidadeDemografica(quadra) <= 3000){
+        sombra = 2;
+    }  
+    else if(quadraGetDensidadeDemografica(quadra) <= 4500){
+        sombra = 3;
+    }
+    else if(quadraGetDensidadeDemografica(quadra) <= 6000){
+        sombra = 4;
+    }
+    else{
+        sombra = 5;
+    }
+    //<filter id=\"shadow%d\">\n\t\t\t<feDropShadow dx=\"2\" dy=\"2\" stdDeviation=\"0.2\" flood-color=\"%s\"/>\n\t\t</filter>
+    fprintf((FILE*)fileSvg, "\n\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" style=\"stroke:%s;fill:%s;stroke-widht:%s\" filter=\"url(#shadow%d)\"/>", quadraGetX(quadra), quadraGetY(quadra), quadraGetWidth(quadra), quadraGetHeight(quadra), quadraGetCorBorda(quadra), quadraGetCorPreenchimento(quadra), quadraGetEspessura(quadra), sombra); //);
     fprintf((FILE*)fileSvg, "\n\t<text x=\"%f\" y=\"%f\" fill=\"black\" stroke=\"seashell\" stroke-width=\"0.5\" dominant-baseline=\"middle\" text-anchor=\"middle\">%s</text>", quadraGetX(quadra) + (quadraGetWidth(quadra) / 2), quadraGetY(quadra) + (quadraGetHeight(quadra) / 2), quadraGetCep(quadra));
 }
 
