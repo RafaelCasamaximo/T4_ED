@@ -3,6 +3,7 @@
 
 #include "qry2.h"
 #include "quadTree.h"
+#include "circulo.h"
 #include "quadra.h"
 #include "hidrante.h"
 #include "semaforo.h"
@@ -17,38 +18,65 @@ enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, PO
 void dq(QuadTree* qt, char* id, float r, int hashtag, FILE* fileTxt){
      fprintf(fileTxt, "\ndq %s %s %f", hashtag == 1 ? "#" : " ", id, r);
 
-     // DoublyLinkedList lista;
-     // Hidrante hidrante = getInfoByIdQt(qt[HIDRANTE], id);
-     // if(hidrante != NULL){
-     //      lista = nosDentroCirculoQt(qt[QUADRA], hidranteGetX(hidrante), hidranteGetY(hidrante), r);
-     // }
+     float x = 0, y = 0;
 
-     // Semaforo semaforo = getInfoByIdQt(qt[SEMAFORO], id);
-     // if(semaforo != NULL){
-     //      lista = nosDentroCirculoQt(qt[QUADRA], semaforoGetX(semaforo), semaforoGetY(semaforo), r);
-     // }
+     Hidrante hidrante = getInfoByIdQt(qt[HIDRANTE], id);
+     if(hidrante != NULL){
+          x = hidranteGetX(hidrante);
+          y = hidranteGetY(hidrante);
+          fprintf(fileTxt, "HIDRANTE | ID: %s  X: %f  Y: %f", hidranteGetId(hidrante), hidranteGetX(hidrante), hidranteGetY(hidrante));
+     }
 
-     // RadioBase radiobase = getInfoByIdQt(qt[RADIOBASE], id);
-     // if(radiobase != NULL){
-     //      lista = nosDentroCirculoQt(qt[QUADRA], radioBaseGetX(radiobase), radioBaseGetY(radiobase), r);
-     // }
+     Semaforo semaforo = getInfoByIdQt(qt[SEMAFORO], id);
+     if(semaforo != NULL){
+          x = semaforoGetX(semaforo);
+          y = semaforoGetY(semaforo);
+          fprintf(fileTxt, "SEMAFORO | ID: %s  X: %f  Y: %f", semaforoGetId(semaforo), semaforoGetX(semaforo), semaforoGetY(semaforo));
+     }
+
+     RadioBase radiobase = getInfoByIdQt(qt[RADIOBASE], id);
+     if(radiobase != NULL){
+          x = radioBaseGetX(radiobase);
+          y = radioBaseGetY(radiobase);
+          fprintf(fileTxt, "RADIOBASE | ID: %s  X: %f  Y: %f", radioBaseGetId(radiobase), radioBaseGetX(radiobase), radioBaseGetY(radiobase));
+     }
+
+     DoublyLinkedList lista = nosDentroCirculoQt(qt[QUADRA], x, y, r);
+     for(Node aux = getFirst(lista); aux != NULL; aux = getNext(aux)){
+          QtNo noArvore = getInfo(aux); //Como é retornada uma lista de nós da árvore, é preciso pegar a info da lista -> nó da qt
+          Quadra quadra = getInfoQt(qt[QUADRA], noArvore); //Agora que sabemos qual é o nó da árvore, pegamos a info desse nó (struct da respectiva quadra)
+
+          float qX = quadraGetX(quadra);
+          float qY = quadraGetY(quadra);
+          float qW = quadraGetWidth(quadra);
+          float qH = quadraGetHeight(quadra);
+
+          if(insideCirculo(qX, qY, x, y, r) == 1 && insideCirculo(qX + qW, qY, x, y, r) == 1 && insideCirculo(qX, qY + qH, x, y, r) == 1 && insideCirculo(qX + qW, qY + qH, x, y, r) == 1){
+               if(hashtag == 0){
+                    removeNoQt(qt[QUADRA], getNoQt(qt[QUADRA], qX, qY));
+                    fprintf(fileTxt, "QUADRA | CEP: %s", quadraGetCep(quadra));
+                    free(quadraGetPoint(quadra));
+                    free(quadra);
+               }
+               quadraSetArredondado(quadra, 1);
+               quadraSetCorPreenchimento(quadra, "beige");
+               quadraSetCorBorda(quadra, "olive");
+          }
+          
+     }
+     //anel em volta do equip
+     Circulo anel1 = criaCirculo("-1", x, y, 10, "indigo", "none", "8px");
+     Circulo anel2 = criaCirculo("-1", x, y, 23, "crimson", "none", "8px");
+     insereQt(qt[CIRCULO], circuloGetPoint(anel1), anel1);
+     insereQt(qt[CIRCULO], circuloGetPoint(anel2), anel2);
+
+     //circulo raio r região de deleção
+     Circulo circulo = criaCirculo("-1", x, y, r, "goldenrod", "none", "4px");
+     insereQt(qt[CIRCULO], circuloGetPoint(circulo), circulo);
      
-     // for(Node aux = getFirst(aux); aux != NULL; aux = getNext(aux)){
-     //      QtNo noArvore = getInfo(aux); //Nosso nó da arvore
-     //      Quadra quadra = getInfoQt(qt[QUADRA], noArvore); //Pega a quadra
-     // }
-
-     // // float qX = quadraGetX(quadra);
-     // // float qY = quadraGetY(quadra);
-     // // float qW = quadraGetWidth(quadra);
-     // // float qH = quadraGetHeight(quadra);
-
-     // // if(insideCirculo(qX, qY, x, y, r) == 1 && insideCirculo(qX + qW, qY, x, y, r) == 1 && insideCirculo(qX, qY + qH, x, y, r) == 1 && insideCirculo(qX + qW, qY + qH, x, y, r) == 1){
-     // //      quadraSetCorBorda(quadra, cstrk);
-     // //      fprintf(fileTxt, "CEP QUADRA: %s\n", quadraGetCep(quadra));
-     // // }
-
+     removeList(lista, 0);
 }
+
 
 void del(QuadTree* qt, char* id, FILE* fileTxt){
      fprintf(fileTxt, "\ndel %s", id);
@@ -121,6 +149,8 @@ void cbq(QuadTree* qt, float x, float y, float r, char* cstrk, FILE* fileTxt){
           }
 
      }
+
+     removeList(lista, 0);
 }
 
 
@@ -200,4 +230,5 @@ void car(QuadTree* qt, float x, float y, float w, float h, FILE* fileTxt){
      //Imprime Área total das quadras
      fprintf(fileTxt, "\n ÁREA TOTAL: %f\n", areaTotal);
 
+     removeList(lista, 0);
 }
