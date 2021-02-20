@@ -121,7 +121,6 @@ int main(int argc, char* argv[]){
     }
 
 
-
     for(int i = 0; i < 8; i++){
         removeList(listas[i], 0);
     }
