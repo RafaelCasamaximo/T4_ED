@@ -17,6 +17,7 @@ char* localCasosGetCep(LocalCasos localCasos);
 char localCasosGetFace(LocalCasos localCasos);
 float localCasosGetX(LocalCasos localCasos);
 float localCasosGetY(LocalCasos localCasos);
+void localCasosSetPoint(LocalCasos localCasos, Point point);
 
 /*
 Setters: Define o atributo do título da função
@@ -28,6 +29,7 @@ void localCasosSetCep(LocalCasos localCasos, char* cep);
 void localCasosSetFace(LocalCasos localCasos, char face);
 void localCasosSetX(LocalCasos localCasos, float x);
 void localCasosSetY(LocalCasos localCasos, float y);
+Point localCasosGetPoint(LocalCasos localCasos);
 
 /*
 Realiza a troca dos atributos de dois objetos p1 e p2

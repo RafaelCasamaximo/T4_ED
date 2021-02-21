@@ -3,11 +3,12 @@
 #include <string.h>
 
 #include "localCasos.h"
+#include "point.h"
 
 typedef struct{
     int n, num;
     char cep[20], face;
-    float x, y;
+    Point point;
 }LocalCasosStruct;
 
 
@@ -18,8 +19,7 @@ LocalCasos criaLocalCasos(int n, int num, char* cep, char face, float x, float y
     lc->num = num;
     strcpy(lc->cep, cep);
     lc->face = face;
-    lc->x = x;
-    lc->y = y;
+    lc->point = criaPoint(x, y);
     return lc;
 }
 
@@ -46,12 +46,18 @@ void localCasosSetFace(LocalCasos localCasos, char face){
 
 void localCasosSetX(LocalCasos localCasos, float x){
     LocalCasosStruct* lc = (LocalCasosStruct*)localCasos;
-    lc->x = x;
+    setPointX(lc->point, x);
 }
 
 void localCasosSetY(LocalCasos localCasos, float y){
     LocalCasosStruct* lc = (LocalCasosStruct*)localCasos;
-    lc->y = y;
+    setPointX(lc->point, y);
+}
+
+void localCasosSetPoint(LocalCasos localCasos, Point point){
+    LocalCasosStruct* lc = (LocalCasosStruct*)localCasos;
+    free(lc->point);
+    lc->point = point;
 }
 
 //Getters
@@ -77,12 +83,17 @@ char localCasosGetFace(LocalCasos localCasos){
 
 float localCasosGetX(LocalCasos localCasos){
     LocalCasosStruct* lc = (LocalCasosStruct*)localCasos;
-    return lc->x;
+    return getPointX(lc->point);
 }
 
 float localCasosGetY(LocalCasos localCasos){
     LocalCasosStruct* lc = (LocalCasosStruct*)localCasos;
-    return lc->y;
+    return getPointY(lc->point);
+}
+
+Point localCasosGetPoint(LocalCasos localCasos){
+    LocalCasosStruct* lc = (LocalCasosStruct*)localCasos;
+    return lc->point; 
 }
 
 //Swap

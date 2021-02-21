@@ -18,23 +18,25 @@
 #include "radioBase.h"
 #include "postoSaude.h"
 #include "densidadeDemografica.h"
+#include "localCasos.h"
 #include "linha.h"
 
 
 //Enumeration para todas as listas utilizadas
-enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, LINHA};
+enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, LINHA, LOCALCASOS};
 
 void instanciaQts(QuadTree* quadTrees){
     //Define uma quadtree para cada figura ou instrumento e passa a função
-    quadTrees[0] = criaQt(circuloGetId);
-    quadTrees[1] = criaQt(retanguloGetId);
-    quadTrees[2] = criaQt(textoGetId);
-    quadTrees[3] = criaQt(quadraGetCep);
-    quadTrees[4] = criaQt(hidranteGetId);
-    quadTrees[5] = criaQt(semaforoGetId);
-    quadTrees[6] = criaQt(radioBaseGetId);
-    quadTrees[7] = criaQt(NULL); //Posto Saude
-    quadTrees[8] = criaQt(linhaGetCep);
+    quadTrees[CIRCULO] = criaQt(circuloGetId);
+    quadTrees[RETANGULO] = criaQt(retanguloGetId);
+    quadTrees[TEXTO] = criaQt(textoGetId);
+    quadTrees[QUADRA] = criaQt(quadraGetCep);
+    quadTrees[HIDRANTE] = criaQt(hidranteGetId);
+    quadTrees[SEMAFORO] = criaQt(semaforoGetId);
+    quadTrees[RADIOBASE] = criaQt(radioBaseGetId);
+    quadTrees[POSTOSAUDE] = criaQt(NULL); //Posto Saude
+    quadTrees[LINHA] = criaQt(linhaGetCep);
+    quadTrees[LOCALCASOS] = criaQt(NULL);
 }
 
 

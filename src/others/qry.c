@@ -591,7 +591,7 @@ void cv(DoublyLinkedList* listas, int n,  char* cep, char face, int num){
     }
     else if(face == 'S'){
         x += num;
-        x -= 10;
+        //x -= 10; errado
     }
     else if(face == 'O'){
         x += w;
@@ -603,7 +603,7 @@ void cv(DoublyLinkedList* listas, int n,  char* cep, char face, int num){
         y += h;
         y -= 20;
         x += num;
-        x -= 10;
+        //x -= 10;
     }
     //criaLocalCasos(int n, int num, char* cep, char face, float x, float y);
     localCasosAux = criaLocalCasos(n, num, cep, face, x, y);

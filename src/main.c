@@ -19,7 +19,7 @@
 
 
 //Enumeration para todas as listas utilizadas
-enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, DENSIDADEDEMOGRAFICA};
+enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, DENSIDADEDEMOGRAFICA, LOCALCASOS};
 
 int main(int argc, char* argv[]){
     //Variáveis passadas como parametro para o Path
@@ -84,7 +84,7 @@ int main(int argc, char* argv[]){
     readGeo(listas, dirGeo, cores);
     
     //Define QuadTrees
-    QuadTree quadTrees[9];
+    QuadTree quadTrees[10];
     //Instancia quadTrees e suas funções (getId)
     instanciaQts(quadTrees);
     //Converte todas as listas para quadTrees
@@ -124,7 +124,7 @@ int main(int argc, char* argv[]){
     for(int i = 0; i < 8; i++){
         removeList(listas[i], 0);
     }
-    for(int i = 0; i < 9; i++){
+    for(int i = 0; i < 10; i++){
         desalocaQt(quadTrees[i]);
     }
 
