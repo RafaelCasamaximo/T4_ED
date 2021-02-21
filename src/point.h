@@ -14,4 +14,6 @@ float getPointY(Point point);
 void setPointX(Point point, float x);
 void setPointY(Point point, float y);
 
+void atribuirPonto(Point p1, Point p2);
+
 #endif 

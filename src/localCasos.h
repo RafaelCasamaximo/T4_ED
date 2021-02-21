@@ -3,6 +3,8 @@
 
 typedef void* LocalCasos; 
 
+#include "point.h"
+
 //Função responsável para criar LocalCasos. Retorna um pointer instanciado.
 LocalCasos criaLocalCasos(int n, int num, char* cep, char face, float x, float y);
 
@@ -35,6 +37,8 @@ Point localCasosGetPoint(LocalCasos localCasos);
 Realiza a troca dos atributos de dois objetos p1 e p2
 PRE: Objetos p1 e p2
 */
-void swap(LocalCasos* p1, LocalCasos* p2);
+void localCasosSwap(LocalCasos* p1, LocalCasos* p2);
+
+void localCasosDesenhaSvgQry(LocalCasos localCasos, void* fileSvg);
 
 #endif

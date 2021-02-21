@@ -22,7 +22,7 @@ Texto criaTexto(char* id, int size, float x, float y, char* txt, char* cb, char*
     strcpy(tex->id, id);
     strcpy(tex->cb, cb);
     strcpy(tex->cp, cp);
-    tex->txt = (char*) malloc(sizeof(char) * size);
+    tex->txt = (char*) malloc(sizeof(char) * (size + 1));
     strcpy(tex->txt, txt);
     return tex;
 }

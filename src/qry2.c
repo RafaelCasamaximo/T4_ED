@@ -12,16 +12,19 @@
 #include "utilitario.h"
 #include "texto.h"
 #include "retangulo.h"
+#include "string.h"
 
 enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, LINHA};
 
 void dq(QuadTree* qt, char* id, float r, int hashtag, FILE* fileTxt){
      fprintf(fileTxt, "\ndq %s %s %f", hashtag == 1 ? "#" : " ", id, r);
+     fflush(stdout);
 
      float x = 0, y = 0;
 
      Hidrante hidrante = getInfoByIdQt(qt[HIDRANTE], id);
      if(hidrante != NULL){
+          fflush(stdout);
           x = hidranteGetX(hidrante);
           y = hidranteGetY(hidrante);
           fprintf(fileTxt, "HIDRANTE | ID: %s  X: %f  Y: %f", hidranteGetId(hidrante), hidranteGetX(hidrante), hidranteGetY(hidrante));
@@ -29,6 +32,7 @@ void dq(QuadTree* qt, char* id, float r, int hashtag, FILE* fileTxt){
 
      Semaforo semaforo = getInfoByIdQt(qt[SEMAFORO], id);
      if(semaforo != NULL){
+          fflush(stdout);
           x = semaforoGetX(semaforo);
           y = semaforoGetY(semaforo);
           fprintf(fileTxt, "SEMAFORO | ID: %s  X: %f  Y: %f", semaforoGetId(semaforo), semaforoGetX(semaforo), semaforoGetY(semaforo));
@@ -36,6 +40,7 @@ void dq(QuadTree* qt, char* id, float r, int hashtag, FILE* fileTxt){
 
      RadioBase radiobase = getInfoByIdQt(qt[RADIOBASE], id);
      if(radiobase != NULL){
+          fflush(stdout);
           x = radioBaseGetX(radiobase);
           y = radioBaseGetY(radiobase);
           fprintf(fileTxt, "RADIOBASE | ID: %s  X: %f  Y: %f", radioBaseGetId(radiobase), radioBaseGetX(radiobase), radioBaseGetY(radiobase));
@@ -53,16 +58,17 @@ void dq(QuadTree* qt, char* id, float r, int hashtag, FILE* fileTxt){
 
           if(insideCirculo(qX, qY, x, y, r) == 1 && insideCirculo(qX + qW, qY, x, y, r) == 1 && insideCirculo(qX, qY + qH, x, y, r) == 1 && insideCirculo(qX + qW, qY + qH, x, y, r) == 1){
                if(hashtag == 0){
-                    removeNoQt(qt[QUADRA], getNoQt(qt[QUADRA], qX, qY));
+                    removeNoQt(qt[QUADRA], noArvore);
                     fprintf(fileTxt, "QUADRA | CEP: %s", quadraGetCep(quadra));
                     free(quadraGetPoint(quadra));
                     free(quadra);
                }
-               quadraSetArredondado(quadra, 1);
-               quadraSetCorPreenchimento(quadra, "beige");
-               quadraSetCorBorda(quadra, "olive");
+               else{
+                    quadraSetArredondado(quadra, 1);
+                    quadraSetCorPreenchimento(quadra, "beige");
+                    quadraSetCorBorda(quadra, "olive");
+               }
           }
-          
      }
      //anel em volta do equip
      Circulo anel1 = criaCirculo("-1", x, y, 10, "indigo", "none", "8px");
@@ -71,7 +77,7 @@ void dq(QuadTree* qt, char* id, float r, int hashtag, FILE* fileTxt){
      insereQt(qt[CIRCULO], circuloGetPoint(anel2), anel2);
 
      //circulo raio r região de deleção
-     Circulo circulo = criaCirculo("-1", x, y, r, "goldenrod", "none", "4px");
+     Circulo circulo = criaCirculo("-1", x, y, r, "goldenrod", "none", "8px");
      insereQt(qt[CIRCULO], circuloGetPoint(circulo), circulo);
      
      removeList(lista, 0);
@@ -84,9 +90,9 @@ void del(QuadTree* qt, char* id, FILE* fileTxt){
      Quadra quadra = getInfoByIdQt(qt[QUADRA], id);
      if(quadra != NULL){
           fprintf(fileTxt, "\nX:%f Y:%f - QUADRA CEP: %s", quadraGetX(quadra), quadraGetY(quadra), quadraGetCep(quadra));
-          quadra = removeNoQt(qt, getNoQt(qt, quadraGetX(quadra), quadraGetY(quadra)));
+          quadra = removeNoQt(qt[QUADRA], getNoQt(qt[QUADRA], quadraGetX(quadra), quadraGetY(quadra)));
           Linha linha = criaLinha(quadraGetX(quadra) + (quadraGetWidth(quadra) / 2), quadraGetY(quadra) + (quadraGetHeight(quadra) / 2), quadraGetX(quadra) + (quadraGetWidth(quadra) / 2), 0, 0, 0, quadraGetCep(quadra));
-          insereQt(qt, linhaGetP1(linha), linha);
+          insereQt(qt[LINHA], linhaGetP1(linha), linha);
           free(quadraGetPoint(quadra));
           free(quadra);
           return;
@@ -94,9 +100,9 @@ void del(QuadTree* qt, char* id, FILE* fileTxt){
      Hidrante hidrante = getInfoByIdQt(qt[HIDRANTE], id);
      if(hidrante != NULL){
           fprintf(fileTxt, "\nX:%f Y:%f - HIDRANTE CEP: %s", hidranteGetX(hidrante), hidranteGetY(hidrante), hidranteGetId(hidrante));
-          hidrante = removeNoQt(qt, getNoQt(qt, hidranteGetX(hidrante), hidranteGetY(hidrante)));
+          hidrante = removeNoQt(qt[HIDRANTE], getNoQt(qt[HIDRANTE], hidranteGetX(hidrante), hidranteGetY(hidrante)));
           Linha linha = criaLinha(hidranteGetX(hidrante), hidranteGetY(hidrante), hidranteGetX(hidrante), 0, 0, 0, hidranteGetId(hidrante));
-          insereQt(qt, linhaGetP1(linha), linha);
+          insereQt(qt[LINHA], linhaGetP1(linha), linha);
           free(hidranteGetPoint(hidrante));
           free(hidrante);
           return;
@@ -104,9 +110,9 @@ void del(QuadTree* qt, char* id, FILE* fileTxt){
      Semaforo semaforo = getInfoByIdQt(qt[SEMAFORO], id);
      if(semaforo != NULL){
           fprintf(fileTxt, "\nX:%f Y:%f - SEMAFORO CEP: %s", semaforoGetX(semaforo), semaforoGetY(semaforo), semaforoGetId(semaforo));
-          semaforo = removeNoQt(qt, getNoQt(qt, semaforoGetX(semaforo), semaforoGetY(semaforo)));
+          semaforo = removeNoQt(qt[SEMAFORO], getNoQt(qt[SEMAFORO], semaforoGetX(semaforo), semaforoGetY(semaforo)));
           Linha linha = criaLinha(semaforoGetX(semaforo), semaforoGetY(semaforo), semaforoGetX(semaforo), 0, 0, 0, semaforoGetId(semaforo));
-          insereQt(qt, linhaGetP1(linha), linha);
+          insereQt(qt[LINHA], linhaGetP1(linha), linha);
           free(semaforoGetPoint(semaforo));
           free(semaforo);
           return;
@@ -114,9 +120,9 @@ void del(QuadTree* qt, char* id, FILE* fileTxt){
      RadioBase radiobase = getInfoByIdQt(qt[RADIOBASE], id);
      if(radiobase != NULL){
           fprintf(fileTxt, "\nX:%f Y:%f - RADIOBASE CEP: %s", radioBaseGetX(radiobase), radioBaseGetY(radiobase), radioBaseGetId(radiobase));
-          radiobase = removeNoQt(qt, getNoQt(qt, radioBaseGetX(radiobase), radioBaseGetY(radiobase)));
+          radiobase = removeNoQt(qt[RADIOBASE], getNoQt(qt[RADIOBASE], radioBaseGetX(radiobase), radioBaseGetY(radiobase)));
           Linha linha = criaLinha(radioBaseGetX(radiobase), radioBaseGetY(radiobase), radioBaseGetX(radiobase), 0, 0, 0, radioBaseGetId(radiobase));
-          insereQt(qt, linhaGetP1(linha), linha);
+          insereQt(qt[LINHA], linhaGetP1(linha), linha);
           free(radioBaseGetPoint(radiobase));
           free(radiobase);
           return;
@@ -125,7 +131,7 @@ void del(QuadTree* qt, char* id, FILE* fileTxt){
 
 
 void cbq(QuadTree* qt, float x, float y, float r, char* cstrk, FILE* fileTxt){
-     DoublyLinkedList lista = nosDentroCirculoQt(qt, x, y, r); //Retorna uma lista de nós que estão dentro do circulo x,y com raio r
+     DoublyLinkedList lista = nosDentroCirculoQt(qt[QUADRA], x, y, r); //Retorna uma lista de nós que estão dentro do circulo x,y com raio r
 
      fprintf(fileTxt, "\ncbq %f %f %f %s\n", x, y, r, cstrk);
      
@@ -147,9 +153,7 @@ void cbq(QuadTree* qt, float x, float y, float r, char* cstrk, FILE* fileTxt){
                quadraSetCorBorda(quadra, cstrk);
                fprintf(fileTxt, "CEP QUADRA: %s\n", quadraGetCep(quadra));
           }
-
      }
-
      removeList(lista, 0);
 }
 
@@ -181,7 +185,7 @@ void crd(QuadTree* qt, char* id, FILE* fileTxt){
 
 
 void car(QuadTree* qt, float x, float y, float w, float h, FILE* fileTxt){
-     DoublyLinkedList lista = nosDentroRetanguloQt(qt, x, y, x + w, y + h); //Retorna uma lista de nós que estão dentro do retangulo x, y, w, h
+     DoublyLinkedList lista = nosDentroRetanguloQt(qt[QUADRA], x, y, x + w, y + h); //Retorna uma lista de nós que estão dentro do retangulo x, y, w, h
 
      fprintf(fileTxt, "\ncar %f %f %f %f", x, y, w, h);
 
@@ -204,9 +208,9 @@ void car(QuadTree* qt, float x, float y, float w, float h, FILE* fileTxt){
 
                //Escrever a area da quadra dentro da quadra (Querendo adicionar um TEXTO para ser desenhado no SVG)
                //Para escrever um texto com um valor que é float, eu tenho que converter pra string
-               char areaQuadraAtualString[10];
+               char areaQuadraAtualString[20];
                sprintf(areaQuadraAtualString, "%f", areaQuadraAtual); //Converte float para string. O 1o parâmetro é sempre a string e o resto é o float
-               Texto tAux = criaTexto("-1", 10, qX + (qW / 2), qY + (qH / 2), areaQuadraAtualString, "seashell", "black"); //Crio meu texto com a area que vai ser printada dentro da quadra
+               Texto tAux = criaTexto("-1", strlen(areaQuadraAtualString), qX + (qW / 2), qY + (qH / 2), areaQuadraAtualString, "seashell", "black"); //Crio meu texto com a area que vai ser printada dentro da quadra
                insereQt(qt[TEXTO], textoGetPoint(tAux), tAux); //Adiciono texto na QT
                //Somar a area da quadra com a area total
                areaTotal += areaQuadraAtual;
@@ -214,7 +218,6 @@ void car(QuadTree* qt, float x, float y, float w, float h, FILE* fileTxt){
                //Imprime no TXT a area e as informações da quadra atual
                fprintf(fileTxt, "\nQUADRA CEP: %s - ÁREA: %f", quadraGetCep(q), areaQuadraAtual);
           }
-
      }
 
      //Printar o retangulo do comando

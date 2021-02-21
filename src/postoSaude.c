@@ -59,6 +59,13 @@ void postoSaudeSwap(PostoSaude ps1, PostoSaude ps2){
     *b = temp;
 }
 
+void postoSaudeAtribuirPonto(PostoSaude posto1, PostoSaude posto2){
+    PostoSaudeStruct* ps1 = (PostoSaudeStruct*)posto1;
+    PostoSaudeStruct* ps2 = (PostoSaudeStruct*)posto2;
+
+    atribuirPonto(ps1->point, ps2->point);
+}
+
 void postoSaudeDesenhaSvgGeo(PostoSaude posto, void* fileSvg){
     fprintf((FILE*)fileSvg, "\n\t<circle cx=\"%f\" cy=\"%f\" r=\"3\" style=\"fill:black;stroke:white;stroke-widht:2\"/>",postoSaudeGetX(posto), postoSaudeGetY(posto));
 }

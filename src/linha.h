@@ -21,6 +21,7 @@ void linhaSetInterna(Linha linha, int interna);
 void linhaSetCep(Linha linha, char* cep);
 void linhaSetP1(Linha linha, Point p1);
 void linhaSetP2(Linha linha, Point p2);
+void linhaSetTracejada(Linha linha, int tracejada);
 /*
 Getters: Retorna o atributo do título da função
 PRE: Objeto
@@ -35,6 +36,7 @@ int linhaGetInterna(Linha linha);
 char* linhaGetCep(Linha linha);
 Point linhaGetP1(Linha linha);
 Point linhaGetP2(Linha linha);
+int linhaGetTracejada(Linha linha);
 
 void linhaDesenhaSvgQry(Linha linha, void* fileSvgQry);
 

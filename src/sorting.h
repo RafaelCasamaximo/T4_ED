@@ -11,7 +11,7 @@
     PRE: vetor de elementos InfoSoc para ser ordenado e o tamanho no vetor
     POS: 
 */
-void shellSorting(InfoSoc* vet, int n);
+void shellSorting(DoublyLinkedList lista, float x, float y);
 
 /*
     Função que calcula a área de um poligono qualquer

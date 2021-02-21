@@ -21,7 +21,7 @@ typedef char* InfoKey;
 typedef void* ExtraInfo;
 
 typedef InfoKey funcGetChave(QtInfo);
-typedef void funcVisita(QtInfo,ExtraInfo);
+typedef void funcVisita(QtInfo, ExtraInfo);
 
 QuadTree criaQt(funcGetChave fun);
 /**
@@ -42,25 +42,25 @@ DoublyLinkedList chavesDentroRetanguloQt(QuadTree qt, double x1, double y1, doub
     É recomendável que a lista retornada seja desalocada após ser usada.
  */
 
-DoublyLinkedList chavesDentroCirculoQt(QuadTree qt,double x, double y, double r);
+DoublyLinkedList chavesDentroCirculoQt(QuadTree qt, double x, double y, double r);
 /**
     Similar à função chavesDentroRetanguloQt(). Retorna a chave cuja
     coordenada é interna à circunferência de raio r e centro em (x,y).
  */
 
-DoublyLinkedList pontosDentroRetanguloQt(QuadTree qt,double x1, double y1,double x2, double y2);
+DoublyLinkedList pontosDentroRetanguloQt(QuadTree qt, double x1, double y1,double x2, double y2);
 /**
     Similar à função chavesDentroRetanguloQt().Porém, retorna a coordenada geográfica (Ponto)
     associada á informação. Memória também é alocada para cada ponto retornado na lista.
  */
 
-DoublyLinkedList pontosDentroCirculoQt(QuadTree qt,double x, double y, double r);
+DoublyLinkedList pontosDentroCirculoQt(QuadTree qt, double x, double y, double r);
 /**
     Similar à função pontosDentroRetanguloQt(). Retorna pontos internos
     à circunferência de raio r e centro em (x,y).
  */
 
-DoublyLinkedList nosDentroRetanguloQt(QuadTree qt,double x1, double y1,double x2, double y2);
+DoublyLinkedList nosDentroRetanguloQt(QuadTree qt, double x1, double y1,double x2, double y2);
 /**
     Similar à função pontosDentroRetanguloQt(). Retorna apontadores para
     nós da árvore contendo informações cuja coordenada está dentro da
@@ -68,13 +68,13 @@ DoublyLinkedList nosDentroRetanguloQt(QuadTree qt,double x1, double y1,double x2
     A memória relativa aos apontadores da lista não deve ser desalocada.
  */
 
-DoublyLinkedList nosDentroCirculoQt(QuadTree qt,double x, double y, double r);
+DoublyLinkedList nosDentroCirculoQt(QuadTree qt, double x, double y, double r);
 /**
     Similar à função nosDentroRetanguloQt(). Retorna nós internos
     à circunferência de raio r e centro em (x,y).
  */
 
-void percorreProfundidadeQt(QuadTree qt,funcVisita f,ExtraInfo ei);
+void percorreProfundidadeQt(QuadTree qt, funcVisita f, ExtraInfo ei);
 /**
     Percorre a árvore em profundidade. Em cada nó visitado invoca
     a função f. Seja pInfo o valor retornado pela operação getInfoQt()
@@ -82,7 +82,7 @@ void percorreProfundidadeQt(QuadTree qt,funcVisita f,ExtraInfo ei);
          f(pInfo,ei)
  */
 
-void percorreLarguraQt(QuadTree qt,funcVisita f,ExtraInfo ei);
+void percorreLarguraQt(QuadTree qt, funcVisita f, ExtraInfo ei);
 /**
     Semelhante a percorreProfundidadeQt. Percorre a árvore em largura.
  */

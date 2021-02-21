@@ -21,7 +21,6 @@
 #include "localCasos.h"
 #include "linha.h"
 
-
 //Enumeration para todas as listas utilizadas
 enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, LINHA, LOCALCASOS};
 
@@ -101,6 +100,7 @@ QuadTree DoublyLinkedListToQuadTree(DoublyLinkedList l, QuadTree qt, Point (*get
     return conHull;
 }
 
+
 void defineQuadraDensidadeDemografica(QuadTree quadraQt, DoublyLinkedList densidadesDemograficas){
     percorreLarguraQt(quadraQt, quadraDefineDensidade, densidadesDemograficas);
     for(Node aux = getFirst(densidadesDemograficas); aux != NULL; aux = getNext(aux)){
@@ -109,11 +109,13 @@ void defineQuadraDensidadeDemografica(QuadTree quadraQt, DoublyLinkedList densid
     removeList(densidadesDemograficas, 1);
 }
 
+
 void quadraDefineDensidade(Quadra quadra, DoublyLinkedList dds){
     for(Node aux = getFirst(dds); aux != NULL; aux = getNext(aux)){
         verificaDensidade(quadra, getInfo(aux));
     }
 }
+
 
 void verificaDensidade(Quadra q, DensidadeDemografica dd){
     float qX = quadraGetX(q);

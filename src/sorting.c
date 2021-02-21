@@ -6,24 +6,38 @@
 #include "doublyLinkedList.h"
 #include "localCasos.h"
 #include "utilitario.h"
+#include "postoSaude.h"
 #include "point.h"
 #include "convexHull.h"
 
-void shellSorting(InfoSoc* vet, int n){
-    int gap = n / 2;
-    while(gap > 0){
-        for(int i = gap; i < n; i++){
-            InfoSoc temp = vet[i];
-            int j = i;
-            while(j >= gap && infoSocGetDistancia(vet[j - gap]) > infoSocGetDistancia(temp)){
-                vet[j] = vet[j - gap];
-                j -= gap;
+void shellSorting(DoublyLinkedList lista, float x, float y){
+    PostoSaude info1, info2;
+    int i, j, h, size = getSize(lista);
+
+    for(h = 1; h < size; h = 3 * h + 1);
+
+    while(h > 0){
+        h = (h - 1) / 3;
+        for(i = 0; i < size; i++){
+            info1 = getInfoByIndex(lista, i);
+            PostoSaude aux = criaPostoSaude(postoSaudeGetX(info1), postoSaudeGetY(info1));
+            j = i;
+            PostoSaude aux2 = getInfoByIndex(lista, j - h);
+            while(distanciaEntrePontos(postoSaudeGetX(aux2), postoSaudeGetY(aux2), x, y) > distanciaEntrePontos(postoSaudeGetX(aux), postoSaudeGetY(aux), x, y)){
+                info1 = getInfoByIndex(lista, j);
+                info2 = getInfoByIndex(lista, j - h);
+                postoSaudeAtribuirPonto(info1, info2);
+                j -= h;
+                if(j >= h){
+                    break;
+                }
             }
-            vet[j] = temp;
+            postoSaudeAtribuirPonto(getInfoByIndex(lista, j), aux);
+            free(aux); 
         }
-        gap = gap / 2;
     }
 }
+
 
 float obterArea(DoublyLinkedList l){
     float a = 0;
@@ -40,6 +54,7 @@ float obterArea(DoublyLinkedList l){
     return a / 2;
 }
 
+
 void quickSortDoublyLinkedList(DoublyLinkedList l, Node primeiro, Node ultimo, Point (*getPoint)(Info), void (*swapInfo)(Info, Info)){
     if(ultimo != NULL && primeiro != ultimo && getNext(ultimo) != primeiro){
         Node p = partition(l, primeiro, ultimo, getPoint, swapInfo);
@@ -47,6 +62,7 @@ void quickSortDoublyLinkedList(DoublyLinkedList l, Node primeiro, Node ultimo, P
         quickSortDoublyLinkedList(l, getNext(p), ultimo, getPoint, swapInfo);
     }
 }
+
 
 Node partition(DoublyLinkedList l, Node primeiro, Node ultimo, Point (*getPoint)(Info), void (*swapInfo)(Info, Info)){
     Node i = getPrevious(primeiro);
@@ -61,14 +77,15 @@ Node partition(DoublyLinkedList l, Node primeiro, Node ultimo, Point (*getPoint)
     return i;
 }
 
+
 int comparar(Point a, Point b, Point c){
     int aux = orientacao(a, b, c);
-
     if(aux == 0){
         return distanciaEntrePontos(getPointX(a), getPointY(a), getPointX(c), getPointY(c)) < distanciaEntrePontos(getPointX(a), getPointY(a), getPointX(b), getPointY(b));
     }
     return aux == 1;
 }
+
 
 int orientacao(Point a, Point b, Point c){
     float area = (getPointX(c) - getPointX(b)) * (getPointY(b) - getPointY(a)) - (getPointY(c) - getPointY(b)) * (getPointX(b) - getPointX(a));

@@ -57,6 +57,28 @@ int isEmpty(DoublyLinkedList lista){
     return list->isEmpty;
 }
 
+Info getInfoByIndex(DoublyLinkedList lista, int i){
+    Info info;
+    Node node;
+    int j = 0;
+    node = getFirst(lista);
+    if(node == NULL){
+        return NULL;
+    }
+    while (j < i) {
+        node = getNext(node);
+        j++;
+        if(node == NULL){
+            return NULL;
+        }
+    }
+    info = getInfo(node);
+    return info;
+
+}
+
+
+
 Info getInfo(Node node){
     NodeStruct* nod = (NodeStruct*)node;
     return nod->info;

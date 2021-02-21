@@ -3,9 +3,6 @@
 #include <string.h>
 #include "corPadrao.h"
 
-
-
-
 typedef struct corPadrao{
     //cq
     char quadraSw[22], quadraCfill[22], quadraCstrk[22];
@@ -18,7 +15,6 @@ typedef struct corPadrao{
     //sw
     char circuloSw[22];
     char retanguloSw[22];
-
 }CorPadraoStruct;
 
 

@@ -36,3 +36,9 @@ void setPointY(Point point, float y){
     PointStruct* pnt = (PointStruct*)point;
     pnt->y = y;
 }
+
+void atribuirPonto(Point p1, Point p2){  
+    PointStruct* a = (PointStruct*) p1;
+    PointStruct* b = (PointStruct*) p2;
+    *a = *b;  
+}

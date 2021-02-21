@@ -33,16 +33,9 @@ QuadTree criaQt(funcGetChave fun){
 }
 
 
-QtNo insereQt(QuadTree quad, Point point, QtInfo pointInfo){
-
-    //Converte
-    QuadTreeStruct* qts = (QuadTreeStruct*)quad;
-    NodeQtStruct* node = (NodeQtStruct*)malloc(sizeof(NodeQtStruct));
-
+void insere(QuadTreeStruct* quadTree, NodeQtStruct* node){
     //Define aux e comparativos
-    NodeQtStruct* aux = qts->root; 
-    node->point = point;
-    node->info = pointInfo;
+    NodeQtStruct* aux = quadTree->root;
     //Define parent como NULL pois usa na condição
     node->parent = NULL;
     //Define children do elemento alocado para NULL
@@ -51,20 +44,21 @@ QtNo insereQt(QuadTree quad, Point point, QtInfo pointInfo){
     }
     //Se aux == NULL, então é a 1a inserção. Inserte e retorna o node
     if(aux == NULL){
-        qts->root = node;
-        return node;
+        quadTree->root = node;
+        return;
     }
 
     //Senão, procura até encontrar o lugar apropriado para adicionar
-    //Define auxiliar
-    Point pAux;
     do{
+        //Define auxiliar   
         //Pega o ponto para comparação
-        pAux = aux->point;
+        Point pAux = aux->point;
+
+        Point p = node->point;
         //Vê se está a direita ou à esquerda
-        if(getPointX(point) >= getPointX(pAux)){
+        if(getPointX(p) >= getPointX(pAux)){
             //Vê se está acima ou a baixo
-            if(getPointY(point) >= getPointY(pAux)){
+            if(getPointY(p) >= getPointY(pAux)){
                 //Se a posição encontrada estiver NULL, então está vazia. Adiciona o node
                 if(aux->children[NE] == NULL){
                     aux->children[NE] = node;
@@ -76,23 +70,23 @@ QtNo insereQt(QuadTree quad, Point point, QtInfo pointInfo){
                 }
             }
             else{
-                if(aux->children[SE] == NULL){
-                    aux->children[SE] = node;
-                    node->parent = aux;
-                }
-                else{
-                    aux = aux->children[SE];
-                }
-            }
-        }
-        else{
-            if(getPointY(point) >= getPointY(pAux)){
                 if(aux->children[NW] == NULL){
                     aux->children[NW] = node;
                     node->parent = aux;
                 }
                 else{
                     aux = aux->children[NW];
+                }
+            }
+        }
+        else{
+            if(getPointY(p) >= getPointY(pAux)){
+                if(aux->children[SE] == NULL){
+                    aux->children[SE] = node;
+                    node->parent = aux;
+                }
+                else{
+                    aux = aux->children[SE];
                 }
             }
             else{
@@ -107,50 +101,65 @@ QtNo insereQt(QuadTree quad, Point point, QtInfo pointInfo){
         }
         //A condição do while só é quebrada quando a linha node->parent = aux é executada
     }while(node->parent == NULL);
-    return node;
 }
 
 
+QtNo insereQt(QuadTree qt, Point p, QtInfo pInfo){
+    QuadTreeStruct* quadtree = (QuadTreeStruct*) qt;
+    NodeQtStruct* node = (NodeQtStruct*)malloc(sizeof(NodeQtStruct));
+    node->point = p;
+    node->info = pInfo;
+    insere(quadtree,node);
+    return node;
+}
+
 QtInfo removeNoQt(QuadTree qt, QtNo pNo){
-    QuadTreeStruct* quad = (QuadTreeStruct*) qt;
+    QuadTreeStruct* quadtree = (QuadTreeStruct*) qt;
     NodeQtStruct* node = (NodeQtStruct*) pNo;
+    NodeQtStruct* aux;
+    int i;
+    QtInfo info;
+
     Queue queue = createQueue();
+
     if(node->parent == NULL){
-        for(int i = 0; i < 4; i++){
+        for(i = 0; i < 4; i++){
             if(node->children[i] != NULL){
                 enqueue(queue, node->children[i]);
             }
         }
-        quad->root = NULL;
+        quadtree->root = NULL;
     }
     else{
-        for(int i = 0; i < 4; i++){
+        for(i = 0; i < 4; i++){
             if(node->parent->children[i] == node){
                 node->parent->children[i] = NULL;
                 break;
             }
         }
-        for(int i = 0; i < 4; i++){
-            if(node->parent->children[i] == NULL){
-                node->parent->children[i] = node->children[i];
-                node->children[i]->parent = node->parent;
-            }
-            else{
-                enqueue(queue, node->children[i]);
+        for(i = 0; i < 4; i++){
+            if(node->children[i] != NULL){
+                if(node->parent->children[i] == NULL){
+                    node->parent->children[i] = node->children[i];
+                    node->children[i]->parent = node->parent;
+                }
+                else{
+                    enqueue(queue, node->children[i]);
+                }
             }
         }
     }
-    while(!isQueueEmpty(queue)){
-        NodeQtStruct* aux = dequeue(queue);
-        for(int i = 0; i < 4; i++){
+
+    while(getQueueSize(queue) != 0){
+        aux = dequeue(queue);
+        for(i = 0; i < 4; i++){
             if(aux->children[i] != NULL){
                 enqueue(queue, aux->children[i]);
             }
         }
-        insereQt(quad, aux->point, aux->info);
-        free(aux);
+        insere(quadtree, aux);
     }
-    QtInfo info = getInfoQt(quad, node);
+    info = getInfoQt(quadtree, node);
     free(node);
     deleteQueue(queue);
     return info;
@@ -171,17 +180,17 @@ QtNo getNoQt(QuadTree qt, double x, double y){
             return aux;
         }
 
-        if(x > getPointX(point)){
-            if(y > getPointY(point)){
+        if(x >= getPointX(point)){
+            if(y >= getPointY(point)){
                 aux = aux->children[NE];
             }
             else{
-                aux = aux->children[SE];
+                aux = aux->children[NW];
             }
         }
         else{
-            if(y > getPointY(point)){
-                aux = aux->children[NW];
+            if(y >= getPointY(point)){
+                aux = aux->children[SE];
             }
             else{
                 aux = aux->children[SW];
@@ -302,7 +311,10 @@ void dentroCirculoQt(QuadTree qt, NodeQtStruct* node, DoublyLinkedList l, double
     if(node == NULL){
         return;
     }
-    if(insideCirculo(getPointX(node->point), getPointY(node->point), x, y, r)){
+    float pX = getPointX(node->point);
+    float pY = getPointY(node->point);
+    //printf("X E Y DENTROCIRCULOQT: %f %f", pX, pY);
+    if(insideCirculo(pX, pY, x, y, r)){
         if(fun != NULL){
             insert(l, fun(qt, node));
         }
@@ -311,7 +323,7 @@ void dentroCirculoQt(QuadTree qt, NodeQtStruct* node, DoublyLinkedList l, double
         }
     }
     for(int i = 0; i < 4; i++){
-        dentroCirculoQt(qt, node, l, x, y, r, fun);
+        dentroCirculoQt(qt, node->children[i], l, x, y, r, fun);
     }
 }
 

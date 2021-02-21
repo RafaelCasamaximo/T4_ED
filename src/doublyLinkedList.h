@@ -28,6 +28,13 @@ Retorna 1 se a lista estiver vazia e 0 se não estiver
 int isEmpty(DoublyLinkedList lista);
 
 /*
+Retorna a informação dentro do index i
+PRE: lista e int i
+POS: informação (NULL se for outofboudaries exception)
+*/
+Info getInfoByIndex(DoublyLinkedList lista, int i);
+
+/*
 Retorna a Info do Node
 PRE: Node node
 POS: Info info

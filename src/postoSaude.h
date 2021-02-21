@@ -22,6 +22,8 @@ float postoSaudeGetX(PostoSaude posto);
 float postoSaudeGetY(PostoSaude posto);
 Point postoSaudeGetPoint(PostoSaude posto);
 
+void postoSaudeAtribuirPonto(PostoSaude posto1, PostoSaude posto2);
+
 /*
     Troca dois postoSaude de lugar na memória
     PRE: ps1 e ps2

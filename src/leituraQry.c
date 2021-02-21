@@ -7,6 +7,8 @@
 #include "linha.h"
 #include "retangulo.h"
 #include "qry1.h"
+#include "qry2.h"
+#include "qry3.h"
 
 enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, LINHA};
 
@@ -104,32 +106,31 @@ void readQry(QuadTree* qt, char* dirQry, char* dirTxt){
             hashtag = getc(fileQry);
             if(hashtag == '#'){
                 fscanf(fileQry, "%s %f", cep, &r);
-                //dq(listas, cep, r, 1, id, fileTxt);
+                dq(qt, cep, r, 1, fileTxt);
             }
             fseek(fileQry, -2, SEEK_CUR);
             fscanf(fileQry, "%s %f", cep, &r);
-            //dq(listas, cep, r, 0, id, fileTxt);
-            //id -= 2;
+            dq(qt, cep, r, 0, fileTxt);
         }
         //del
         if(strcmp(comando, "del") == 0){
             fscanf(fileQry, "%s", cep);
-            //del(listas, cep, fileTxt);
+            del(qt, cep, fileTxt);
         }
         //cbq    
         if(strcmp(comando, "cbq") == 0){
             fscanf(fileQry, "%f %f %f %s", &x, &y, &r, cb);
-            //cbq(listas, x, y, r, cb, fileTxt);
+            cbq(qt, x, y, r, cb, fileTxt);
         }   
         //crd?      
         if(strcmp(comando, "crd?") == 0){
             fscanf(fileQry, "%s", cep);
-            //crd(listas, cep, fileTxt);
+            crd(qt, cep, fileTxt);
         }
         //car
         if(strcmp(comando, "car") == 0){
             fscanf(fileQry, "%f %f %f %f", &x, &y, &w, &h);
-            //car(listas, x, y, w, h, id, fileTxt);
+            car(qt, x, y, w, h, fileTxt);
         }   
 
 
@@ -137,7 +138,7 @@ void readQry(QuadTree* qt, char* dirQry, char* dirTxt){
         //cv
         if(strcmp(comando, "cv") == 0){
             fscanf(fileQry, "%d %s %c %d", &n, cep, &face, &num);
-            //cv(listas, n, cep, face, num);
+            cv(qt, n, cep, face, num);
         }
         //soc
         if(strcmp(comando, "soc") == 0){

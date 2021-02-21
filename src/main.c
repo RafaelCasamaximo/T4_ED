@@ -27,6 +27,8 @@ int main(int argc, char* argv[]){
     char* arqGeo = NULL;
     char* arqQry = NULL;
     char* dirSaida = NULL;
+    char* arqPm = NULL;
+    char* arqEc = NULL;
 
     //Variaveis criadas para a localização dos arquivos de entrada e de saída
     //Armazena dirEntrada + arqGeo
@@ -65,6 +67,12 @@ int main(int argc, char* argv[]){
         }
         else if(strcmp(argv[i], "-o") == 0){     
             dirSaida = buscaParametros(argv, i);
+        }
+        else if(strcmp(argv[i], "-ec") == 0){
+            arqEc = buscaParametros(argv, i);
+        }
+        else if(strcmp(argv[i], "-pm") == 0){
+            arqPm = buscaParametros(argv, i);
         }
         i++;
     }

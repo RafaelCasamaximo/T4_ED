@@ -17,7 +17,7 @@
 #include "poligono.h"
 
 
-enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, LINHA};
+enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, LINHA, LOCALCASOS};
 
 void desenhaSvgGeo(QuadTree* qt, char* dirSaida){
 
@@ -36,14 +36,14 @@ void desenhaSvgGeo(QuadTree* qt, char* dirSaida){
     }
     fprintf(fileSvgGeo, "</defs>");
 
-    percorreLarguraQt(qt[0], circuloDesenhaSvgGeo, fileSvgGeo);
-    percorreLarguraQt(qt[1], retanguloDesenhaSvgGeo, fileSvgGeo);
-    percorreLarguraQt(qt[2], textoDesenhaSvgGeo, fileSvgGeo);
-    percorreLarguraQt(qt[3], quadraDesenhaSvgGeo, fileSvgGeo);
-    percorreLarguraQt(qt[4], hidranteDesenhaSvgGeo, fileSvgGeo);
-    percorreLarguraQt(qt[5], semaforoDesenhaSvgGeo, fileSvgGeo);
-    percorreLarguraQt(qt[6], radioBaseDesenhaSvgGeo, fileSvgGeo);
-    percorreLarguraQt(qt[7], postoSaudeDesenhaSvgGeo, fileSvgGeo);
+    percorreLarguraQt(qt[CIRCULO], circuloDesenhaSvgGeo, fileSvgGeo);
+    percorreLarguraQt(qt[RETANGULO], retanguloDesenhaSvgGeo, fileSvgGeo);
+    percorreLarguraQt(qt[TEXTO], textoDesenhaSvgGeo, fileSvgGeo);
+    percorreLarguraQt(qt[QUADRA], quadraDesenhaSvgGeo, fileSvgGeo);
+    percorreLarguraQt(qt[HIDRANTE], hidranteDesenhaSvgGeo, fileSvgGeo);
+    percorreLarguraQt(qt[SEMAFORO], semaforoDesenhaSvgGeo, fileSvgGeo);
+    percorreLarguraQt(qt[RADIOBASE], radioBaseDesenhaSvgGeo, fileSvgGeo);
+    percorreLarguraQt(qt[POSTOSAUDE], postoSaudeDesenhaSvgGeo, fileSvgGeo);
 
     fprintf(fileSvgGeo, "\n</svg>");
     fclose(fileSvgGeo);
@@ -57,17 +57,18 @@ void desenhaSvgQry(QuadTree* qt, char* dirSaida){
         exit(1);
     }
     printf("Arquivo SVG QRY criado com sucesso!");
-    fprintf(fileSvgQry, "<svg>");
+    fprintf(fileSvgQry, "<svg width=\"10000\" height=\"10000\" viewBox=\"0 0 10000 10000\" xmlns=\"http://www.w3.org/2000/svg\">");
 
-    percorreLarguraQt(qt[0], circuloDesenhaSvgGeo, fileSvgQry);
-    percorreLarguraQt(qt[1], retanguloDesenhaSvgQry, fileSvgQry);
-    percorreLarguraQt(qt[2], textoDesenhaSvgGeo, fileSvgQry);
-    percorreLarguraQt(qt[3], quadraDesenhaSvgQry, fileSvgQry);
-    percorreLarguraQt(qt[4], hidranteDesenhaSvgGeo, fileSvgQry);
-    percorreLarguraQt(qt[5], semaforoDesenhaSvgGeo, fileSvgQry);
-    percorreLarguraQt(qt[6], radioBaseDesenhaSvgGeo, fileSvgQry);
-    percorreLarguraQt(qt[7], postoSaudeDesenhaSvgGeo, fileSvgQry); 
-    percorreLarguraQt(qt[8], linhaDesenhaSvgQry, fileSvgQry);
+    percorreLarguraQt(qt[QUADRA], quadraDesenhaSvgQry, fileSvgQry);
+    percorreLarguraQt(qt[HIDRANTE], hidranteDesenhaSvgGeo, fileSvgQry);
+    percorreLarguraQt(qt[SEMAFORO], semaforoDesenhaSvgGeo, fileSvgQry);
+    percorreLarguraQt(qt[RADIOBASE], radioBaseDesenhaSvgGeo, fileSvgQry);
+    percorreLarguraQt(qt[POSTOSAUDE], postoSaudeDesenhaSvgGeo, fileSvgQry); 
+    percorreLarguraQt(qt[CIRCULO], circuloDesenhaSvgGeo, fileSvgQry);
+    percorreLarguraQt(qt[RETANGULO], retanguloDesenhaSvgQry, fileSvgQry);
+    percorreLarguraQt(qt[TEXTO], textoDesenhaSvgGeo, fileSvgQry);
+    percorreLarguraQt(qt[LINHA], linhaDesenhaSvgQry, fileSvgQry);
+    percorreLarguraQt(qt[LOCALCASOS], localCasosDesenhaSvgQry, fileSvgQry);
 
     fprintf(fileSvgQry, "\n</svg>");
     fclose(fileSvgQry);

@@ -10,6 +10,7 @@ typedef struct linha{
     Point p2;
     int pntInicial;
     int interna;
+    int tracejada;
     char cep[22];
 }LinhaStruct;
 
@@ -21,6 +22,7 @@ Linha criaLinha(float x1, float y1, float x2, float y2, int pntInicial, int inte
     lin->p2 = criaPoint(x2, y2);
     lin->pntInicial = pntInicial;
     lin->interna = interna;
+    lin->tracejada = 0;
     strcpy(lin->cep, cep);
     return lin;
 }
@@ -73,6 +75,11 @@ void linhaSetP2(Linha linha, Point p2){
     lin->p2 = p2;
 }
 
+void linhaSetTracejada(Linha linha, int tracejada){
+    LinhaStruct* lin = (LinhaStruct*) linha;
+    lin->tracejada = tracejada;
+}
+
 //Getters
 float linhaGetX1(Linha linha){
     LinhaStruct* lin = (LinhaStruct*) linha;
@@ -117,6 +124,11 @@ Point linhaGetP1(Linha linha){
 Point linhaGetP2(Linha linha){
     LinhaStruct* lin = (LinhaStruct*) linha;
     return lin->p2;
+}
+
+int linhaGetTracejada(Linha linha){
+    LinhaStruct* lin = (LinhaStruct*) linha;
+    return lin->tracejada;
 }
 
 void linhaDesenhaSvgQry(Linha linha, void* fileSvgQry){
