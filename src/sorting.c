@@ -28,7 +28,7 @@ void shellSorting(DoublyLinkedList lista, float x, float y){
                 info2 = getInfoByIndex(lista, j - h);
                 postoSaudeAtribuirPonto(info1, info2);
                 j -= h;
-                if(j >= h){
+                if(j < h){
                     break;
                 }
             }

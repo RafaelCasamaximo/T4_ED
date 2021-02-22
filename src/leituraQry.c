@@ -62,11 +62,11 @@ void readQry(QuadTree* qt, char* dirQry, char* dirTxt){
             fscanf(fileQry, "%s %f %f", j, &x, &y);
             interno = inside(qt, j, x, y, &centroDeMassaX, &centroDeMassaY, fileTxt);
             if(interno == 1){ //Dentro
-                linhaAux = criaLinha(x, y, centroDeMassaX, centroDeMassaY, 1, 1, "0");
+                linhaAux = criaLinha(x, y, centroDeMassaX, centroDeMassaY, 1, 1, "-1");
                 insereQt(qt[8], linhaGetP1(linhaAux), linhaAux);
             }
             else if(interno == 0){ //Fora ou borda
-                linhaAux = criaLinha(x, y, centroDeMassaX, centroDeMassaY, 1, 0, "0");
+                linhaAux = criaLinha(x, y, centroDeMassaX, centroDeMassaY, 1, 0, "-1");
                 insereQt(qt[8], linhaGetP1(linhaAux), linhaAux);
             }
         }

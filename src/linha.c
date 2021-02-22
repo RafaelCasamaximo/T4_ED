@@ -143,10 +143,15 @@ void linhaDesenhaSvgQry(Linha linha, void* fileSvgQry){
         }
     }
     else if(linhaGetPntInicial(linha) == 0){ //car e del
-        fprintf((FILE*)fileSvgQry, "\n\t<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" style=\"stroke:black;stroke-width:1\"/>", linhaGetX1(linha), linhaGetY1(linha), linhaGetX2(linha), linhaGetY2(linha));
-        fprintf((FILE*)fileSvgQry, "\n\t<text x=\"%f\" y=\"%f\" fill=\"balck\" stroke=\"seashell\" stroke-width=\"0.5\" dominant-baseline=\"hanging\">%s</text>", linhaGetX2(linha) + 5, linhaGetY2(linha), linhaGetCep(linha));
+        if(linhaGetTracejada(linha) == 1){ //soc
+            fprintf((FILE*)fileSvgQry, "\n\t<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" style=\"stroke:black;stroke-width:1\" stroke-dasharray=\"4\"/>", linhaGetX1(linha), linhaGetY1(linha), linhaGetX2(linha), linhaGetY2(linha));
+        }
+        else{
+            fprintf((FILE*)fileSvgQry, "\n\t<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" style=\"stroke:black;stroke-width:1\"/>", linhaGetX1(linha), linhaGetY1(linha), linhaGetX2(linha), linhaGetY2(linha));
+        }
+        if(strcmp(linhaGetCep(linha), "-1") != 0){
+            fprintf((FILE*)fileSvgQry, "\n\t<text x=\"%f\" y=\"%f\" fill=\"balck\" stroke=\"seashell\" stroke-width=\"0.5\" dominant-baseline=\"hanging\">%s</text>", linhaGetX2(linha) + 5, linhaGetY2(linha), linhaGetCep(linha));
+        }
     }
-    else if(linhaGetPntInicial(linha) == -1){ //soc
-        fprintf((FILE*)fileSvgQry, "\n\t<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" style=\"stroke:black;stroke-width:1\" stroke-dasharray=\"4\"/>", linhaGetX1(linha), linhaGetY1(linha), linhaGetX2(linha), linhaGetY2(linha));
-    }
+   
 }

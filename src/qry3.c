@@ -75,7 +75,7 @@ void soc(QuadTree* qt, int k, char* cep, char face, int num, FILE* fileTxt){
     int i = 0;
     for(Node aux = getFirst(lista); aux != NULL; aux = getNext(aux)){
         if(i < k){
-            Linha linha = criaLinha(cx, cy, postoSaudeGetX(getInfo(aux)), postoSaudeGetY(getInfo(aux)), 0, 0, "0");
+            Linha linha = criaLinha(cx, cy, postoSaudeGetX(getInfo(aux)), postoSaudeGetY(getInfo(aux)), 0, 0, "-1");
             linhaSetTracejada(linha, 1);
             insereQt(qt[LINHA], linhaGetP1(linha), linha);
             i++;
@@ -102,7 +102,7 @@ void ci(QuadTree* qt, float x, float y, float r, FILE* fileTxt){
     //CONVEX HULL COM LOCAL CASOS
     DoublyLinkedList listaNoArvore = nosDentroCirculoQt(qt[LOCALCASOS], x, y, r);
     DoublyLinkedList listaLocalCasos = create();
-    DoublyLinkedList listaCH;
+    DoublyLinkedList listaCH = NULL;
     
     for(Node aux = getFirst(listaNoArvore); aux != NULL; aux = getNext(aux)){
         QtNo noArvore = getInfo(aux);
@@ -117,18 +117,16 @@ void ci(QuadTree* qt, float x, float y, float r, FILE* fileTxt){
        listaCH = convexHull(listaLocalCasos, localCasosGetPoint, localCasosSwap); 
     }
     if(listaCH == NULL){
-        printf("Evandro bacharelado");
-        fflush(stdout);
         listaCH = listaLocalCasos;
     }
-    if(listaLocalCasos == NULL){
-        printf("PIUI bacharelado");
-        fflush(stdout);
+    else{
+        removeList(listaLocalCasos, 0);
     }
 
-    removeList(listaLocalCasos, 0);
 
     //DETERMINA INCIDENCIA RELATIVA DA REGIÃO
+
+    //DETERMINA DENSIDADE DEMOGRAFICA
     DoublyLinkedList listaNoArvoreQuadras = nosDentroCirculoQt(qt[QUADRA], x, y, r);
     DoublyLinkedList listaQuadras = create();
 
@@ -158,11 +156,12 @@ void ci(QuadTree* qt, float x, float y, float r, FILE* fileTxt){
     //Média das densidades demográficas
     densidadeDemografica /= numQuadras;
     
+    //A PARTIR DAQUI CALCULA INCIDENCIA
     char cor[20];
     float areaEnvoltoria = calculaArea(listaCH); 
     fprintf(fileTxt, "  |  ÁREA DA REGIÃO DE INCIDÊNCIA: %f", areaEnvoltoria);
     if(areaEnvoltoria != 0){
-        float incidencia = 10 * totalCasos/(densidadeDemografica * areaEnvoltoria); //Calcula a incidencia 
+        float incidencia = 10 * totalCasos / (densidadeDemografica * areaEnvoltoria); //Calcula a incidencia 
 
         if(incidencia < 0.1){
             strcpy(cor, "00FFFF");
@@ -198,6 +197,11 @@ void ci(QuadTree* qt, float x, float y, float r, FILE* fileTxt){
         if(listaCH != NULL){
             removeList(listaCH, 0);
         }
+
+        //SVG
+        Circulo circulo = criaCirculo("-1", x, y, r, "green", "none", "8px");
+        insereQt(qt[CIRCULO], circuloGetPoint(circulo), circulo);
+
         return;
     }
 

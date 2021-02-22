@@ -74,7 +74,6 @@ Info getInfoByIndex(DoublyLinkedList lista, int i){
     }
     info = getInfo(node);
     return info;
-
 }
 
 
