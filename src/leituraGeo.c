@@ -18,11 +18,12 @@
 //T3_ED
 #include "postoSaude.h"
 #include "densidadeDemografica.h"
-
+//T4_ED
+#include "hashTable.h"
 
 
 enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, DENSIDADEDEMOGRAFICA};
-
+enum HASHTABLE{CPF_ENDERECO, TIPO_DESCRICAO, CPF_DADOS, CEP_QUADRA};
 
 typedef struct nx{
     int i;
@@ -33,7 +34,7 @@ typedef struct nx{
 }NxStruct;
 
 
-void readGeo(DoublyLinkedList* listas, char* dirGeo, CorPadrao cores){
+void readGeo(DoublyLinkedList* listas, char* dirGeo, CorPadrao cores, HashTable* ht){
     FILE* fileGeo = NULL;
     fileGeo = fopen(dirGeo, "r");
     if(!fileGeo){
@@ -62,6 +63,8 @@ void readGeo(DoublyLinkedList* listas, char* dirGeo, CorPadrao cores){
     int bufferSize = 0;
     float r, x, y, w, h, d;
     char* txt = NULL;
+
+    DoublyLinkedList listaQuadras = create();
 
     //Variáveis auxiliares para formas
     Circulo auxCirc = NULL;
@@ -135,6 +138,7 @@ void readGeo(DoublyLinkedList* listas, char* dirGeo, CorPadrao cores){
                 atual.nq += 1;
                 quadraAux = criaQuadra(cep, x, y, w, h, coresPadraoGetBordaQuadras(cores), coresPadraoGetPreenchimentoQuadras(cores), coresPadraoGetEspessuraQuadras(cores), 0);
                 insert(listas[QUADRA], quadraAux);
+                insert(listaQuadras, quadraAux);
             }
         }
         //Comando: h
@@ -224,5 +228,11 @@ void readGeo(DoublyLinkedList* listas, char* dirGeo, CorPadrao cores){
             insert(listas[DENSIDADEDEMOGRAFICA], densidadeDemograficaAux);
         }
     }
+
+    for(Node aux = getFirst(listaQuadras); aux != NULL; aux = getNext(aux)){
+        Quadra qAux = getInfo(aux);
+        insertValueHashTable(ht[CEP_QUADRA], quadraGetCep(qAux), qAux);
+    }
+
     fclose(fileGeo);
 }

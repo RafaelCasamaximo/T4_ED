@@ -5,7 +5,7 @@
 
 
 //Refatorar error checking e i++
-char *buscaParametros(char* argv[], int i){
+char* buscaParametros(char* argv[], int i){
         char* parametro = NULL;
 
         if(strcmp(argv[i], "-e") == 0){     
@@ -56,6 +56,34 @@ char *buscaParametros(char* argv[], int i){
                 return NULL;
             }
             printf("\n\t\t> Diretorio de Saida: %s", argv[i]);
+            parametro = (char*) malloc((strlen(argv[i]) + 1) * sizeof(char));
+            if(parametro == NULL){
+                printf("\nErro inesperado! Memoria insuficiente para alocar o nome do diretorio de saida.");
+                exit(1);
+            }
+            strcpy(parametro, argv[i]);
+        }
+
+        else if(strcmp(argv[i], "-ec") == 0){  
+            i++;    
+            if(argv[i] == NULL){
+                return NULL;
+            }
+            printf("\n\t\t> Arquivo .ec: %s", argv[i]);
+            parametro = (char*) malloc((strlen(argv[i]) + 1) * sizeof(char));
+            if(parametro == NULL){
+                printf("\nErro inesperado! Memoria insuficiente para alocar o nome do diretorio de saida.");
+                exit(1);
+            }
+            strcpy(parametro, argv[i]);
+        }
+
+        else if(strcmp(argv[i], "-pm") == 0){  
+            i++;    
+            if(argv[i] == NULL){
+                return NULL;
+            }
+            printf("\n\t\t> Arquivo .pm: %s", argv[i]);
             parametro = (char*) malloc((strlen(argv[i]) + 1) * sizeof(char));
             if(parametro == NULL){
                 printf("\nErro inesperado! Memoria insuficiente para alocar o nome do diretorio de saida.");

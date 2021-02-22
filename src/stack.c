@@ -31,7 +31,6 @@ Stack createStack(){
 //esse endereço que era um void* (ou seja, sem tipo) é convertido para
 //StackStruct* novamente e desta forma, consegue saber o tamanho alocado
 //na memória e consequentemente, as suas informações
-//Resumo: memoria goesss bbrrr 😈😈😈😈 programador goes 🤡🤡🤡🤡
 
 int isEmptyStack(Stack stack){
     StackStruct* stk = (StackStruct*)stack;

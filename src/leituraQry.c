@@ -9,10 +9,11 @@
 #include "qry1.h"
 #include "qry2.h"
 #include "qry3.h"
+#include "qry4.h"
 
 enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, LINHA};
 
-void readQry(QuadTree* qt, char* dirQry, char* dirTxt){
+void readQry(QuadTree* qt, char* dirQry, char* dirTxt, char* dirSaida, char* nomeGeoSemExtensao, char* nomeQrySemExtensao){
 
     FILE* fileTxt = NULL;
     fileTxt = fopen(dirTxt, "w");
@@ -29,7 +30,7 @@ void readQry(QuadTree* qt, char* dirQry, char* dirTxt){
     printf("Arquivo QRY aberto com sucesso!");
 
     
-    char j[10], k[10], comando[6], cb[22], cp[22], cep[20], face;
+    char j[10], k[10], comando[6], cb[22], cp[22], cep[20], face, t, sfx[20];
     int casosCovid = 0, n = 0, num = 0, interno = 0, sobrepoe = 0;
     float x = 0, y = 0, w = 0, h = 0, r = 0, centroDeMassaX = 0, centroDeMassaY = 0; 
 
@@ -142,6 +143,37 @@ void readQry(QuadTree* qt, char* dirQry, char* dirTxt){
         if(strcmp(comando, "ci") == 0){
             fscanf(fileQry, "%f %f %f", &x, &y, &r);
             ci(qt, x, y, r, fileTxt); 
+        }
+
+        //T4_ED
+        //m?
+        if(strcmp(comando, "m?") == 0){
+
+        }
+        //dm?
+        if(strcmp(comando, "dm?") == 0){
+
+        }
+        //de?
+        if(strcmp(comando, "de?") == 0){
+
+        }   
+        //mud
+        if(strcmp(comando, "mud") == 0){
+
+        }
+        //dmprbt
+        if(strcmp(comando, "dmprbt") == 0){
+            fscanf(fileQry, " %c %s", &t, sfx);
+            dmprbt(qt, t, sfx, dirSaida, nomeGeoSemExtensao, nomeQrySemExtensao);
+        }
+        //eplg?
+        if(strcmp(comando, "eplg?") == 0){
+            
+        }
+        //catac
+        if(strcmp(comando, "catac") == 0){
+
         }
     }
 

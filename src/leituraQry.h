@@ -8,6 +8,6 @@
 Lê as consultas requisitadas no arquivo QRY
 Pré: As listas e o diretório do arquivo QRY
 */
-void readQry(QuadTree* qt, char* dirQry, char* dirTxt);
+void readQry(QuadTree* qt, char* dirQry, char* dirTxt, char* dirSaida, char* nomeGeoSemExtensao, char* nomeQrySemExtensao);
 
 #endif

@@ -11,6 +11,9 @@
 
 enum COORDS {NW, NE, SW, SE};
 
+#define dx 250
+#define dy 250
+
 typedef struct nodeQt{
     struct nodeQt* children[4];
     struct nodeQt* parent;
@@ -70,23 +73,23 @@ void insere(QuadTreeStruct* quadTree, NodeQtStruct* node){
                 }
             }
             else{
-                if(aux->children[NW] == NULL){
-                    aux->children[NW] = node;
-                    node->parent = aux;
-                }
-                else{
-                    aux = aux->children[NW];
-                }
-            }
-        }
-        else{
-            if(getPointY(p) >= getPointY(pAux)){
                 if(aux->children[SE] == NULL){
                     aux->children[SE] = node;
                     node->parent = aux;
                 }
                 else{
                     aux = aux->children[SE];
+                }
+            }
+        }
+        else{
+            if(getPointY(p) >= getPointY(pAux)){
+                if(aux->children[NW] == NULL){
+                    aux->children[NW] = node;
+                    node->parent = aux;
+                }
+                else{
+                    aux = aux->children[NW];
                 }
             }
             else{
@@ -185,12 +188,12 @@ QtNo getNoQt(QuadTree qt, double x, double y){
                 aux = aux->children[NE];
             }
             else{
-                aux = aux->children[NW];
+                aux = aux->children[SE];
             }
         }
         else{
             if(y >= getPointY(point)){
-                aux = aux->children[SE];
+                aux = aux->children[NW];
             }
             else{
                 aux = aux->children[SW];
@@ -313,7 +316,6 @@ void dentroCirculoQt(QuadTree qt, NodeQtStruct* node, DoublyLinkedList l, double
     }
     float pX = getPointX(node->point);
     float pY = getPointY(node->point);
-    //printf("X E Y DENTROCIRCULOQT: %f %f", pX, pY);
     if(insideCirculo(pX, pY, x, y, r)){
         if(fun != NULL){
             insert(l, fun(qt, node));
@@ -360,7 +362,7 @@ void percorreLarguraQt(QuadTree qt, funcVisita f, ExtraInfo ei){
                 enqueue(queue, aux->children[i]);
             }
         }
-        //O PARÂMETRO QT DESSA FUNÇÃO NÃO SERVE PRA NADA!!!!! EVANDRO, POR FAVOR, SE LER ESSE COMENTARIO MUDA ISSO PRO PROXIMO TRABALHO
+        //O PARÂMETRO QT DESSA FUNÇÃO NÃO SERVE PRA NADA!!!!!
         f(getInfoQt(qt, aux), ei);
     }while(!isQueueEmpty(queue));
     
@@ -419,4 +421,42 @@ DoublyLinkedList nosDentroRetanguloQt(QuadTree qt, double x1, double y1, double 
     DoublyLinkedList l = create();
     dentroRetanguloQt(qt, node, l, x1, y1, x2, y2, NULL);
     return l;
+}
+
+void desenhaNosQt(QuadTreeStruct* qt, NodeQtStruct* no, FILE* svg, float* x, float y, DoublyLinkedList ant){
+    if(no == NULL){
+        return;
+    }
+    DoublyLinkedList atual = create();
+    for(int i = 0; i < 2; i++){
+        desenhaNosQt(qt, no->children[i], svg, x, y + dy, atual);
+    }
+    *x += dx;
+    float aux = *x;
+    fprintf(svg, "<rect x='%lf' y='%lf' width='240' height='14' fill='none' stroke='tomato' stroke-width=\"3px\" />\n", aux-120, y - 10);
+    fprintf(svg, "\t<text x=\"%lf\" y=\"%lf\" text-anchor=\"middle\">%s: %lf,%lf</text>\n",aux, y + 2, qt->fun(getInfoQt(qt, no)), getPointX(no->point), getPointY(no->point));
+    if(ant != NULL){
+        insert(ant, criaPoint(aux, y - 10));
+    }
+    else{
+        fprintf(svg, "\t<circle cx=\"%lf\" cy=\"%lf\" r=\"5\" fill=\"blue\"/>\n", aux, y - 150);
+        fprintf(svg, "\t<line x1=\"%lf\" y1=\"%lf\" x2=\"%lf\" y2=\"%lf\" style=\"stroke: tomato; stroke-width: 3\" />\n", aux, y + 2, aux, y - 150);
+    }
+    for(int i = 2; i < 4; i++){
+        desenhaNosQt(qt, no->children[i], svg, x, y + dy, atual);
+    }
+    for(Node node = getFirst(atual); node != NULL; node = getNext(node)){
+        fprintf(svg, "\t<line x1=\"%lf\" y1=\"%lf\" x2=\"%lf\" y2=\"%lf\" style=\"stroke: tomato; stroke-width: 3\" />\n", aux, y + 2, getPointX(getInfo(node)), getPointY(getInfo(node)));
+    }
+    removeList(atual, 0);
+}
+
+void desenhaQt(QuadTree qt, FILE* svg){
+    QuadTreeStruct* quadtree = (QuadTreeStruct*)qt;
+    float* x = (float*)malloc(sizeof(float));
+    *x = 0;
+    fprintf(svg, "<svg  width=\"10000\" height=\"10000\" viewBox=\"0 0 10000 10000\" xmlns=\"http://www.w3.org/2000/svg\">");
+    desenhaNosQt(quadtree, quadtree->root, svg, x, dy, NULL);
+    fprintf(svg, "</svg>");
+    free(x);
 }

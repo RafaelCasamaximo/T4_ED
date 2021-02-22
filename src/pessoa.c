@@ -12,7 +12,7 @@ typedef struct {
     char dataNascimento[11];
 }PessoaStruct;
 
-Pessoa criarPessoa(char* cpf, char* nome, char* sobrenome, char sexo, char* dataNascimento){
+Pessoa criaPessoa(char* cpf, char* nome, char* sobrenome, char sexo, char* dataNascimento){
     PessoaStruct* pessoa = (PessoaStruct*)malloc(sizeof(PessoaStruct));
     strcpy(pessoa->cpf,cpf);
     strcpy(pessoa->nome,nome);

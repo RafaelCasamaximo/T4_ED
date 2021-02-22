@@ -8,8 +8,8 @@
 
 
 void concatenaCaminhos(char e[], char f[], char** result){
-    printf("\ne[] -> %s\n", e);
-    printf("\nf[] -> %s\n", f);
+    //printf("\ne[] -> %s\n", e);
+    //printf("\nf[] -> %s\n", f);
 
     int tamanhoString = (e == NULL) ? (strlen(f) + 1) : (strlen(e) + strlen(f) + 1);
     if(e == NULL){
@@ -21,7 +21,6 @@ void concatenaCaminhos(char e[], char f[], char** result){
     int tamE = strlen(e);
     int tamF = strlen(f);
 
-    //* v *
     if(e[tamE - 1] != '/' && (f[0] != '/' && f[0] != '.')){
         tamanhoString++;
         *result = malloc(tamanhoString);
@@ -50,13 +49,12 @@ void concatenaCaminhos(char e[], char f[], char** result){
         printf("\nERRO! O formato que você inseriu no parâmetro -f e -e não se encaixam no contexto.\n Verifique o caminho que você inseriu!\n");
         exit(1);
     }
-
 }
 
 
 void getNomeConcatExtension(char f[], char ext[], char** result){
-    printf("\nRetirando o nome do arquivo da sentença: \"%s\"\n", f);
-    printf("Concatenando o nome do arquivo com: \"%s\"\n", ext);
+    //printf("\nRetirando o nome do arquivo da sentença: \"%s\"\n", f);
+    //printf("Concatenando o nome do arquivo com: \"%s\"\n", ext);
     char* aux = NULL;
     int tamF = strlen(f);
     //Encontra pos do último / no f
@@ -97,7 +95,7 @@ void extraiNome(char f[], char** result){
     if(temBarra){
         aux = strrchr(f, '/') + 1;
     }
-    printf("\n%s\n", aux);
+    //printf("\n%s\n", aux);
     *result = malloc(strlen(aux) +  1);
     strcpy(*result, aux);
 }

@@ -5,7 +5,7 @@
 typedef void* Pessoa; 
 
 
-Pessoa criarPessoa(char* cpf, char* nome, char* sobrenome, char sexo, char* dataNascimento);
+Pessoa criaPessoa(char* cpf, char* nome, char* sobrenome, char sexo, char* dataNascimento);
 
 
 //Setters

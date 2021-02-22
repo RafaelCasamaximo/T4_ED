@@ -94,15 +94,19 @@ int main(int argc, char* argv[]){
     for(int i = CIRCULO; i <= DENSIDADEDEMOGRAFICA; i++){
         listas[i] = create();
     }
+    //Define HashTable
+    HashTable hashTables[4];
+    for(int i = 0; i < 4; i++){
+        hashTables[i] = createHashTable(100);
+    }
 
     //Refatorar trataString para retornar char*
     concatenaCaminhos(dirEntrada, arqGeo, &dirGeo);
-    readGeo(listas, dirGeo, cores);
+    readGeo(listas, dirGeo, cores, hashTables);
     
-    //Define HashTable
-    HashTable hashTables[4];
+
     //Define QuadTrees
-    QuadTree quadTrees[11];
+    QuadTree quadTrees[13];
     //Instancia quadTrees e suas funções (getId)
     instanciaQts(quadTrees);
     //Converte todas as listas para quadTrees
@@ -121,14 +125,17 @@ int main(int argc, char* argv[]){
     
     if(arqQry != NULL){
 
-        //Lê os comandos do Ec
-        concatenaCaminhos(dirEntrada, arqEc, &dirEc);
-        readEc(quadTrees, hashTables, dirEc);
+        if(arqEc != NULL){
+            //Lê os comandos do Ec
+            concatenaCaminhos(dirEntrada, arqEc, &dirEc);
+            readEc(quadTrees, hashTables, dirEc);
+        }
 
-
-        //Lê os comandos do Pm
-        concatenaCaminhos(dirEntrada, arqPm, &dirPm);
-        readPm(quadTrees, hashTables, dirPm);
+        if(arqPm != NULL){
+            //Lê os comandos do Pm
+            concatenaCaminhos(dirEntrada, arqPm, &dirPm);
+            readPm(quadTrees, hashTables, dirPm);
+        }
 
 
         //Comando para criar o caminho que será utilizado para abrir o .qry
@@ -146,7 +153,7 @@ int main(int argc, char* argv[]){
         //Concatena o caminho de saida com o nome gerado no comando acima (saida do TXT)
         concatenaCaminhos(dirSaida, nomeArquivoLogTxt, &dirTxt);
         //Lê os comandos do QRY
-        readQry(quadTrees, dirQry, dirTxt);
+        readQry(quadTrees, dirQry, dirTxt, dirSaida, nomeGeoSemExtensao, nomeQrySemExtensao);
         //Desenha o svg do QRY
         desenhaSvgQry(quadTrees, dirSaidaGeoQry);
     }

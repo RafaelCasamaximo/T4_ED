@@ -58,7 +58,7 @@ void desenhaSvgQry(QuadTree* qt, char* dirSaida){
         exit(1);
     }
     printf("Arquivo SVG QRY criado com sucesso!");
-     fprintf(fileSvgQry, "<svg  width=\"10000\" height=\"10000\" viewBox=\"0 0 10000 10000\" xmlns=\"http://www.w3.org/2000/svg\">");
+    fprintf(fileSvgQry, "<svg  width=\"10000\" height=\"10000\" viewBox=\"0 0 10000 10000\" xmlns=\"http://www.w3.org/2000/svg\">");
 
     fprintf(fileSvgQry, "<defs>");
     for(int i = 0; i < 6; i++){

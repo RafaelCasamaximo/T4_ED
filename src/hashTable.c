@@ -11,7 +11,7 @@ typedef struct{
 }HashTableStruct;
 
 typedef struct{
-    char* key;
+    char key[20];
     InfoHash value;
 }HashDataStruct;
 
@@ -43,7 +43,7 @@ void insertValueHashTable(HashTable ht, char* key, InfoHash value){
     HashDataStruct* hds = (HashDataStruct*)malloc(sizeof(HashDataStruct));
     
     //Defino os valores
-    hds->key = key;
+    strcpy(hds->key, key);
     hds->value = value;
 
     //Descobre o index que vou adicionar essa nova informação

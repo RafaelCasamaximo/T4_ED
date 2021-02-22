@@ -137,9 +137,8 @@ void cbq(QuadTree* qt, float x, float y, float r, char* cstrk, FILE* fileTxt){
      
      for(Node aux = getFirst(lista); aux != NULL; aux = getNext(aux)){
 
-          //O comando que o evandro passou NÃO FAZ SENTIDO. Ao inves de nosDentroCirculo retornar uma lista dos ELEMENTOS da quadtree, ela retorna uma lista de NOS
-          //As infos (quadra, circ, ret, hidrante, etc) ficam DENTRO DO NÓ DA QUADTREE!!! Por isso temos que acessar a informação da lista (que é o node da QT) e depois pegar a informação desse node :)
-          //Por favor evandro se ler esse comentário no trabalho pelo aMOR DE DEUS MUDA NO PRÓXIMO
+          //Ao inves de nosDentroCirculo retornar uma lista dos ELEMENTOS da quadtree, ela retorna uma lista de NOS
+          //As infos (quadra, circ, ret, hidrante, etc) ficam DENTRO DO NÓ DA QUADTREE!!! Por isso temos que acessar a informação da lista (que é o node da QT) e depois pegar a informação desse node 
           //Além do mais, o parâmetro da arvore é inutil, já que getInfoQt não usa. Dentro dele está qt = qt só para não dar warning de unused. Retorna só no->info;
           QtNo noArvore = getInfo(aux); //Nosso nó da arvore
           Quadra quadra = getInfoQt(qt[QUADRA], noArvore); //Pega a quadra
