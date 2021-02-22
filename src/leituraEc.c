@@ -3,8 +3,13 @@
 #include <string.h>
 
 #include "leituraEc.h"
+#include "quadTree.h"
+#include "hashTable.h"
 
-void readEc(char* dirEc){
+void readEc(QuadTree* qt, HashTable* ht, char* dirEc){
+
+    
+
     FILE* fileEc = NULL;
     fileEc = fopen(dirEc, "r");
     if(!fileEc){

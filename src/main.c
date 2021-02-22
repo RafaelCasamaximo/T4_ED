@@ -12,10 +12,13 @@
 #include "leituraQry.h"
 #include "svg.h"
 #include "texto.h"
+#include "hashTable.h"
 #include "poligono.h"
 //Custom Headers para estruturas e organização
 #include "doublyLinkedList.h"
 #include "quadTree.h"
+#include "leituraEc.h"
+#include "leituraPm.h"
 
 
 //Enumeration para todas as listas utilizadas
@@ -51,6 +54,11 @@ int main(int argc, char* argv[]){
     char* nomeArquivoLogTxt = NULL;
     //Armazena o path de saida do arquivo de Log
     char* dirTxt = NULL;
+    //Diretorio dirEntrada + arqEc
+    char* dirEc = NULL;
+    //Diretorio dirEntrada + arqEc
+    char* dirPm = NULL;
+
 
    CorPadrao cores = criaCorPadrao("0.5", "coral", "saddlebrown", "0.5", "red", "darkred", "0.5", "deeppink", "mediumvioletred", "0.5", "green", "red", "0.5", "0.5");
 
@@ -91,6 +99,8 @@ int main(int argc, char* argv[]){
     concatenaCaminhos(dirEntrada, arqGeo, &dirGeo);
     readGeo(listas, dirGeo, cores);
     
+    //Define HashTable
+    HashTable hashTables[4];
     //Define QuadTrees
     QuadTree quadTrees[11];
     //Instancia quadTrees e suas funções (getId)
@@ -106,8 +116,21 @@ int main(int argc, char* argv[]){
     //Cria o arquivo do SVG e DesenhaSvgGeo a lista dentro dele
     desenhaSvgGeo(quadTrees, saidaSvgGeo);
 
+
+
     
     if(arqQry != NULL){
+
+        //Lê os comandos do Ec
+        concatenaCaminhos(dirEntrada, arqEc, &dirEc);
+        readEc(quadTrees, hashTables, dirEc);
+
+
+        //Lê os comandos do Pm
+        concatenaCaminhos(dirEntrada, arqPm, &dirPm);
+        readPm(quadTrees, hashTables, dirPm);
+
+
         //Comando para criar o caminho que será utilizado para abrir o .qry
         concatenaCaminhos(dirEntrada, arqQry, &dirQry);
         //Me retorna o nome do arquivo geo sem extensão (utilizado mais tarde no nome do svg)

@@ -76,5 +76,5 @@ void poligonoDesenhaSvgQry(Poligono poligono, void* fileSvg){
         fprintf((FILE*)fileSvg, " %f,%f ", getPointX(getInfo(aux)), getPointY(getInfo(aux)));
     }    
     //Fecha tag 
-    fprintf((FILE*)fileSvg, "\" style=\"fill:%s; stroke:red; stroke-width: 5px;\" fill-opacity= \"0.2\" />", polig->cor);
+    fprintf((FILE*)fileSvg, "\" style=\"fill:#%s; stroke:red; stroke-width: 5px;\" fill-opacity= \"0.2\" />", polig->cor);
 }

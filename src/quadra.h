@@ -1,6 +1,8 @@
 #ifndef __QUADRA_H
 #define __QUADRA_H
 
+#include "point.h"
+
 typedef void* Quadra;
 
 //Função responsável para criar Quuadra. Retorna um pointer instanciado.

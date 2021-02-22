@@ -2,9 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "quadTree.h"
+#include "hashTable.h"
 #include "leituraPm.h"
 
-void readPm(char* dirPm){
+void readPm(QuadTree* qt, HashTable* ht, char* dirPm){
     FILE* filePm = NULL;
     filePm = fopen(dirPm, "r");
     if(!filePm){
