@@ -97,7 +97,7 @@ Point localCasosGetPoint(LocalCasos localCasos){
 }
 
 //Swap
-void localCasosSwap(LocalCasos* p1, LocalCasos* p2){  
+void localCasosSwap(LocalCasos p1, LocalCasos p2){  
     LocalCasosStruct* a = (LocalCasosStruct*) p1;
     LocalCasosStruct* b = (LocalCasosStruct*) p2;
     LocalCasosStruct temp = *a;  

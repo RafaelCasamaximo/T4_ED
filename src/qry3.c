@@ -1,14 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "qry3.h"
 #include "quadTree.h"
 #include "quadra.h"
 #include "localCasos.h"
+#include "linha.h"
+#include "postoSaude.h"
+#include "retangulo.h"
 #include "doublyLinkedList.h"
 #include "sorting.h"
+#include "convexHull.h"
+#include "circulo.h"
+#include "utilitario.h"
+#include "poligono.h"
 
-enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, LINHA, LOCALCASOS};
+enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, LINHA, LOCALCASOS, POLIGONO};
 
 void cv(QuadTree* qt, int casosCovid, char* cep, char face, int num){
     float cx = 0, cy = 0;
@@ -48,6 +56,8 @@ void convertLocalCasosToPoint(QuadTree qt, char* cep, char face, int num, float*
 }
 
 void soc(QuadTree* qt, int k, char* cep, char face, int num, FILE* fileTxt){
+    fprintf(fileTxt, "\nsoc %d %s %c %d", k, cep, face, num);
+
     float cx, cy;
 
     DoublyLinkedList lista = create();
@@ -59,25 +69,24 @@ void soc(QuadTree* qt, int k, char* cep, char face, int num, FILE* fileTxt){
     percorreLarguraQt(qt[POSTOSAUDE], convertQtToList, lista);
     //Agora, temos uma lista com todos os postos de saúde
     
-    //shellSorting(lista, cx, cy);
+    shellSorting(lista, cx, cy);
 
-    //morador do endereço cap face num precisa de atendimento
-    /*
-    determinar os k postos de atendimento mais próximos
+    //Sempre que a variavel começar no 0 nunca usa o igual
+    int i = 0;
+    for(Node aux = getFirst(lista); aux != NULL; aux = getNext(aux)){
+        if(i < k){
+            Linha linha = criaLinha(cx, cy, postoSaudeGetX(getInfo(aux)), postoSaudeGetY(getInfo(aux)), 0, 0, "0");
+            linhaSetTracejada(linha, 1);
+            insereQt(qt[LINHA], linhaGetP1(linha), linha);
+            i++;
+        }
+        fprintf(fileTxt, "POSTO DE SAUDE | X: %f  Y: %f", postoSaudeGetX(getInfo(aux)), postoSaudeGetY(getInfo(aux)));
+    }
 
-    //para determinar os k postos de atendimento, precisamos do shellSorting
-    //shellSorting(postos de saude, x, y)
-    //pode retornar uma lista com linhas do ponto x, y até os k postos de atendimento mais próximos
-    
-    //A gente adiciona uma variavel na linha chamada tracejado
-    //Se tracejado == 1 linha sai tracejado
+    Retangulo retangulo = criaRetangulo("0", 0, cx, cy, 20, 20, "white", "blue", "3px");
+    insereQt(qt[RETANGULO], retanguloGetPoint(retangulo), retangulo);
 
-    //Adiciona todas as linhas na quadTree
-
-    colocar um pequeno quadrado azul com bordas brancas no endereço
-    //Retangulo
-    */
-
+    removeList(lista, 0);
 }
 
 void convertQtToList(Info info, DoublyLinkedList lista){
@@ -85,6 +94,117 @@ void convertQtToList(Info info, DoublyLinkedList lista){
 }
 
 
-void ci(){
+void ci(QuadTree* qt, float x, float y, float r, FILE* fileTxt){
+    fprintf(fileTxt, "ci %f %f %f", x, y, r);
 
+    int totalCasos = 0;
+
+    //CONVEX HULL COM LOCAL CASOS
+    DoublyLinkedList listaNoArvore = nosDentroCirculoQt(qt[LOCALCASOS], x, y, r);
+    DoublyLinkedList listaLocalCasos = create();
+    DoublyLinkedList listaCH;
+    
+    for(Node aux = getFirst(listaNoArvore); aux != NULL; aux = getNext(aux)){
+        QtNo noArvore = getInfo(aux);
+        LocalCasos localCasos = getInfoQt(qt[LOCALCASOS], noArvore);
+        insert(listaLocalCasos, localCasos);
+        fprintf(fileTxt, "\nCOORDENADAS DOS CASOS DENTRO DO CIRCULO | X: %f  Y: %f", localCasosGetX(localCasos), localCasosGetY(localCasos));
+        totalCasos += localCasosGetN(localCasos);
+    }
+    removeList(listaNoArvore, 0);
+    fprintf(fileTxt, "  |  NÚMERO TOTAL DE CASOS: %d", totalCasos);
+    if(getSize(listaLocalCasos) > 2){
+       listaCH = convexHull(listaLocalCasos, localCasosGetPoint, localCasosSwap); 
+    }
+    if(listaCH == NULL){
+        printf("Evandro bacharelado");
+        fflush(stdout);
+        listaCH = listaLocalCasos;
+    }
+    if(listaLocalCasos == NULL){
+        printf("PIUI bacharelado");
+        fflush(stdout);
+    }
+
+    removeList(listaLocalCasos, 0);
+
+    //DETERMINA INCIDENCIA RELATIVA DA REGIÃO
+    DoublyLinkedList listaNoArvoreQuadras = nosDentroCirculoQt(qt[QUADRA], x, y, r);
+    DoublyLinkedList listaQuadras = create();
+
+    for(Node aux = getFirst(listaNoArvoreQuadras); aux != NULL; aux = getNext(aux)){
+        QtNo noArvore = getInfo(aux);
+        Quadra info = getInfoQt(qt[QUADRA], noArvore);
+        insert(listaQuadras, info);
+    }
+    removeList(listaNoArvoreQuadras, 0);
+    
+    float densidadeDemografica = 0;
+    int numQuadras = 0;
+
+    for(Node aux = getFirst(listaQuadras); aux != NULL; aux = getNext(aux)){
+        Quadra quadra = getInfo(aux);
+
+        float qX = quadraGetX(quadra);
+        float qY = quadraGetY(quadra);
+        float qW = quadraGetWidth(quadra);
+        float qH = quadraGetHeight(quadra);
+
+        if(insideCirculo(qX, qY, x, y, r) == 1 && insideCirculo(qX + qW, qY, x, y, r) == 1 && insideCirculo(qX, qY + qH, x, y, r) == 1 && insideCirculo(qX + qW, qY + qH, x, y, r) == 1){
+            densidadeDemografica =+ quadraGetDensidadeDemografica(quadra);
+            numQuadras++;
+        }
+    }
+    //Média das densidades demográficas
+    densidadeDemografica /= numQuadras;
+    
+    char cor[20];
+    float areaEnvoltoria = calculaArea(listaCH); 
+    fprintf(fileTxt, "  |  ÁREA DA REGIÃO DE INCIDÊNCIA: %f", areaEnvoltoria);
+    if(areaEnvoltoria != 0){
+        float incidencia = 10 * totalCasos/(densidadeDemografica * areaEnvoltoria); //Calcula a incidencia 
+
+        if(incidencia < 0.1){
+            strcpy(cor, "00FFFF");
+            fprintf(fileTxt, "  |  CATEGORIA A: LIVRE DE COVID");
+        }
+        else if(incidencia < 5){
+            strcpy(cor, "008080");
+            fprintf(fileTxt, "  |  CATEGORIA B: BAIXA INCIDÊNCIA");
+        }
+        else if(incidencia < 10){
+            strcpy(cor, "FFFF00");
+            fprintf(fileTxt, "  |  CATEGORIA C: MÉDIA INCIDÊNCIA");
+        }
+        else if(incidencia < 20){
+            strcpy(cor, "FF0000");
+            fprintf(fileTxt, "  |  CATEGORIA D: ALTA INCIDÊNCIA");
+        }
+        else{
+            strcpy(cor, "800080");
+            fprintf(fileTxt, "  |  CATEGORIA E: CATASTRÓFICO");
+            //Verificar se tem um posto de saude na área, se não tiver, insere um no centroide
+            DoublyLinkedList pontosPostos = pontosDentroCirculoQt(qt[POSTOSAUDE], x, y, r);
+            if(getFirst(pontosPostos) == NULL){
+                Point novoPosto = centroide(listaCH, areaEnvoltoria);
+                fprintf(fileTxt, "  |  SUGERE-SE UM POSTO DE SAÚDE EM %f,%f\n", getPointX(novoPosto), getPointY(novoPosto));
+                free(novoPosto);
+            }
+            removeList(pontosPostos, 0);
+        }
+    }
+    else{
+        fprintf(fileTxt, "  |  NÃO FOI POSSÍVEL DEFINIR REGIÃO DE INCIDÊNCIA!\n");
+        if(listaCH != NULL){
+            removeList(listaCH, 0);
+        }
+        return;
+    }
+
+    //SVG
+    Circulo circulo = criaCirculo("-1", x, y, r, "green", "none", "8px");
+    insereQt(qt[CIRCULO], circuloGetPoint(circulo), circulo);
+
+    Poligono poligono = criaPoligono(listaCH, cor);
+    insereQt(qt[POLIGONO], poligonoGetPoint(poligono), poligono);
 }

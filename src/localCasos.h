@@ -37,7 +37,7 @@ Point localCasosGetPoint(LocalCasos localCasos);
 Realiza a troca dos atributos de dois objetos p1 e p2
 PRE: Objetos p1 e p2
 */
-void localCasosSwap(LocalCasos* p1, LocalCasos* p2);
+void localCasosSwap(LocalCasos p1, LocalCasos p2);
 
 void localCasosDesenhaSvgQry(LocalCasos localCasos, void* fileSvg);
 

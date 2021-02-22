@@ -1,21 +1,25 @@
 #ifndef __POLIGONO_H
 #define __POLIGONO_H
 
+#include "point.h"
+
 typedef void* Poligono;
 
 //Create
-Poligono criaPoligono(char cor[], int tamanho);
-
-//Getters
-float poligonoGetX(Poligono poligono, int index);
-float poligonoGetY(Poligono poligono, int index);
-char* poligonoGetCor(Poligono poligono);
-int poligonoGetTamanho(Poligono poligono);
+Poligono criaPoligono(DoublyLinkedList pontos, char cor[]);
 
 //Setters
-void poligonoSetX(Poligono poligono, float x, int index);
-void poligonoSetY(Poligono poligono, float y, int index);
+void poligonoSetCor(Poligono poligono, char* cor);
+void poligonoSetPoint(Poligono poligono, Point point);
+void poligonoSetX(Poligono poligono, float x);
+void poligonoSetY(Poligono poligono, float y);
 
-void desalocaXY(Poligono poligono);
+//Getters
+char* poligonoGetCor(Poligono poligono);
+Point poligonoGetPoint(Poligono poligono);
+float poligonoGetX(Poligono poligono);
+float poligonoGetY(Poligono poligono);
+
+void poligonoDesenhaSvgQry(Poligono poligono, void* fileSvg);
 
 #endif

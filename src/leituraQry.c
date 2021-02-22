@@ -28,18 +28,10 @@ void readQry(QuadTree* qt, char* dirQry, char* dirTxt){
     }
     printf("Arquivo QRY aberto com sucesso!");
 
-    // int id = -1;
     
-    char j[10], k[10];
-    int n = 0, num = 0;
-    int interno = 0;
-    int sobrepoe = 0;
-    float x = 0, y = 0, w = 0, h = 0, r = 0;
-    float centroDeMassaX = 0, centroDeMassaY = 0; 
-    char comando[6];
-    char cb[22], cp[22];
-    char cep[20];
-    char face;
+    char j[10], k[10], comando[6], cb[22], cp[22], cep[20], face;
+    int casosCovid = 0, n = 0, num = 0, interno = 0, sobrepoe = 0;
+    float x = 0, y = 0, w = 0, h = 0, r = 0, centroDeMassaX = 0, centroDeMassaY = 0; 
 
     Linha linhaAux = NULL;
     Retangulo retanguloAux = NULL;
@@ -50,6 +42,7 @@ void readQry(QuadTree* qt, char* dirQry, char* dirTxt){
             break;
         }
         
+
         //T1_ED
         //o?
         if(strcmp(comando, "o?") == 0){
@@ -142,15 +135,14 @@ void readQry(QuadTree* qt, char* dirQry, char* dirTxt){
         }
         //soc
         if(strcmp(comando, "soc") == 0){
-            fscanf(fileQry, "%s %s %c %d", k, cep, &face, &num);
-            //soc(listas, k, cep, face, num, fileTxt);
+            fscanf(fileQry, "%d %s %c %d", &casosCovid, cep, &face, &num);
+            soc(qt, casosCovid, cep, face, num, fileTxt);
         }
         //ci        
         if(strcmp(comando, "ci") == 0){
             fscanf(fileQry, "%f %f %f", &x, &y, &r);
-            //ci(listas, x, y, r, fileTxt); 
+            ci(qt, x, y, r, fileTxt); 
         }
-        //id--;
     }
 
     fclose(fileTxt);

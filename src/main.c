@@ -92,7 +92,7 @@ int main(int argc, char* argv[]){
     readGeo(listas, dirGeo, cores);
     
     //Define QuadTrees
-    QuadTree quadTrees[10];
+    QuadTree quadTrees[11];
     //Instancia quadTrees e suas funções (getId)
     instanciaQts(quadTrees);
     //Converte todas as listas para quadTrees

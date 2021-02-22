@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <math.h>
 
+#include "doublyLinkedList.h"
+#include "point.h"
 #include "utilitario.h"
 
 
@@ -62,4 +64,38 @@ float maxV(float v[], int tamanho){
         }
     }
     return max;
+}
+
+float calculaArea(DoublyLinkedList l){
+    float a = 0;
+    Info i, j;
+    Node node;
+    for(node = getFirst(l); getNext(node) != NULL; node = getNext(node)){
+        i = getInfo(node);
+        j = getInfo(getNext(node));
+        a += getPointX(i) * getPointY(j) - getPointY(i) * getPointX(j);
+    }
+    i = getInfo(node);
+    j = getInfo(getFirst(l));
+    a += getPointX(i) * getPointY(j) - getPointY(i) * getPointX(j);
+    return a / 2;
+}
+
+
+Point centroide(DoublyLinkedList l, float area){
+    float x = 0, y = 0;
+    Info i, j;
+    Node node;
+
+    for(node = getFirst(l); getNext(node) != NULL; node = getNext(node)){
+        i = getInfo(node);
+        j = getInfo(getNext(node));
+        x += (getPointX(i) + getPointX(j)) * getPointX(i) * getPointY(j) - getPointY(i) * getPointX(j);
+        y += (getPointY(i) + getPointY(j)) * getPointX(i) * getPointY(j) - getPointY(i) * getPointX(j);
+    }
+    i = getInfo(node);
+    j = getInfo(getFirst(l));
+    x += (getPointX(i) + getPointX(j)) * getPointX(i) * getPointY(j) - getPointY(i) * getPointX(j);
+    y += (getPointY(i) + getPointY(j)) * getPointX(i) * getPointY(j) - getPointY(i) * getPointX(j);
+    return criaPoint(x/(6 * area), y/(6 * area));
 }

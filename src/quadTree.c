@@ -360,6 +360,7 @@ void percorreLarguraQt(QuadTree qt, funcVisita f, ExtraInfo ei){
                 enqueue(queue, aux->children[i]);
             }
         }
+        //O PARÂMETRO QT DESSA FUNÇÃO NÃO SERVE PRA NADA!!!!! EVANDRO, POR FAVOR, SE LER ESSE COMENTARIO MUDA ISSO PRO PROXIMO TRABALHO
         f(getInfoQt(qt, aux), ei);
     }while(!isQueueEmpty(queue));
     

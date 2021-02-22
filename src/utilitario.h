@@ -50,4 +50,8 @@ float minV(float v[], int tamanho);
 //Calcula o max de um vetor;
 float maxV(float v[], int tamanho);
 
+float calculaArea(DoublyLinkedList l);
+
+Point centroide(DoublyLinkedList l, float area);
+
 #endif

@@ -17,7 +17,7 @@
 #include "poligono.h"
 
 
-enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, LINHA, LOCALCASOS};
+enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, LINHA, LOCALCASOS, POLIGONO};
 
 void desenhaSvgGeo(QuadTree* qt, char* dirSaida){
 
@@ -69,6 +69,7 @@ void desenhaSvgQry(QuadTree* qt, char* dirSaida){
     percorreLarguraQt(qt[TEXTO], textoDesenhaSvgGeo, fileSvgQry);
     percorreLarguraQt(qt[LINHA], linhaDesenhaSvgQry, fileSvgQry);
     percorreLarguraQt(qt[LOCALCASOS], localCasosDesenhaSvgQry, fileSvgQry);
+    percorreLarguraQt(qt[POLIGONO], poligonoDesenhaSvgQry, fileSvgQry);
 
     fprintf(fileSvgQry, "\n</svg>");
     fclose(fileSvgQry);

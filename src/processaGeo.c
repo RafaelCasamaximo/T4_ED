@@ -20,9 +20,10 @@
 #include "densidadeDemografica.h"
 #include "localCasos.h"
 #include "linha.h"
+#include "poligono.h"
 
 //Enumeration para todas as listas utilizadas
-enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, LINHA, LOCALCASOS};
+enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, LINHA, LOCALCASOS, POLIGONO};
 
 void instanciaQts(QuadTree* quadTrees){
     //Define uma quadtree para cada figura ou instrumento e passa a função
@@ -33,9 +34,10 @@ void instanciaQts(QuadTree* quadTrees){
     quadTrees[HIDRANTE] = criaQt(hidranteGetId);
     quadTrees[SEMAFORO] = criaQt(semaforoGetId);
     quadTrees[RADIOBASE] = criaQt(radioBaseGetId);
-    quadTrees[POSTOSAUDE] = criaQt(NULL); //Posto Saude
+    quadTrees[POSTOSAUDE] = criaQt(NULL); 
     quadTrees[LINHA] = criaQt(linhaGetCep);
     quadTrees[LOCALCASOS] = criaQt(NULL);
+    quadTrees[POLIGONO] = criaQt(NULL);
 }
 
 
