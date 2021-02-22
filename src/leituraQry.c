@@ -4,6 +4,7 @@
 
 #include "leituraQry.h"
 #include "quadTree.h"
+#include "hashTable.h"
 #include "linha.h"
 #include "retangulo.h"
 #include "qry1.h"
@@ -13,7 +14,7 @@
 
 enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, LINHA};
 
-void readQry(QuadTree* qt, char* dirQry, char* dirTxt, char* dirSaida, char* nomeGeoSemExtensao, char* nomeQrySemExtensao){
+void readQry(QuadTree* qt, HashTable* ht, char* dirQry, char* dirTxt, char* dirSaida, char* nomeGeoSemExtensao, char* nomeQrySemExtensao){
 
     FILE* fileTxt = NULL;
     fileTxt = fopen(dirTxt, "w");
@@ -30,7 +31,7 @@ void readQry(QuadTree* qt, char* dirQry, char* dirTxt, char* dirSaida, char* nom
     printf("Arquivo QRY aberto com sucesso!");
 
     
-    char j[10], k[10], comando[6], cb[22], cp[22], cep[20], face, t, sfx[20];
+    char j[10], k[10], comando[6], cb[22], cp[22], cep[20], face, t, sfx[20], cpf[20], cnpj[20], compl[20], tp[10];
     int casosCovid = 0, n = 0, num = 0, interno = 0, sobrepoe = 0;
     float x = 0, y = 0, w = 0, h = 0, r = 0, centroDeMassaX = 0, centroDeMassaY = 0; 
 
@@ -43,7 +44,6 @@ void readQry(QuadTree* qt, char* dirQry, char* dirTxt, char* dirSaida, char* nom
             break;
         }
         
-
         //T1_ED
         //o?
         if(strcmp(comando, "o?") == 0){
@@ -148,32 +148,38 @@ void readQry(QuadTree* qt, char* dirQry, char* dirTxt, char* dirSaida, char* nom
         //T4_ED
         //m?
         if(strcmp(comando, "m?") == 0){
-
+            fscanf(fileQry, "%s", cep);
+            m(qt, ht, cep, fileTxt);
         }
         //dm?
         if(strcmp(comando, "dm?") == 0){
-
+            fscanf(fileQry, "%s", cpf);
+            dm(qt, ht, cpf, fileTxt);
         }
         //de?
         if(strcmp(comando, "de?") == 0){
-
+            fscanf(fileQry, "%s", cnpj);
+            de(qt, ht, cnpj, fileTxt);
         }   
         //mud
         if(strcmp(comando, "mud") == 0){
-
+            fscanf(fileQry, "%s %s %c %d %s", cpf, cep, &face, &num, compl);
+            mud(qt, ht, cpf, cep, face, num, compl, fileTxt);
         }
         //dmprbt
         if(strcmp(comando, "dmprbt") == 0){
-            fscanf(fileQry, " %c %s", &t, sfx);
+            fscanf(fileQry, " %c %s", &t, sfx); //NÃO APAGAR ESPAÇO ANTES DO %C
             dmprbt(qt, t, sfx, dirSaida, nomeGeoSemExtensao, nomeQrySemExtensao);
         }
         //eplg?
         if(strcmp(comando, "eplg?") == 0){
-            
+            fscanf(fileQry, "%s %f %f %f %f", tp, &x, &y, &w, &h);
+            eplg(qt, ht, tp, x, y, w, h, fileTxt);
         }
         //catac
         if(strcmp(comando, "catac") == 0){
-
+            fscanf(fileQry, "%f %f %f", &x, &y, &r);
+            catac(qt, ht, x, y, r, fileTxt);
         }
     }
 

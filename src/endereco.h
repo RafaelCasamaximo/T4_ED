@@ -21,6 +21,7 @@ Point enderecoGetPoint(Endereco endereco);
 char enderecoGetFace(Endereco endereco);
 int enderecoGetNum(Endereco endereco);
 char* enderecoGetComplemento(Endereco endereco);
+char* enderecoGetCep(Endereco endereco);
 void enderecoSwap(Endereco e1, Endereco e2);
 
 

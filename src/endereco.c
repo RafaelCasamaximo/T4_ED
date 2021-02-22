@@ -100,6 +100,11 @@ char* enderecoGetComplemento(Endereco endereco) {
     return e->compl;
 }
 
+char* enderecoGetCep(Endereco endereco){
+    EnderecoStruct* e = (EnderecoStruct*) endereco;
+    return e->cep;
+}
+
 void enderecoSwap(Endereco e1, Endereco e2){  
     EnderecoStruct* a = (EnderecoStruct*) e1;
     EnderecoStruct* b = (EnderecoStruct*) e2;

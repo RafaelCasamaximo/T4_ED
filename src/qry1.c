@@ -12,41 +12,6 @@
 enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE};
 
 //T1
-int inside(QuadTree* qt, char* j, float x, float y, float* centroMassaX, float* centroMassaY, FILE* fileTxt){
-
-    //Acho o j dentro da quadtree de circ ou da quadtree de retangulo ou não encontro(NULL)
-    Circulo circulo =  getInfoByIdQt(qt[CIRCULO], j);
-    Retangulo retangulo = getInfoByIdQt(qt[RETANGULO], j);
-
-    //Printo a consulta do o? no txt 
-    fprintf(fileTxt, "i? %s %f %f\n", j, x, y);
-
-    //
-    int isInside = -1;
-
-    //Se o elemento j foi encontrado na quadtree de circulo
-    if(circulo != NULL){
-        *centroMassaX = circuloGetX(circulo);
-        *centroMassaY = circuloGetY(circulo);
-        isInside = insideCirculo(x, y, circuloGetX(circulo), circuloGetY(circulo), circuloGetRaio(circulo));
-        fprintf(fileTxt, "FIGURA: CIRCULO | X,Y %s \n", isInside == 1 ? "INTERNO" : "EXTERNO");
-    }
-    
-    //Se o elemento j foi incontrado na quadtree de retangulo
-    else if(retangulo != NULL){
-        *centroMassaX = retanguloGetX(retangulo) + (retanguloGetWidth(retangulo) / 2); //centro de massa é x+(w/2)
-        *centroMassaY = retanguloGetY(retangulo) + (retanguloGetHeight(retangulo) / 2); //centro de massa é y+(h/2)
-        //Vejo se o ponto x,y está dentro do retangulo, se sim retorna 1, senão retorna 0, ou retorna 2 (na borda)
-        isInside = insideRetangulo(x, y, retanguloGetX(retangulo), retanguloGetY(retangulo), retanguloGetWidth(retangulo), retanguloGetHeight(retangulo));
-        if(isInside == 2){
-            isInside = 0;
-        }
-        fprintf(fileTxt, "FIGURA: RETANGULO | X,Y %s \n", isInside == 1 ? "INTERNO" : "EXTERNO"); //printo o nome da figura e se o ponto x,y está dentro ou fora
-    }
-
-    return isInside;
-}
-
 int overlay(QuadTree* qt, char* j, char* k, float* x, float* y, float* w, float* h, FILE* fileTxt){ 
     //Printa a consulta no TXT
     fprintf(fileTxt, "o? %s %s\n", j, k);
@@ -216,6 +181,43 @@ int overlayRetanguloRetangulo(Retangulo r1, Retangulo r2){
     
     return 0;
 }
+
+
+int inside(QuadTree* qt, char* j, float x, float y, float* centroMassaX, float* centroMassaY, FILE* fileTxt){
+
+    //Acho o j dentro da quadtree de circ ou da quadtree de retangulo ou não encontro(NULL)
+    Circulo circulo =  getInfoByIdQt(qt[CIRCULO], j);
+    Retangulo retangulo = getInfoByIdQt(qt[RETANGULO], j);
+
+    //Printo a consulta do o? no txt 
+    fprintf(fileTxt, "i? %s %f %f\n", j, x, y);
+
+    //
+    int isInside = -1;
+
+    //Se o elemento j foi encontrado na quadtree de circulo
+    if(circulo != NULL){
+        *centroMassaX = circuloGetX(circulo);
+        *centroMassaY = circuloGetY(circulo);
+        isInside = insideCirculo(x, y, circuloGetX(circulo), circuloGetY(circulo), circuloGetRaio(circulo));
+        fprintf(fileTxt, "FIGURA: CIRCULO | X,Y %s \n", isInside == 1 ? "INTERNO" : "EXTERNO");
+    }
+    
+    //Se o elemento j foi incontrado na quadtree de retangulo
+    else if(retangulo != NULL){
+        *centroMassaX = retanguloGetX(retangulo) + (retanguloGetWidth(retangulo) / 2); //centro de massa é x+(w/2)
+        *centroMassaY = retanguloGetY(retangulo) + (retanguloGetHeight(retangulo) / 2); //centro de massa é y+(h/2)
+        //Vejo se o ponto x,y está dentro do retangulo, se sim retorna 1, senão retorna 0, ou retorna 2 (na borda)
+        isInside = insideRetangulo(x, y, retanguloGetX(retangulo), retanguloGetY(retangulo), retanguloGetWidth(retangulo), retanguloGetHeight(retangulo));
+        if(isInside == 2){
+            isInside = 0;
+        }
+        fprintf(fileTxt, "FIGURA: RETANGULO | X,Y %s \n", isInside == 1 ? "INTERNO" : "EXTERNO"); //printo o nome da figura e se o ponto x,y está dentro ou fora
+    }
+
+    return isInside;
+}
+
 
 void pnt(QuadTree* qt, char* j, char* cb, char* cp, FILE* fileTxt){
     printf("%s %s %s", j, cb, cp);

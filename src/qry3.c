@@ -112,7 +112,7 @@ void ci(QuadTree* qt, float x, float y, float r, FILE* fileTxt){
         totalCasos += localCasosGetN(localCasos);
     }
     removeList(listaNoArvore, 0);
-    fprintf(fileTxt, "  |  NÚMERO TOTAL DE CASOS: %d", totalCasos);
+    fprintf(fileTxt, "  /  NÚMERO TOTAL DE CASOS: %d", totalCasos);
     if(getSize(listaLocalCasos) > 2){
        listaCH = convexHull(listaLocalCasos, localCasosGetPoint, localCasosSwap); 
     }
@@ -159,41 +159,41 @@ void ci(QuadTree* qt, float x, float y, float r, FILE* fileTxt){
     //A PARTIR DAQUI CALCULA INCIDENCIA
     char cor[20];
     float areaEnvoltoria = calculaArea(listaCH); 
-    fprintf(fileTxt, "  |  ÁREA DA REGIÃO DE INCIDÊNCIA: %f", areaEnvoltoria);
+    fprintf(fileTxt, "  /  ÁREA DA REGIÃO DE INCIDÊNCIA: %f", areaEnvoltoria);
     if(areaEnvoltoria != 0){
         float incidencia = 10 * totalCasos / (densidadeDemografica * areaEnvoltoria); //Calcula a incidencia 
 
         if(incidencia < 0.1){
             strcpy(cor, "00FFFF");
-            fprintf(fileTxt, "  |  CATEGORIA A: LIVRE DE COVID");
+            fprintf(fileTxt, "  /  CATEGORIA A: LIVRE DE COVID");
         }
         else if(incidencia < 5){
             strcpy(cor, "008080");
-            fprintf(fileTxt, "  |  CATEGORIA B: BAIXA INCIDÊNCIA");
+            fprintf(fileTxt, "  /  CATEGORIA B: BAIXA INCIDÊNCIA");
         }
         else if(incidencia < 10){
             strcpy(cor, "FFFF00");
-            fprintf(fileTxt, "  |  CATEGORIA C: MÉDIA INCIDÊNCIA");
+            fprintf(fileTxt, "  /  CATEGORIA C: MÉDIA INCIDÊNCIA");
         }
         else if(incidencia < 20){
             strcpy(cor, "FF0000");
-            fprintf(fileTxt, "  |  CATEGORIA D: ALTA INCIDÊNCIA");
+            fprintf(fileTxt, "  /  CATEGORIA D: ALTA INCIDÊNCIA");
         }
         else{
             strcpy(cor, "800080");
-            fprintf(fileTxt, "  |  CATEGORIA E: CATASTRÓFICO");
+            fprintf(fileTxt, "  /  CATEGORIA E: CATASTRÓFICO");
             //Verificar se tem um posto de saude na área, se não tiver, insere um no centroide
             DoublyLinkedList pontosPostos = pontosDentroCirculoQt(qt[POSTOSAUDE], x, y, r);
             if(getFirst(pontosPostos) == NULL){
                 Point novoPosto = centroide(listaCH, areaEnvoltoria);
-                fprintf(fileTxt, "  |  SUGERE-SE UM POSTO DE SAÚDE EM %f,%f\n", getPointX(novoPosto), getPointY(novoPosto));
+                fprintf(fileTxt, "  /  SUGERE-SE UM POSTO DE SAÚDE EM %f,%f\n", getPointX(novoPosto), getPointY(novoPosto));
                 free(novoPosto);
             }
             removeList(pontosPostos, 0);
         }
     }
     else{
-        fprintf(fileTxt, "  |  NÃO FOI POSSÍVEL DEFINIR REGIÃO DE INCIDÊNCIA!\n");
+        fprintf(fileTxt, "  /  NÃO FOI POSSÍVEL DEFINIR REGIÃO DE INCIDÊNCIA!\n");
         if(listaCH != NULL){
             removeList(listaCH, 0);
         }

@@ -153,7 +153,7 @@ int main(int argc, char* argv[]){
         //Concatena o caminho de saida com o nome gerado no comando acima (saida do TXT)
         concatenaCaminhos(dirSaida, nomeArquivoLogTxt, &dirTxt);
         //Lê os comandos do QRY
-        readQry(quadTrees, dirQry, dirTxt, dirSaida, nomeGeoSemExtensao, nomeQrySemExtensao);
+        readQry(quadTrees, hashTables, dirQry, dirTxt, dirSaida, nomeGeoSemExtensao, nomeQrySemExtensao);
         //Desenha o svg do QRY
         desenhaSvgQry(quadTrees, dirSaidaGeoQry);
     }

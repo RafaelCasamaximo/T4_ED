@@ -118,5 +118,9 @@ void circuloSwap(Circulo c1, Circulo c2){
 }
 
 void circuloDesenhaSvgGeo(Circulo circulo, void* fileSvg){
+    if(strcmp(circuloGetId(circulo), "-2") == 0){
+        fprintf((FILE*)fileSvg, "\n\t<circle cx=\"%f\" cy=\"%f\" r=\"%f\" style=\"stroke:%s;fill:%s;stroke-width:%s\" fill-opacity= \"0.5\"/>", circuloGetX(circulo), circuloGetY(circulo), circuloGetRaio(circulo), circuloGetCorBorda(circulo), circuloGetCorPreenchimento(circulo), circuloGetEspessura(circulo));
+        return;
+    }
     fprintf((FILE*)fileSvg, "\n\t<circle cx=\"%f\" cy=\"%f\" r=\"%f\" style=\"stroke:%s;fill:%s;stroke-width:%s\"/>", circuloGetX(circulo), circuloGetY(circulo), circuloGetRaio(circulo), circuloGetCorBorda(circulo), circuloGetCorPreenchimento(circulo), circuloGetEspessura(circulo));
 }

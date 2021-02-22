@@ -6,13 +6,6 @@
 #include "retangulo.h"
 
 /*
-    Realiza a função indicada por i?
-    PRE: Vetor de quadtrees, indice j, ponto x e y, float pointer para salvar o centro de massa centroMassaX e centroMassaY e file para log
-    POS: 0 se não for inside e 1 se for
-*/
-int inside(QuadTree* qt, char* j, float x, float y, float* centroMassaX, float* centroMassaY, FILE* fileTxt);
-
-/*
     Realiza a função indicada por o?
     PRE: Vetor de quadtrees, indice j e k, float pointer para desenhar retangulo indicando figuras e file para log
     POS: 0 se não for overlay e 1 se for
@@ -39,6 +32,14 @@ int overlayCirculoRetangulo(Circulo c, Retangulo r);
     POS: -1: erro, 0: não se sobrepõe, 1: se sobrepõe
 */
 int overlayRetanguloRetangulo(Retangulo r1, Retangulo r2);
+
+/*
+    Realiza a função indicada por i?
+    PRE: Vetor de quadtrees, indice j, ponto x e y, float pointer para salvar o centro de massa centroMassaX e centroMassaY e file para log
+    POS: 0 se não for inside e 1 se for
+*/
+int inside(QuadTree* qt, char* j, float x, float y, float* centroMassaX, float* centroMassaY, FILE* fileTxt);
+
 
 /*
     Altera a cor de um circulo, retangulo ou texto com o id J

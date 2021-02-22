@@ -56,6 +56,11 @@ char* estabelecimentoGetCep(Estabelecimento estabelecimento){
     return e->cep;
 }
 
+char* estabelecimentoGetCodt(Estabelecimento estabelecimento){
+    EstabelecimentoStruct* e = (EstabelecimentoStruct*)estabelecimento;
+    return e->codt;
+}
+
 char* estabelecimentoGetCpf(Estabelecimento estabelecimento){
     EstabelecimentoStruct* e = (EstabelecimentoStruct*)estabelecimento;
     return e->cpf;
@@ -79,6 +84,11 @@ Point estabelecimentoGetPoint(Estabelecimento estabelecimento){
 char estabelecimentoGetFace(Estabelecimento estabelecimento){
     EstabelecimentoStruct* e = (EstabelecimentoStruct*)estabelecimento;
     return e->face;
+}
+
+int estabelecimentoGetNum(Estabelecimento estabelecimento){
+    EstabelecimentoStruct* e = (EstabelecimentoStruct*)estabelecimento;
+    return e->numero;
 }
 
 void estabelecimentoSwap(Estabelecimento e1, Estabelecimento e2){  

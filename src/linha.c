@@ -153,5 +153,8 @@ void linhaDesenhaSvgQry(Linha linha, void* fileSvgQry){
             fprintf((FILE*)fileSvgQry, "\n\t<text x=\"%f\" y=\"%f\" fill=\"balck\" stroke=\"seashell\" stroke-width=\"0.5\" dominant-baseline=\"hanging\">%s</text>", linhaGetX2(linha) + 5, linhaGetY2(linha), linhaGetCep(linha));
         }
     }
+    else if(linhaGetPntInicial(linha) == -1){
+        fprintf((FILE*)fileSvgQry, "\n\t<line x1=\"%f\" y1=\"%f\" x2=\"%f\" y2=\"%f\" style=\"stroke:red;stroke-width:3\"/>", linhaGetX1(linha), linhaGetY1(linha), linhaGetX2(linha), linhaGetY2(linha));
+    }
    
 }
