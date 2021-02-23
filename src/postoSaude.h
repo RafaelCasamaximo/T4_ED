@@ -3,7 +3,11 @@
 
 typedef void* PostoSaude;
 
-//Função responsável para criar PostoSaude. Retorna um pointer instanciado.
+/*
+Função responsável para criar PostoSaude. 
+PRE: Coordenadas x,y do posto de saúde
+POS: Retorna um pointer instanciado.
+*/
 PostoSaude criaPostoSaude(float x, float y);
 
 /*
@@ -26,13 +30,13 @@ void postoSaudeAtribuirPonto(PostoSaude posto1, PostoSaude posto2);
 
 /*
     Troca dois postoSaude de lugar na memória
-    PRE: ps1 e ps2
+    PRE: posto de saude 1 e posto de saude 2
 */
 void postoSaudeSwap(PostoSaude ps1, PostoSaude ps2);
 
 /*
-    Escreve uma tag SVG do circulo no file passado
-    PRE: posto e file
+    Escreve uma tag SVG do posto no file passado
+    PRE: posto de saude e arquivo onde irá ser salvo o SVG
 */
 void postoSaudeDesenhaSvgGeo(PostoSaude posto, void* fileSvg);
 

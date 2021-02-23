@@ -1,7 +1,6 @@
 #ifndef __SORTING_H
 #define __SORTING_H
 
-#include "infoSoc.h"
 #include "localCasos.h"
 #include "doublyLinkedList.h"
 #include "point.h"

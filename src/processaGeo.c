@@ -21,9 +21,11 @@
 #include "localCasos.h"
 #include "linha.h"
 #include "poligono.h"
+#include "hashTable.h"
 
 //Enumeration para todas as listas utilizadas
 enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, LINHA, LOCALCASOS, POLIGONO};
+enum HASHTABLE{CPF_ENDERECO, TIPO_DESCRICAO, CPF_DADOS, CEP_QUADRA};
 
 void instanciaQts(QuadTree* quadTrees){
     //Define uma quadtree para cada figura ou instrumento e passa a função
@@ -41,7 +43,7 @@ void instanciaQts(QuadTree* quadTrees){
 }
 
 
-void convertToQuadTrees(QuadTree* quadTrees, DoublyLinkedList* listas){
+void convertToQuadTrees(QuadTree* quadTrees, HashTable* ht, DoublyLinkedList* listas){
     //Converte cada Lista individualmente para uma quadtree e salva no index certo
     DoublyLinkedListToQuadTree(listas[0], quadTrees[0], circuloGetPoint, circuloSwap);
     DoublyLinkedListToQuadTree(listas[1], quadTrees[1], retanguloGetPoint, retanguloSwap);
@@ -52,6 +54,11 @@ void convertToQuadTrees(QuadTree* quadTrees, DoublyLinkedList* listas){
     DoublyLinkedListToQuadTree(listas[6], quadTrees[6], radioBaseGetPoint, radioBaseSwap);
     DoublyLinkedListToQuadTree(listas[7], quadTrees[7], postoSaudeGetPoint, postoSaudeSwap);
     defineQuadraDensidadeDemografica(quadTrees[3], listas[8]);
+
+    for(Node aux = getFirst(listas[9]); aux != NULL; aux = getNext(aux)){
+        Quadra qAux = getInfo(aux);
+        insertValueHashTable(ht[CEP_QUADRA], quadraGetCep(qAux), qAux);
+    }
 }
 
 

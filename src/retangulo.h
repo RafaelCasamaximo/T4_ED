@@ -5,7 +5,11 @@
 
 typedef void* Retangulo;
 
-//Função responsável para criar Retangulo. Retorna um pointer instanciado.
+/*
+Função responsável para criar Retangulo. 
+PRE: id do retangulo; retangulo com bordas tracejadas (1) ou não (0), coordenadas x,y; largura do retangulo; altura do retangulo; cor da borda; cor de preenchimento; espessura da borda
+POS: Retorna um pointer instanciado.
+*/
 Retangulo criaRetangulo(char* id, int tracejado, float x, float y, float w, float h, char* cb, char* cp, char* sw);
 
 /*
@@ -41,16 +45,21 @@ char* retanguloGetEspessura(Retangulo retangulo);
 
 /*
     Troca dois retangulos de lugar na memória
-    PRE: r1 e r2
+    PRE: retangulo 1 e retangulo 2
 */
 void retanguloSwap(Retangulo r1, Retangulo r2);
 
 
 /*
-    Escreve uma tag SVG do retangulo no file passado
-    PRE: retangulo e file
+    Escreve uma tag SVG do retangulo no arquivo passado
+    PRE: retangulo e arquivo onde irá ser salvo o SVG
 */
 void retanguloDesenhaSvgGeo(Retangulo retangulo, void* fileSvg);
+
+/*
+    Escreve uma tag SVG do retangulo no arquivo passado
+    PRE: retangulo e arquivo onde irá ser salvo o SVG
+*/
 void retanguloDesenhaSvgQry(Retangulo retangulo, void* fileSvg);
 
 #endif

@@ -48,7 +48,8 @@ int inside(QuadTree* qt, char* j, float x, float y, float* centroMassaX, float* 
 void pnt(QuadTree* qt, char* j, char* cb, char* cp, FILE* fileTxt);
 
 /*
-
+    Altera a cor de um circulo, retangulo ou texto, aplicado entre os ids J e K, inclusive
+    PRE: vetor de quadtrees, id J, id K, novas cores de preenchimento e borda (cp, cb) e file para log
 */
 void pntAst(QuadTree* qt, char* j, char* k, char* cb, char* cp, FILE* fileTxt);
 
@@ -59,7 +60,8 @@ void pntAst(QuadTree* qt, char* j, char* k, char* cb, char* cp, FILE* fileTxt);
 void delf(QuadTree* qt, char* j, FILE* fileTxt);
 
 /*
-
+    Remove um circulo, retangulo ou texto entre os ids J e K, inclusive
+    PRE: vetor de quadtrees, id J, id K, e file para log
 */
 void delfAst(QuadTree* qt, char* j, char* k, FILE* fileTxt);
 

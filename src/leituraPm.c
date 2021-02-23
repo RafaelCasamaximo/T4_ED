@@ -58,8 +58,9 @@ void readPm(QuadTree* qt, HashTable* ht, char* dirPm){
                 return;
             }
             Endereco endereco = criaEndereco(qAux, cpf, face, num, compl);
+            Endereco endereco2 = criaEndereco(qAux, cpf, face, num, compl);
             insert(listaEnderecos, endereco);
-            insert(listaEnderecos2, endereco);
+            insert(listaEnderecos2, endereco2);
         }
     }
 
@@ -70,6 +71,8 @@ void readPm(QuadTree* qt, HashTable* ht, char* dirPm){
         insertValueHashTable(ht[CPF_ENDERECO], enderecoGetCpf(endereco), endereco);
     }
 
+    removeList(listaEnderecos, 0);
+    removeList(listaEnderecos2, 0);
 
     fclose(filePm);
 }

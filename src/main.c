@@ -22,7 +22,7 @@
 
 
 //Enumeration para todas as listas utilizadas
-enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, DENSIDADEDEMOGRAFICA, LOCALCASOS};
+enum LISTAS{CIRCULO, RETANGULO, TEXTO, QUADRA, HIDRANTE, SEMAFORO, RADIOBASE, POSTOSAUDE, DENSIDADEDEMOGRAFICA, QUADRA2};
 
 int main(int argc, char* argv[]){
     //Variáveis passadas como parametro para o Path
@@ -59,8 +59,7 @@ int main(int argc, char* argv[]){
     //Diretorio dirEntrada + arqEc
     char* dirPm = NULL;
 
-
-   CorPadrao cores = criaCorPadrao("0.5", "coral", "saddlebrown", "0.5", "red", "darkred", "0.5", "deeppink", "mediumvioletred", "0.5", "green", "red", "0.5", "0.5");
+    CorPadrao cores = criaCorPadrao("0.5", "coral", "saddlebrown", "0.5", "red", "darkred", "0.5", "deeppink", "mediumvioletred", "0.5", "green", "red", "0.5", "0.5");
 
     //Realiza a leitura dos parâmetros
     for(int i = 1; argc > i; i++){     
@@ -88,10 +87,9 @@ int main(int argc, char* argv[]){
     //Verifica se os parâmetros essenciais estão inseridos
     verificaExecucao(arqGeo, dirSaida);
 
-
     //Cria Listas
-    DoublyLinkedList listas[9];
-    for(int i = CIRCULO; i <= DENSIDADEDEMOGRAFICA; i++){
+    DoublyLinkedList listas[10];
+    for(int i = CIRCULO; i <= QUADRA2; i++){
         listas[i] = create();
     }
     //Define HashTable
@@ -102,16 +100,14 @@ int main(int argc, char* argv[]){
 
     //Refatorar trataString para retornar char*
     concatenaCaminhos(dirEntrada, arqGeo, &dirGeo);
-    readGeo(listas, dirGeo, cores, hashTables);
-    
+    readGeo(listas, dirGeo, cores);
 
     //Define QuadTrees
     QuadTree quadTrees[13];
     //Instancia quadTrees e suas funções (getId)
     instanciaQts(quadTrees);
     //Converte todas as listas para quadTrees
-    convertToQuadTrees(quadTrees, listas);
-
+    convertToQuadTrees(quadTrees, hashTables, listas);
 
     //me retorna por ex. overlaps-01.svg
     getNomeConcatExtension(arqGeo, ".svg", &nomeArquivoGeo);
@@ -120,23 +116,17 @@ int main(int argc, char* argv[]){
     //Cria o arquivo do SVG e DesenhaSvgGeo a lista dentro dele
     desenhaSvgGeo(quadTrees, saidaSvgGeo);
 
-
-
-    
     if(arqQry != NULL){
-
         if(arqEc != NULL){
             //Lê os comandos do Ec
             concatenaCaminhos(dirEntrada, arqEc, &dirEc);
             readEc(quadTrees, hashTables, dirEc);
         }
-
         if(arqPm != NULL){
             //Lê os comandos do Pm
             concatenaCaminhos(dirEntrada, arqPm, &dirPm);
             readPm(quadTrees, hashTables, dirPm);
         }
-
 
         //Comando para criar o caminho que será utilizado para abrir o .qry
         concatenaCaminhos(dirEntrada, arqQry, &dirQry);
@@ -162,7 +152,7 @@ int main(int argc, char* argv[]){
     for(int i = 0; i < 8; i++){
         removeList(listas[i], 0);
     }
-    for(int i = 0; i < 10; i++){
+    for(int i = 0; i < 13; i++){
         desalocaQt(quadTrees[i]);
     }
 

@@ -5,7 +5,11 @@
 
 typedef void* RadioBase;
 
-// Função responsável para criar RadioBase. Retorna um pointer instanciado.
+/*
+Função responsável para criar RadioBase.
+PRE: Id da radiobase; coordenadas x,y; cor de preenchimento; cor da borda; espessura da borda 
+POS: Retorna um pointer instanciado.
+*/
 RadioBase criaRadioBase(char* id, float x, float y, char* cp, char* cb, char* sw);
 
 /*
@@ -35,13 +39,13 @@ char* radioBaseGetEspessura(RadioBase radiobase);
 
 /*
     Troca duas radiobases de lugar na memória
-    PRE: rb1 e rb2
+    PRE: radiobase 1 e radiobase 2
 */
 void radioBaseSwap(RadioBase rb1, RadioBase rb2);
 
 /*
-    Escreve uma tag SVG da radioBase no file passado
-    PRE: radioBase e file
+    Escreve uma tag SVG da radiobase no file passado
+    PRE: radiobase e arquivo onde irá ser salvo o SVG
 */
 void radioBaseDesenhaSvgGeo(RadioBase radiobase, void* fileSvg);
 

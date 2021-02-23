@@ -5,8 +5,11 @@
 
 typedef void* Circulo;
 
-//Create
-//Função responsável para criar Circulo. Retorna um pointer instanciado.
+/*Create
+Função responsável para criar Circulo. 
+PRE: id do circulo; coordenadas x,y; raio r; cor da borda; cor do preenchimento; espessura da borda
+POS: Retorna um pointer instanciado.
+*/
 Circulo criaCirculo(char* id, float x, float y, float r, char* cb, char* cp, char* sw);
 
 /*
@@ -38,13 +41,13 @@ char* circuloGetEspessura(Circulo circulo);
 
 /*
     Troca dois circulos de lugar na memória
-    PRE: c1 e c2
+    PRE: circulo 1 e circulo 2
 */
 void circuloSwap(Circulo c1, Circulo c2);
 
 /*
-    Escreve uma tag SVG do circulo no file passado
-    PRE: circulo e file
+    Escreve uma tag SVG do circulo no arquivo passado
+    PRE: circulo e arquivo onde irá ser salvo o SVG
 */
 void circuloDesenhaSvgGeo(Circulo circulo, void* fileSvg);
 

@@ -38,6 +38,10 @@ Point linhaGetP1(Linha linha);
 Point linhaGetP2(Linha linha);
 int linhaGetTracejada(Linha linha);
 
+/*
+    Escreve uma tag SVG da linha no arquivo passado
+    PRE: linha e arquivo onde irá ser salvo o SVG
+*/
 void linhaDesenhaSvgQry(Linha linha, void* fileSvgQry);
 
 #endif

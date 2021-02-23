@@ -5,7 +5,11 @@
 
 typedef void* Quadra;
 
-//Função responsável para criar Quuadra. Retorna um pointer instanciado.
+/*
+Função responsável para criar Quuadra. 
+PRE: cep da quadra; coordenadas x,y; largura da quadra; altura da quadra; cor da borda; cor do preenchimento; espessura da borda; se as bordas são arrendondas(1) ou não(0)
+POS: Retorna um pointer instanciado.
+*/
 Quadra criaQuadra(char* cep, float x, float y, float w, float h, char* cb, char* cp, char* cstrk, int arredondado);
 
 /*
@@ -43,18 +47,19 @@ char* quadraGetEspessura(Quadra quadra);
 
 /*
     Troca duas quadras de lugar na memória
-    PRE: q1 e q2
+    PRE: quadra 1 e quadra 2
 */
 void quadraSwap(Quadra q1, Quadra q2);
 
 /*
     Escreve uma tag SVG da quadra no file passado
-    PRE: quadra e file
+    PRE: quadra e arquivo onde irá ser salvo o SVG
 */
 void quadraDesenhaSvgGeo(Quadra quadra, void* fileSvg);
+
 /*
-    Escreve uma tag SVG da quadra no file passado e com os parâmetros do qry
-    PRE: quadra e file
+    Escreve uma tag SVG da quadra no arquivo passado
+    PRE: quadra e arquivo onde irá ser salvo o SVG
 */
 void quadraDesenhaSvgQry(Quadra quadra, void* fileSvgQry);
 

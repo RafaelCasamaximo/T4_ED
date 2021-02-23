@@ -5,13 +5,14 @@
 #include "doublyLinkedList.h"
 #include "densidadeDemografica.h"
 #include "quadra.h"
+#include "hashTable.h"
 #include "point.h"
 
 
 void instanciaQts(QuadTree* quadTrees);
 //realiza o comando criaQt(getId) para todas as arvores alocadas menos pra postoSaude
 
-void convertToQuadTrees(QuadTree* quadTrees, DoublyLinkedList* listas);
+void convertToQuadTrees(QuadTree* quadTrees, HashTable* ht, DoublyLinkedList* listas);
 //Chama a função DoublyLinkedListsToQuadTrees,, que chama DoublyLinkedListToQuadTree para todas as listas, que chama convexHull para todas as listas "recursivamente"
 
 QuadTree DoublyLinkedListToQuadTree(DoublyLinkedList l, QuadTree qt, Point (*getPoint)(void*), void (*swapInfo)(void*,void*));
@@ -22,7 +23,7 @@ QuadTree DoublyLinkedListToQuadTree(DoublyLinkedList l, QuadTree qt, Point (*get
 
 /*
     Define um valor de DD para cada quadra completamente dentro de uma densidade
-    PRE: quadtree de quadras e lista de densidades
+  *  PRE: quadtree de quadras e lista de densidades
     POS: dd das quadras alterados
 */
 void defineQuadraDensidadeDemografica(QuadTree quadraQt, DoublyLinkedList densidadesDemograficas);

@@ -32,6 +32,9 @@ void m(QuadTree* qt, HashTable* ht, char* cep, FILE* fileTxt){
     fprintf(fileTxt, "\nm? %s\n", cep);
     
     Quadra qAux = getInfoByIdQt(qt[QUADRA], cep);
+    if(qAux == NULL){
+        return;
+    }
 
     float qX = quadraGetX(qAux);
     float qY = quadraGetY(qAux);
@@ -62,7 +65,7 @@ void dm(QuadTree* qt, HashTable* ht, char* cpf, FILE* fileTxt){
         fprintf(fileTxt, "PESSOA | CPF: %s  NOME: %s  SOBRENOME: %s  SEXO: %c  NASC: %s", pessoaGetCpf(pessoa), pessoaGetNome(pessoa), pessoaGetSobrenome(pessoa), pessoaGetSexo(pessoa), pessoaGetNascimento(pessoa));
         fprintf(fileTxt, "  /  ENDERECO | CEP: %s  FACE: %c  NUM: %d  COMPLEMENTO: %s\n", enderecoGetCep(endereco), enderecoGetFace(endereco), enderecoGetNum(endereco), enderecoGetComplemento(endereco));
 
-        char infoMorador[90];
+        char infoMorador[200];
         strcpy(infoMorador, cpf);
         strcat(infoMorador, " ");
         strcat(infoMorador, pessoaGetNome(pessoa));
@@ -108,8 +111,8 @@ void mud(QuadTree* qt, HashTable* ht, char* cpf, char* cep, char face, int num, 
     fprintf(fileTxt, "\nmud %s %s %c %d %s\n", cpf, cep, face, num, compl);
 
     Pessoa pessoa = getValue(ht[CPF_DADOS], cpf);
-    Endereco enderecoAntigo = getValue(ht[CPF_ENDERECO], cpf);
 
+    Endereco enderecoAntigo = getValue(ht[CPF_ENDERECO], cpf);
     fprintf(fileTxt, "DADOS PESSOA | CPF: %s  NOME: %s  SOBRENOME: %s  SEXO: %c  NASCIMENTO: %s", pessoaGetCpf(pessoa), pessoaGetNome(pessoa), pessoaGetSobrenome(pessoa), pessoaGetSexo(pessoa), pessoaGetNascimento(pessoa));
     fprintf(fileTxt, "  /  ENDERECO ANTIGO | CEP: %s  FACE: %c  NUM: %d  COMPLEMENTO: %s", enderecoGetCep(enderecoAntigo), enderecoGetFace(enderecoAntigo), enderecoGetNum(enderecoAntigo), enderecoGetComplemento(enderecoAntigo));
 
@@ -121,15 +124,21 @@ void mud(QuadTree* qt, HashTable* ht, char* cpf, char* cep, char face, int num, 
     Circulo cAnt = criaCirculo("-1", getPointX(pAnt), getPointY(pAnt), 5, "white", "red", "4px");
     Point pNovo = enderecoGetPoint(enderecoNovo);
     Circulo cNovo = criaCirculo("-1", getPointX(pNovo), getPointY(pNovo), 5, "white", "blue", "4px");
+
     insereQt(qt[CIRCULO], circuloGetPoint(cAnt), cAnt);
     insereQt(qt[CIRCULO], circuloGetPoint(cNovo), cNovo);
     Linha lEndereco = criaLinha(getPointX(pAnt), getPointY(pAnt), getPointX(pNovo), getPointY(pNovo), -1, 0, "-1");
     insereQt(qt[LINHA], linhaGetP1(lEndereco), lEndereco);
 
-    removeKey(ht[CPF_ENDERECO], cpf);
-    removeNoQt(qt[ENDERECOS], getNoQt(qt[ENDERECOS], getPointX(pAnt), getPointY(pAnt)));
+    QtNo no = getNoQt(qt[ENDERECOS], getPointX(pAnt), getPointY(pAnt));
 
-    insertValueHashTable(ht[ENDERECOS], cpf, enderecoNovo);
+    if(no != NULL){
+        removeNoQt(qt[ENDERECOS], no);
+    }
+    removeKey(ht[CPF_ENDERECO], cpf);
+    
+    insertValueHashTable(ht[CPF_ENDERECO], cpf, enderecoNovo);
+
     insereQt(qt[ENDERECOS], enderecoGetPoint(enderecoNovo), enderecoNovo);
 }
 
@@ -148,6 +157,9 @@ void dmprbt(QuadTree* qt, char t, char* sfx, char* dirSaida, char* nomeGeoSemExt
         break;
     case 't':
         i = 6;
+        break;
+    case 'e':
+        i = 12;
         break;
     default:
         break;
@@ -186,7 +198,7 @@ void eplg(QuadTree* qt, HashTable* ht, char* tp, float x, float y, float w, floa
             fprintf(fileTxt, "  /  DADOS DO PROPRIETÁRIO |  NOME: %s  CPF: %s\n", pessoaGetNome(pessoa), pessoaGetCpf(pessoa));
             
             Point pontoEstabelecimento = estabelecimentoGetPoint(estabelecimento);
-            Circulo cAux = criaCirculo("-1", getPointX(pontoEstabelecimento), getPointY(pontoEstabelecimento), 2, "white", "lightslategray", "3px");
+            Circulo cAux = criaCirculo("-1", getPointX(pontoEstabelecimento), getPointY(pontoEstabelecimento), 2, "white", "lightslategray", "1px");
             insereQt(qt[CIRCULO], circuloGetPoint(cAux), cAux);
         }
         else if(strcmp(estabelecimentoGetCodt(estabelecimento), tp) == 0){
@@ -194,7 +206,7 @@ void eplg(QuadTree* qt, HashTable* ht, char* tp, float x, float y, float w, floa
             fprintf(fileTxt, "  /  DADOS DO PROPRIETÁRIO |  NOME: %s  CPF: %s\n", pessoaGetNome(pessoa), pessoaGetCpf(pessoa));
             
             Point pontoEstabelecimento = estabelecimentoGetPoint(estabelecimento);
-            Circulo cAux = criaCirculo("-1", getPointX(pontoEstabelecimento), getPointY(pontoEstabelecimento), 2, "white", "lightslategray", "3px");
+            Circulo cAux = criaCirculo("-1", getPointX(pontoEstabelecimento), getPointY(pontoEstabelecimento), 10, "white", "lightslategray", "1px");
             insereQt(qt[CIRCULO], circuloGetPoint(cAux), cAux);
         }
     }

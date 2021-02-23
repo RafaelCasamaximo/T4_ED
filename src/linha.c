@@ -11,7 +11,7 @@ typedef struct linha{
     int pntInicial;
     int interna;
     int tracejada;
-    char cep[22];
+    char cep[200];
 }LinhaStruct;
 
 

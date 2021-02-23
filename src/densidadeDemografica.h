@@ -3,7 +3,11 @@
 
 typedef void* DensidadeDemografica;
 
-// Função responsável para criar DensidadeDemografica. Retorna um pointer instanciado.
+/*
+Função responsável para criar DensidadeDemografica. 
+PRE: Coordenadas x,y; Largura; Altura; Densidade Demográfica da região delimitada por x,y,w,h
+POS: Retorna um pointer instanciado.
+*/
 DensidadeDemografica criaDensidadeDemografica(float x, float y, float w, float h, float d);
 
 /*

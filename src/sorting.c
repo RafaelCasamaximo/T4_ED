@@ -2,7 +2,6 @@
 #include <stdlib.h>
 
 #include "sorting.h"
-#include "infoSoc.h"
 #include "doublyLinkedList.h"
 #include "localCasos.h"
 #include "utilitario.h"

@@ -38,8 +38,16 @@ Point textoGetPoint(Texto texto);
 //Pré: Objeto texto
 void textoDeletaTxt(Texto texto);
 
+/*
+    Troca dois textos de lugar na memória
+    PRE: Texto 1 e texto 2
+*/
 void textoSwap(Texto t1, Texto t2);
 
+/*
+    Escreve uma tag SVG do texto no arquivo passado
+    PRE: Texto e arquivo onde irá ser salvo o SVG
+*/
 void textoDesenhaSvgGeo(Texto texto, void* fileSvg);
 
 #endif

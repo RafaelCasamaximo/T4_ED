@@ -5,7 +5,11 @@
 
 typedef void* Hidrante;
 
-//Função responsável para criar Hidrante. Retorna um pointer instanciado.
+/*
+Função responsável para criar Hidrante. 
+PRE: id do hidrante; coordenada x,y; cor do preenchimento; cor da borda; espessura da borda
+POS: Retorna um pointer instanciado.
+*/
 Hidrante criaHidrante(char* id, float x, float y, char* cp, char* cb, char* sw);
 
 /*
@@ -35,13 +39,13 @@ char* hidranteGetEspessura(Hidrante hidrante);
 
 /*
     Troca dois hidrantes de lugar na memória
-    PRE: h1 e h2
+    PRE: hidrante 1 e hidrante 2
 */
 void hidranteSwap(Hidrante h1, Hidrante h2);
 
 /*
     Escreve uma tag SVG do hidrante no file passado
-    PRE: hidrante e file
+    PRE: hidrante e arquivo onde irá ser salvo o SVG
 */
 void hidranteDesenhaSvgGeo(Hidrante hidrante, void* fileSvg);
 
